@@ -1,1 +1,12 @@
+<app-nav-bar></app-nav-bar>
+<div style = "height: 100px;"></div>
 <app-account-info bio = "I like a wide variety of music and I love sharing my tastes with my friends"></app-account-info>
+<div></div>
+<div class = "friends-component">
+    <h1 style = "text-decoration: underline;">My Friends</h1>
+    <div style = "overflow-x: scroll; max-width: 1152px; margin: 0 auto; white-space: nowrap;">
+        <div *ngFor = "let product of products" style = "display: inline-block;">
+                <app-account-friends friendName = {{product.friendName}}></app-account-friends>
+        </div>
+    </div>
+</div>
