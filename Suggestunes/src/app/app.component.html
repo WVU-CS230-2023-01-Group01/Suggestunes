@@ -1,5 +1,5 @@
-<div style="display: inline-block">
-    <div *ngFor = "let item of cards">
+<div>
+    <div style="display: inline-block" *ngFor = "let item of cards">
         <app-card img = {{item.img}} description = {{item.description}} imgDescription={{item.imgDescription}}></app-card>
     </div>
 </div>
