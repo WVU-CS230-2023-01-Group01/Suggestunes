@@ -1,0 +1,92 @@
+.header.container-fluid
+{
+z-index: 0;
+position: absolute;
+height: 300px;
+background-image: linear-gradient(white, #333333);
+padding: 0;
+}
+.music-img.rounded.float-start
+{
+height: 200px;
+margin-left: 50px;
+margin-top: 50px;
+}
+.music-img.rounded.float-start:hover
+{
+cursor: pointer;
+transform: scale(1.05);
+transition-timing-function: ease-in-out;
+transition-duration: .2s;
+}
+.title.container
+{
+z-index: 1;
+width: 100%;
+height: 200px;
+padding: 0;
+margin-right: 200px;
+margin-top: 75px;
+}
+.playlist-title
+{
+box-sizing: border-box;
+color:rgb(26,26,26);
+display: block;
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-size: 50px;
+font-weight: 500;
+letter-spacing: 5px;
+line-height: 28.8px;
+z-index: 3;
+width: 100%;
+height: 100px;
+text-align: center;
+text-transform: uppercase;
+}
+.playlist-description
+{
+box-sizing: border-box;
+color:rgb(26,26,26);
+display: block;
+font-family:Arial, Helvetica, sans-serif;
+font-size: 20px;
+font-weight: 600;
+letter-spacing: 4px;
+line-height: 28.8px;
+z-index: 3;
+width: 100%;
+height: 100px;
+text-align: center;
+}
+.body.container-fluid
+{
+padding-top: 300px;
+height: 1100px;
+background-color: #333333;
+}
+.form-label{
+padding-left: 54px;
+padding-top: 25px;
+box-sizing: border-box;
+color:rgb(26,26,26);
+display: block;
+font-family:Arial, Helvetica, sans-serif;
+font-size: 25px;
+font-weight: 700;
+letter-spacing: 2.5px;
+line-height: 28.8px;
+z-index: 3;
+width: 100%;
+height: 25px;
+color: #66318D;
+}
+.form-control{
+margin-left: 50px;
+margin-top:35px;
+width: 300px;
+background-color: #4B4B4B;
+color: white;
+border-color: #66318D;
+border-width: 2px;
+}
