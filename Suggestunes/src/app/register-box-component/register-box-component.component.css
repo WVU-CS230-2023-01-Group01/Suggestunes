@@ -5,12 +5,9 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    /* box-shadow: 1px 1px 5px 1px #66318D; */
-}
-
-.bigFlex {
-        background-color: #333333;
+    background-color: #333333;
     border-radius: 10px;
+    /* box-shadow: 1px 1px 5px 1px #66318D; */
 }
 
 .loginHeader{
@@ -51,9 +48,9 @@
 .signupBox{
     position: absolute;
     left: 50%;
-    top: 111%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    top: 525px;
     background-color: #333333;
     border-radius: 10px;
     width: 232.8px;
