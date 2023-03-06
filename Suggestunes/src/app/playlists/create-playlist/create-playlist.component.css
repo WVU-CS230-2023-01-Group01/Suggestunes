@@ -6,3 +6,9 @@ button {
 button:hover{
   background-color: #66318D;
 }
+button:active{
+  background-color: #3E2149!important;
+}
+button:focus{
+  background-color: #3E2149!important;
+}

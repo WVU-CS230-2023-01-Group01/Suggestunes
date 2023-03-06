@@ -6,9 +6,10 @@ img{
 }
 .modal-content{
   background-color: #333333;
-  text-color:white;
+  color:white!important;
 }
 button{
+
   background-color: #3E2149;
   border: #66318D 5px;
 }
@@ -42,4 +43,7 @@ input{
 }
 .mb-3{
   width:100%;
+}
+.btn{
+  color:white!important;
 }
