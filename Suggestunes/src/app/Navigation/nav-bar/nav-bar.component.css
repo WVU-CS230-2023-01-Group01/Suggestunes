@@ -1,29 +1,33 @@
-a.nav-link{
-    color:      black;
-    font-size:    20px;
-    font-weight:  500;
-    display:      block;
-    line-height:  22px;
-}
-
-.navbar {
+.site-nav {
+    position: absolute;
     top: 0px;
     left: 0px;
     right: 0px;
-    background-color: #3E2149;
+    background-color: #66318D;
+}
+
+.nav-content {
+    margin-left: 20px;
+}
+
+.nav-item {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    font-family:Arial, Helvetica, sans-serif;
+    color: white;
 }
 
 .logo {
     -webkit-font-smoothing: antialiased;
     font-family:Arial, Helvetica, sans-serif;
     color: white;
-    margin-left: 20px;
 }
 
 .nav-button {
     -webkit-font-smoothing: antialiased;
     font-family:Arial, Helvetica, sans-serif;
     color: white;
-    background-color: #66318D;
-    border-color: #66318D;
 }
