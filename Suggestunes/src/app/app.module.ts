@@ -25,7 +25,7 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     PlaylistComponent,
     SongComponent,
     CreatePlaylistComponent,
-    CreatePlaylistModalComponent
+    CreatePlaylistModalComponent,
     LandingPageComponent,
     InfoCardComponent,
     LoginSignupComponent,
@@ -39,7 +39,8 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
