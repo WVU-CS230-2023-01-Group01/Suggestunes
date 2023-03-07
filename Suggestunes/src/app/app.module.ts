@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
+import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
+import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
+import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
 import { SongComponent } from './playlists/playlist/song/song.component';
@@ -22,6 +26,10 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
 @NgModule({
   declarations: [
     AppComponent,
+    LoginBoxComponentComponent,
+    SignInLayoutComponent,
+    RegisterLayoutComponent,
+    RegisterBoxComponentComponent,
     PlaylistComponent,
     SongComponent,
     CreatePlaylistComponent,
