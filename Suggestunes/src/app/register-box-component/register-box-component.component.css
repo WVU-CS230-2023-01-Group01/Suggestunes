@@ -1,0 +1,57 @@
+.loginBox{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #333333;
+    border-radius: 10px;
+    /* box-shadow: 1px 1px 5px 1px #66318D; */
+}
+
+.loginHeader{
+    padding: 10px;
+    margin: 0;
+    color: white;
+}
+
+.loginForm{
+    padding: 10px;
+    color: white;
+}
+
+.mb-3{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.btn-primary{
+    color: white;
+    background-color: #66318D;
+    border-radius: 10px;
+    border-color: rgba(0,0,0,0);
+    width: 100px;
+    height: 30px;
+}
+
+.btn-primary:hover{
+    background-color: #3E2149;
+}
+
+.link{
+    color: #66318D;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.signupBox{
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    top: 74%;
+    background-color: #333333;
+    border-radius: 10px;
+    width: 232.8px;
+}
