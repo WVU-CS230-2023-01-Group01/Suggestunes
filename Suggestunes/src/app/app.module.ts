@@ -22,6 +22,8 @@ import { LoginSignupComponent } from './landing-page/login-signup/login-signup.c
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
+import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
+import {ImageCropperModule} from "ngx-image-cropper";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     LoginSignupComponent,
     LandingNavbarComponent,
     HomepageFooterComponent,
-    StatsCarouselComponent
+    StatsCarouselComponent,
+    PlaylistHomeLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
