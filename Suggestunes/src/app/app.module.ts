@@ -7,6 +7,7 @@ import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
 import { AccountFriendsComponent } from './Layouts/account-layout/account-friends/account-friends.component';
+import { CardComponent } from './Layouts/account-layout/card/card.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AccountFriendsComponent } from './Layouts/account-layout/account-friend
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,
-    AccountFriendsComponent
+    AccountFriendsComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
