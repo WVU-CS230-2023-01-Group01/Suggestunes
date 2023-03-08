@@ -23,6 +23,7 @@
     "bootstrap": "^5.2.3",
     "ngx-image-cropper": "^6.3.2",
     "routing": "^0.0.2",
+    "account-info": "^1.0.1-alpha.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

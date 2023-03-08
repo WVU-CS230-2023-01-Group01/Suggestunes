@@ -24,6 +24,10 @@ import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
 import {ImageCropperModule} from "ngx-image-cropper";
+import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
+import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
+import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './Layouts/account-layout/account-friends/account-friends.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,11 @@ import {ImageCropperModule} from "ngx-image-cropper";
     LandingNavbarComponent,
     HomepageFooterComponent,
     StatsCarouselComponent,
-    PlaylistHomeLayoutComponent
+    PlaylistHomeLayoutComponent,
+    AccountLayoutComponent,
+    NavBarComponent,
+    AccountInfoComponent,
+    AccountFriendsComponent
   ],
   imports: [
     BrowserModule,
