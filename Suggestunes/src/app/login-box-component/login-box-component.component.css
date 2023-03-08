@@ -1,16 +1,16 @@
 .loginBox{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    margin: 10px;
     /* box-shadow: 1px 1px 5px 1px #66318D; */
+  justify-content: center;
 }
 
 .bigFlex {
         background-color: #333333;
     border-radius: 10px;
+  width:fit-content;
+  margin-top: 5%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .loginHeader{
@@ -49,12 +49,11 @@
 }
 
 .signupBox{
-    position: absolute;
-    left: 50%;
-    top: 111%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
     background-color: #333333;
     border-radius: 10px;
-    width: 232.8px;
+  width:fit-content;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 1%;
+
 }

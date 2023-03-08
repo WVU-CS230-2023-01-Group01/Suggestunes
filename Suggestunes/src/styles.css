@@ -5,3 +5,23 @@ body{
   background-color: #1E1E1E;
   font-family: 'Uni Sans Demo', sans-serif;
 }
+::-webkit-scrollbar
+{
+  z-index: 10000000000000000000000000000;
+  position: -webkit-sticky;
+  width: 12px;
+  background-color: #1e1e1e;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow: visible;
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #66318D;
+  opacity: 25%;
+  overflow: visible;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  width: 10px;
+}
