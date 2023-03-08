@@ -24,5 +24,6 @@ body{
   overflow: visible;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   width: 10px;
+  height:10px;
 }
 

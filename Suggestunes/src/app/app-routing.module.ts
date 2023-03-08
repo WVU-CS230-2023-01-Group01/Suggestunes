@@ -28,7 +28,7 @@ const routes: Routes = [
     component: PlaylistComponent
   },
   {
-    path: 'AccountLayout',
+    path: 'account',
     component: AccountLayoutComponent
   }];
 
