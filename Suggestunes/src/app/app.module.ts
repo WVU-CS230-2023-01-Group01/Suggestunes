@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
+import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
+import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
+import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
 import { SongComponent } from './playlists/playlist/song/song.component';
@@ -18,20 +22,35 @@ import { LoginSignupComponent } from './landing-page/login-signup/login-signup.c
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
+import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
+import {ImageCropperModule} from "ngx-image-cropper";
+import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
+import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
+import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './Layouts/account-layout/account-friends/account-friends.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginBoxComponentComponent,
+    SignInLayoutComponent,
+    RegisterLayoutComponent,
+    RegisterBoxComponentComponent,
     PlaylistComponent,
     SongComponent,
     CreatePlaylistComponent,
-    CreatePlaylistModalComponent
+    CreatePlaylistModalComponent,
     LandingPageComponent,
     InfoCardComponent,
     LoginSignupComponent,
     LandingNavbarComponent,
     HomepageFooterComponent,
-    StatsCarouselComponent
+    StatsCarouselComponent,
+    PlaylistHomeLayoutComponent,
+    AccountLayoutComponent,
+    NavBarComponent,
+    AccountInfoComponent,
+    AccountFriendsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +58,9 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

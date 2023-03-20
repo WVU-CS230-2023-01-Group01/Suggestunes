@@ -1,0 +1,10 @@
+<app-nav-bar></app-nav-bar>
+<div style="text-align: center">
+<h5 class = "fs-1" style = "justify-content: center;padding-top:1rem">Your Playlists</h5>
+  <app-create-playlist></app-create-playlist>
+  <div class="d-flex justify-content-center">
+    <div class="list-group list-group-flush text-md-start" >
+      <a *ngFor="let i of indexes" href="/playlists/playlist" class = "list-group-item"><img alt = "default image" src = "./assets/music note img.png"><p>Example {{i}}</p> </a>
+    </div>
+  </div>
+</div>
