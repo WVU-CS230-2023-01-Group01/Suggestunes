@@ -23,8 +23,12 @@
     "account-info": "^1.0.1-alpha.0",
     "bootstrap": "^5.2.3",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
     "firebase": "^9.18.0",
+    "ngx-image-cropper": "^6.3.2",
+>>>>>>> Stashed changes
+=======
     "ngx-image-cropper": "^6.3.2",
 >>>>>>> Stashed changes
     "routing": "^0.0.2",
