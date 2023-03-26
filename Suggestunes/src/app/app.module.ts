@@ -16,7 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
+import { LandingPageComponent } from './Layouts/landing-page/landing-page.component';
 import { InfoCardComponent } from './landing-page/info-card/info-card.component';
 import { LoginSignupComponent } from './landing-page/login-signup/login-signup.component';
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';

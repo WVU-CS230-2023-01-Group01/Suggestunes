@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-<<<<<<< Updated upstream
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-=======
-import { initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database'
->>>>>>> Stashed changes
+import { initializeApp } from '@firebase/app';
+import { createUserWithEmailAndPassword, getAuth } from '@firebase/auth';
+import { getDatabase, ref, set } from '@firebase/database'
 
 @Component({
   selector: 'app-register-box-component',
@@ -20,20 +16,6 @@ export class RegisterBoxComponentComponent {
   }
 }
 
-<<<<<<< Updated upstream
-const auth = getAuth();
-// createUserWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ..
-//   });
-=======
 // const firebaseConfig = {
 //   apiKey: "AIzaSyAu0Y5ImYX-isiDYT7A3aIPjCIJeoM0yhw",
 //   authDomain: "suggestoons-app.firebaseapp.com",
@@ -128,4 +110,3 @@ const auth = getAuth();
 //     return false
 //   }
 // }
->>>>>>> Stashed changes
