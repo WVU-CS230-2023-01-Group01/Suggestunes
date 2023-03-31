@@ -1,6 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import url('https://fonts.cdnfonts.com/css/uni-sans-regular');
 body{
+  background-color: #1E1E1E;
   color: white!important;
   font-family: 'Uni Sans Demo', sans-serif;
 }

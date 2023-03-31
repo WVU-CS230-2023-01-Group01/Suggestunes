@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
 import { AccountFriendsComponent } from './Layouts/account-layout/account-friends/account-friends.component';
 import { CardComponent } from './Layouts/account-layout/card/card.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
 import { SongComponent } from './playlists/playlist/song/song.component';
@@ -23,6 +24,7 @@ import { LoginSignupComponent } from './landing-page/login-signup/login-signup.c
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
+import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-layout.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     LoginSignupComponent,
     LandingNavbarComponent,
     HomepageFooterComponent,
-    StatsCarouselComponent
+    StatsCarouselComponent,
+    ChangeUpLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,9 @@ import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-caro
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,8 +11,10 @@
 }
   .card-text{
     text-align: center;
+    overflow: hidden;
   }
   .card-title{
     text-align: center;
+    overflow: hidden;
   }
   

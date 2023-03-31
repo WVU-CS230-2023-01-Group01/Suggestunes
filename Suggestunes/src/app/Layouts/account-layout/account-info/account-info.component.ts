@@ -20,4 +20,5 @@ export class AccountInfoComponent {
     this.favGenres = this.genres;
     this.bio = "No bio";
   }
+
 }

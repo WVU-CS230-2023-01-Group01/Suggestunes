@@ -1,13 +1,22 @@
 .friends-component {
     margin: 0 auto;
     text-align: center;
-    font-family:Arial, Helvetica, sans-serif;
     padding-top: 30px;
 }
 
 .playlists-component {
     margin: 0 auto;
     text-align: center;
-    font-family:Arial, Helvetica, sans-serif;
     padding-top: 30px;
+}
+
+.showAllButton {
+    display: inline-block;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: white;
+}
+
+.showAllButton:hover {
+    text-decoration: underline;
 }

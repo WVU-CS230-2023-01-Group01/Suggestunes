@@ -22,6 +22,9 @@ export class AccountLayoutComponent {
       console.log(item);
       this.cards.push(item);
     }
+    //need to be able to determine which user logs in
+    //need to be able to update account elements to reflect the currently logged in user
+    //need to be able to warn user that they will be logged out if they try to manually go to certain pages
 
   }
 }
