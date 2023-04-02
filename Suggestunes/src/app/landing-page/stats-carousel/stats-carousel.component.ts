@@ -1,22 +1,7 @@
-import { Component } from '@angular/core';
-import { ReflectiveInjector } from '@angular/core';
-import { InjectionToken } from '@angular/core';
-
-type Song = {
-  name: string;
-  popularity: number;
-};
-
-type Artist = {
-  name: string;
-  popularity: number;
-};
-
-type Genre = {
-  name: string;
-  popularity: number;
-};
-
+import { Component, ReflectiveInjector, InjectionToken } from '@angular/core';
+import { Song } from './song.model';
+import { Genre } from './genre.model';
+import { Artist } from './artist.model';
 
 @Component({
   selector: 'app-stats-carousel',
@@ -104,6 +89,18 @@ export class StatsCarouselComponent {
       tempGenres[i] = genre;
     }
     return tempGenres;
+  }
+
+  getTopSongs(): Array<Song> {
+    return this.topSongs;
+  }
+
+  getTopArtists(): Array<Song> {
+    return this.topArtists;
+  }
+
+  getTopGenres(): Array<Song> {
+    return this.topGenres;
   }
   
 }
