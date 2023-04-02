@@ -1,8 +1,10 @@
-import { Component, ReflectiveInjector, InjectionToken } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Song } from './song.model';
 import { Genre } from './genre.model';
 import { Artist } from './artist.model';
 import { HttpClient } from '@angular/common/http'
+
+@Injectable()
 
 @Component({
   selector: 'app-stats-carousel',
@@ -10,30 +12,30 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./stats-carousel.component.css']
 })
 
-export class StatsCarouselComponent {
+export class StatsCarouselComponent implements OnInit{
 
-  private songList:   Array<Song>;
+  private songList: Array<Song>;
   private artistList: Array<Artist>;
-  private genreList:  Array<Genre>;
+  private genreList: Array<Genre>;
 
   private numElements: Number;
 
-  private topSongs:   Array<Song>;
+  private topSongs: Array<Song>;
   private topArtists: Array<Artist>;
-  private topGenres:  Array<Genre>;
+  private topGenres: Array<Genre>;
 
 
 
-  constructor (private http: HttpClient){
-    this.songList   = [];
+  constructor(private http: HttpClient) {
+    this.songList = [];
     this.artistList = [];
-    this.genreList  = [];
+    this.genreList = [];
 
     this.numElements = 5;
 
-    this.topSongs   = [];
+    this.topSongs = [];
     this.topArtists = [];
-    this.topGenres  = [];
+    this.topGenres = [];
 
 
     this.updateCarousel(true)
@@ -45,35 +47,44 @@ export class StatsCarouselComponent {
     this.getArtists();
     this.getGenres();
     console.log('Showing information');
-    this.showStats();
-}
+    this.saveSongs();
+    this.saveArtists();
+    this.saveGenres();
+  }
 
-getSongs() {
-  return this.http.get<Song[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Songs.json')
-}
+  getSongs() {
+    return this.http.get<Song[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Songs.json')
+  }
 
-getArtists() {
-  return this.http.get<Artist[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Artists.json')
-}
+  getArtists() {
+    return this.http.get<Artist[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Artists.json')
+  }
 
-getGenres() {
-  return this.http.get<Genre[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Genres.json')
-}
+  getGenres() {
+    return this.http.get<Genre[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Genres.json')
+  }
 
-showStats() {
-  this.getSongs().subscribe((data: Song[]) => {
-    console.log(data)
-    this.songList = data;
-})
-  this.getArtists().subscribe((data: Artist[]) => {
-    console.log(data)
-    this.artistList = data;
-  })
-  this.getGenres().subscribe((data: Genre[]) => {
-    console.log(data)
-    this.genreList = data;
-  })
-}
+  saveSongs() {
+    this.getSongs().subscribe((data: Song[]) => {
+      console.log(data)
+      this.songList = data;
+    })
+  }
+
+  saveArtists() {
+    this.getArtists().subscribe((data: Artist[]) => {
+      console.log(data)
+      this.artistList = data;
+    })
+  }
+
+  saveGenres() {
+    this.getGenres().subscribe((data: Genre[]) => {
+      console.log(data)
+      this.genreList = data;
+    })
+  }
+
 
   // constructor (songList: Array<Song>, artistList: Array<Artist>, genreList: Array<Genre>, numElements: Number, defaultMode: Boolean){
   //   this.songList   = songList;
@@ -91,7 +102,7 @@ showStats() {
   //   // this.updateCarousel(defaultMode.valueOf());
   // }
 
-  updateCarousel(defaultMode: boolean){
+  updateCarousel(defaultMode: boolean) {
     if (!defaultMode) {
       this.topSongs = this.updateList(this.songList);
       this.topArtists = this.updateList(this.artistList);
@@ -105,15 +116,15 @@ showStats() {
 
   updateList<t>(inputList: Array<t>): Array<t> {
     let tempSongs = Array<t>(this.numElements.valueOf());
-    for (let i = 0; i < tempSongs.length; i++){
+    for (let i = 0; i < tempSongs.length; i++) {
       tempSongs[i] = inputList[i];
     }
     return tempSongs;
   }
 
-  defaultSongs(): Array<Song>{
+  defaultSongs(): Array<Song> {
     let tempSongs = Array<Song>(this.numElements.valueOf());
-    for (let i = 0; i < this.numElements.valueOf(); i++){
+    for (let i = 0; i < this.numElements.valueOf(); i++) {
       let song: Song = {
         name: "Default Song_" + i,
         popularity: (this.numElements.valueOf() - i)
@@ -126,7 +137,7 @@ showStats() {
 
   defaultArtists(): Array<Artist> {
     let tempArtists = Array<Artist>(this.numElements.valueOf());
-    for (let i = 0; i < this.numElements.valueOf(); i++){
+    for (let i = 0; i < this.numElements.valueOf(); i++) {
       let artist: Artist = {
         name: "Default Artist_" + i,
         popularity: (this.numElements.valueOf() - i)
@@ -138,7 +149,7 @@ showStats() {
 
   defaultGenres(): Array<Genre> {
     let tempGenres = Array<Genre>(this.numElements.valueOf());
-    for (let i = 0; i < this.numElements.valueOf(); i++){
+    for (let i = 0; i < this.numElements.valueOf(); i++) {
       let genre: Genre = {
         name: "Default Genre_" + i,
         popularity: (this.numElements.valueOf() - i)
@@ -159,7 +170,7 @@ showStats() {
   getTopGenres(): Array<Song> {
     return this.topGenres;
   }
-  
+
 }
 
 

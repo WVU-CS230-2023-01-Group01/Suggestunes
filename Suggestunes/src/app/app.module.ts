@@ -28,6 +28,7 @@ import { AccountLayoutComponent } from './layouts/account-layout/account-layout.
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
 import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AccountFriendsComponent } from './layouts/account-layout/account-friend
     MatButtonModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    ImageCropperModule
+    ImageCropperModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
