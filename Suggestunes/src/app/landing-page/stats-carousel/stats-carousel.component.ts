@@ -21,19 +21,36 @@ export class StatsCarouselComponent {
   private topArtists: Array<Artist>;
   private topGenres:  Array<Genre>;
 
-  constructor (songList: Array<Song>, artistList: Array<Artist>, genreList: Array<Genre>, numElements: Number, defaultMode: Boolean){
-    this.songList   = songList;
-    this.artistList = artistList;
-    this.genreList  = genreList;
+  constructor (){
+    this.songList   = [];
+    this.artistList = [];
+    this.genreList  = [];
 
-    this.numElements = numElements;
+    this.numElements = 5;
 
     this.topSongs   = [];
     this.topArtists = [];
     this.topGenres  = [];
 
-    this.updateCarousel(defaultMode.valueOf());
+
+    this.updateCarousel(true)
   }
+
+  // constructor (songList: Array<Song>, artistList: Array<Artist>, genreList: Array<Genre>, numElements: Number, defaultMode: Boolean){
+  //   this.songList   = songList;
+  //   this.artistList = artistList;
+  //   this.genreList  = genreList;
+
+  //   this.numElements = numElements;
+
+  //   this.topSongs   = [];
+  //   this.topArtists = [];
+  //   this.topGenres  = [];
+
+  //   console.log("here");
+
+  //   // this.updateCarousel(defaultMode.valueOf());
+  // }
 
   updateCarousel(defaultMode: boolean){
     if (!defaultMode) {
@@ -41,9 +58,9 @@ export class StatsCarouselComponent {
       this.topArtists = this.updateList(this.artistList);
       this.topGenres = this.updateList(this.genreList);
     } else {
-      this.defaultSongs();
-      this.defaultArtists();
-      this.defaultGenres();
+      this.topSongs = this.defaultSongs();
+      this.topArtists = this.defaultArtists();
+      this.topGenres = this.defaultGenres();
     }
   }
 
@@ -57,19 +74,20 @@ export class StatsCarouselComponent {
 
   defaultSongs(): Array<Song>{
     let tempSongs = Array<Song>(this.numElements.valueOf());
-    for (let i = 0; i < tempSongs.length; i++){
+    for (let i = 0; i < this.numElements.valueOf(); i++){
       let song: Song = {
         name: "Default Song_" + i,
         popularity: (this.numElements.valueOf() - i)
       };
       tempSongs[i] = song;
+      console.log(i);
     }
     return tempSongs;
   }
 
   defaultArtists(): Array<Artist> {
     let tempArtists = Array<Artist>(this.numElements.valueOf());
-    for (let i = 0; i < tempArtists.length; i++){
+    for (let i = 0; i < this.numElements.valueOf(); i++){
       let artist: Artist = {
         name: "Default Artist_" + i,
         popularity: (this.numElements.valueOf() - i)
@@ -81,7 +99,7 @@ export class StatsCarouselComponent {
 
   defaultGenres(): Array<Genre> {
     let tempGenres = Array<Genre>(this.numElements.valueOf());
-    for (let i = 0; i < tempGenres.length; i++){
+    for (let i = 0; i < this.numElements.valueOf(); i++){
       let genre: Genre = {
         name: "Default Genre_" + i,
         popularity: (this.numElements.valueOf() - i)

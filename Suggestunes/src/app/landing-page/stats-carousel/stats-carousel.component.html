@@ -4,16 +4,16 @@
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner" style="height:400px; width:700px">
+  <div class="carousel-inner" style="width:700px">
     <div class="carousel-item active">
       <div class="d-flex justify-content-center">
         <ul class="list-group list-group-flush" style="width: 500px">
           <li class="list-group-item statItem">
             <h1>Top Songs This Week</h1>
           </li>
-          <div *ngFor = "let item of getTopSongs()">
-            <li class="list-group-item statItem">{{item.name}}</li>
-          </div>
+          <li *ngFor = "let item of getTopSongs()" class="list-group-item statItem">
+            {{item.name}}
+           </li>
         </ul>
       </div>
     </div>
@@ -23,9 +23,9 @@
           <li class="list-group-item statItem">
             <h1>Top Genres This Week</h1>
           </li>
-          <div *ngFor = "let item of getTopGenres()">
-            <li class="list-group-item statItem">{{item.name}}</li>
-          </div>
+          <li *ngFor = "let item of getTopGenres()" class="list-group-item statItem">
+            {{item.name}}
+           </li>
         </ul>
       </div>
     </div>
@@ -35,9 +35,9 @@
           <li class="list-group-item statItem">
             <h1>Top Artists This Week</h1>
           </li>
-          <div *ngFor = "let item of getTopArtists()">
-            <li class="list-group-item statItem">{{item.name}}</li>
-          </div>
+          <li *ngFor = "let item of getTopArtists()" class="list-group-item statItem">
+           {{item.name}}
+          </li>
         </ul>
       </div>
   </div>
