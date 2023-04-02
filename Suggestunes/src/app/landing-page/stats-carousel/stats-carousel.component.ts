@@ -2,6 +2,7 @@ import { Component, ReflectiveInjector, InjectionToken } from '@angular/core';
 import { Song } from './song.model';
 import { Genre } from './genre.model';
 import { Artist } from './artist.model';
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-stats-carousel',
@@ -21,7 +22,9 @@ export class StatsCarouselComponent {
   private topArtists: Array<Artist>;
   private topGenres:  Array<Genre>;
 
-  constructor (){
+
+
+  constructor (private http: HttpClient){
     this.songList   = [];
     this.artistList = [];
     this.genreList  = [];
@@ -35,6 +38,42 @@ export class StatsCarouselComponent {
 
     this.updateCarousel(true)
   }
+
+  ngOnInit(): void {
+    console.log("Sending a get request to the server");
+    this.getSongs();
+    this.getArtists();
+    this.getGenres();
+    console.log('Showing information');
+    this.showStats();
+}
+
+getSongs() {
+  return this.http.get<Song[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Songs.json')
+}
+
+getArtists() {
+  return this.http.get<Artist[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Artists.json')
+}
+
+getGenres() {
+  return this.http.get<Genre[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Genres.json')
+}
+
+showStats() {
+  this.getSongs().subscribe((data: Song[]) => {
+    console.log(data)
+    this.songList = data;
+})
+  this.getArtists().subscribe((data: Artist[]) => {
+    console.log(data)
+    this.artistList = data;
+  })
+  this.getGenres().subscribe((data: Genre[]) => {
+    console.log(data)
+    this.genreList = data;
+  })
+}
 
   // constructor (songList: Array<Song>, artistList: Array<Artist>, genreList: Array<Genre>, numElements: Number, defaultMode: Boolean){
   //   this.songList   = songList;
