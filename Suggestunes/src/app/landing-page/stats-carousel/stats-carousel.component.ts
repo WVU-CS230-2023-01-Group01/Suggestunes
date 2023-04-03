@@ -12,13 +12,14 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./stats-carousel.component.css']
 })
 
-export class StatsCarouselComponent implements OnInit{
+export class StatsCarouselComponent implements OnInit {
 
   private songList: Array<Song>;
   private artistList: Array<Artist>;
   private genreList: Array<Genre>;
 
   private numElements: Number;
+  private defaultMode: boolean;
 
   private topSongs: Array<Song>;
   private topArtists: Array<Artist>;
@@ -31,25 +32,30 @@ export class StatsCarouselComponent implements OnInit{
     this.artistList = [];
     this.genreList = [];
 
-    this.numElements = 5;
+    this.numElements = 3;
+    this.defaultMode = false;
 
     this.topSongs = [];
     this.topArtists = [];
     this.topGenres = [];
 
-
-    this.updateCarousel(true)
   }
 
   ngOnInit(): void {
-    console.log("Sending a get request to the server");
-    this.getSongs();
-    this.getArtists();
-    this.getGenres();
-    console.log('Showing information');
-    this.saveSongs();
-    this.saveArtists();
-    this.saveGenres();
+    if (!this.defaultMode) {
+      console.log("Sending a get request to the server");
+      this.getSongs();
+      this.getArtists();
+      this.getGenres();
+      console.log('Showing information');
+      this.saveSongs();
+      this.saveArtists();
+      this.saveGenres();
+    } else {
+      this.topSongs = this.defaultSongs();
+      this.topArtists = this.defaultArtists();
+      this.topGenres = this.defaultGenres();
+    }
   }
 
   getSongs() {
@@ -66,56 +72,35 @@ export class StatsCarouselComponent implements OnInit{
 
   saveSongs() {
     this.getSongs().subscribe((data: Song[]) => {
-      console.log(data)
+      console.log('Saving Songs');
+      console.log(data);
       this.songList = data;
+      this.topSongs = this.updateList(this.songList);
+
     })
   }
 
   saveArtists() {
     this.getArtists().subscribe((data: Artist[]) => {
+      console.log('Saving Artists');
       console.log(data)
       this.artistList = data;
+      this.topArtists = this.updateList(this.artistList);
     })
   }
 
   saveGenres() {
     this.getGenres().subscribe((data: Genre[]) => {
+      console.log('Saving Genres');
       console.log(data)
       this.genreList = data;
+      this.topGenres = this.updateList(this.genreList);
+
     })
   }
 
-
-  // constructor (songList: Array<Song>, artistList: Array<Artist>, genreList: Array<Genre>, numElements: Number, defaultMode: Boolean){
-  //   this.songList   = songList;
-  //   this.artistList = artistList;
-  //   this.genreList  = genreList;
-
-  //   this.numElements = numElements;
-
-  //   this.topSongs   = [];
-  //   this.topArtists = [];
-  //   this.topGenres  = [];
-
-  //   console.log("here");
-
-  //   // this.updateCarousel(defaultMode.valueOf());
-  // }
-
-  updateCarousel(defaultMode: boolean) {
-    if (!defaultMode) {
-      this.topSongs = this.updateList(this.songList);
-      this.topArtists = this.updateList(this.artistList);
-      this.topGenres = this.updateList(this.genreList);
-    } else {
-      this.topSongs = this.defaultSongs();
-      this.topArtists = this.defaultArtists();
-      this.topGenres = this.defaultGenres();
-    }
-  }
-
   updateList<t>(inputList: Array<t>): Array<t> {
-    let tempSongs = Array<t>(this.numElements.valueOf());
+    let tempSongs = Array<t>(Math.min(this.numElements.valueOf(), inputList.length));
     for (let i = 0; i < tempSongs.length; i++) {
       tempSongs[i] = inputList[i];
     }
@@ -124,7 +109,7 @@ export class StatsCarouselComponent implements OnInit{
 
   defaultSongs(): Array<Song> {
     let tempSongs = Array<Song>(this.numElements.valueOf());
-    for (let i = 0; i < this.numElements.valueOf(); i++) {
+    for (let i = 0; i < this.numElements.valueOf() || i < tempSongs.length; i++) {
       let song: Song = {
         name: "Default Song_" + i,
         popularity: (this.numElements.valueOf() - i)
@@ -137,7 +122,7 @@ export class StatsCarouselComponent implements OnInit{
 
   defaultArtists(): Array<Artist> {
     let tempArtists = Array<Artist>(this.numElements.valueOf());
-    for (let i = 0; i < this.numElements.valueOf(); i++) {
+    for (let i = 0; i < this.numElements.valueOf() || i < tempArtists.length; i++) {
       let artist: Artist = {
         name: "Default Artist_" + i,
         popularity: (this.numElements.valueOf() - i)
@@ -149,7 +134,7 @@ export class StatsCarouselComponent implements OnInit{
 
   defaultGenres(): Array<Genre> {
     let tempGenres = Array<Genre>(this.numElements.valueOf());
-    for (let i = 0; i < this.numElements.valueOf(); i++) {
+    for (let i = 0; i < this.numElements.valueOf() || i < tempGenres.length; i++) {
       let genre: Genre = {
         name: "Default Genre_" + i,
         popularity: (this.numElements.valueOf() - i)
