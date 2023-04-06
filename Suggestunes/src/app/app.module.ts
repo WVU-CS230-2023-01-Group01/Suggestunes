@@ -23,7 +23,15 @@ import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-na
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
+// import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+// import firebase from "firebase/compat/app";
+import { AngularFireModule} from '@angular/fire/compat'
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+// import {getAnalytics} from "@angular/fire/analytics";
+import {initializeApp} from "@angular/fire/app";
+import {environment} from "../environment/environment";
 
 @NgModule({
   declarations: [
@@ -52,7 +60,10 @@ import {ImageCropperModule} from "ngx-image-cropper";
     MatButtonModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    ImageCropperModule
+    ImageCropperModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    // AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

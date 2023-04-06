@@ -3,7 +3,7 @@
   <app-create-playlist (messageEvent)="addLink($event)"></app-create-playlist>
   <div class="d-flex justify-content-center">
     <div id="container" class="list-group list-group-flush text-md-start" >
-      <span *ngIf="show"  style="border:none;"><a *ngFor="let p of playlists" href="/playlists/playlist" class = "list-group-item"> <img alt = "default image" src = "{{p.image}}"><p>{{p.name}}</p></a></span>
+      <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
     </div>
   </div>
 </div>

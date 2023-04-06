@@ -12,7 +12,11 @@ const routes: Routes = [
   },
   {
     path: "playlists",
-    component: PlaylistHomeLayoutComponent
+    component: PlaylistHomeLayoutComponent,
+    children: [{
+      path:'playlist',
+      component:PlaylistComponent
+    }]
   },
   {
     path:'signin',
@@ -21,10 +25,6 @@ const routes: Routes = [
   {
     path:'register',
     component: RegisterLayoutComponent
-  },
-  {
-    path: 'playlists/playlist',
-    component: PlaylistComponent
   }
 ];
 
