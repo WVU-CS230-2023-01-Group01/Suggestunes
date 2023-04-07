@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {switchMap} from "rxjs";
 
 
 @Component({
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './playlist.component.html',
   styleUrls: ['./playlist.component.css']
 })
-export class PlaylistComponent {
+export class PlaylistComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  ngOnInit() {
+
+  }
 }

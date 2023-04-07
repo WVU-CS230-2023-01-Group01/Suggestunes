@@ -4,7 +4,15 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 10%;
-        /* box-shadow: 1px 1px 5px 1px #66318D; */
+}
+
+.bigFlex {
+        background-color: #333333;
+    border-radius: 10px;
+  width:fit-content;
+  margin-top: 5%;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .loginHeader{
@@ -49,4 +57,13 @@
     margin-right: auto;
     padding: 0px 10px;
     width: fit-content;
+}
+.signupBox{
+    background-color: #333333;
+    border-radius: 10px;
+  width:fit-content;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 1%;
+
 }

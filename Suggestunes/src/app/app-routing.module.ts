@@ -6,7 +6,7 @@ import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-la
 import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
 import { PlaylistComponent } from './playlists/playlist/playlist.component'
-
+import { PlaylistHomeLayoutComponent} from './layouts/playlist-home-layout/playlist-home-layout.component'
 const routes: Routes = [
   {
     path: 'AccountLayout',
@@ -21,6 +21,13 @@ const routes: Routes = [
     component: ChangeUpLayoutComponent
   },
   {
+    path: "playlists",
+    component: PlaylistHomeLayoutComponent,
+    children: [{
+      path:'playlist',
+      component:PlaylistComponent
+    }]},
+  {
     path:'signin',
     component: SignInLayoutComponent
   },
@@ -28,11 +35,11 @@ const routes: Routes = [
     path:'register',
     component: RegisterLayoutComponent
   },
-  {
-    path: 'playlist',
-    component: PlaylistComponent
+      {
+    path: 'account',
+    component: AccountLayoutComponent
   }
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
@@ -40,7 +47,7 @@ const routes: Routes = [
 })
 
 export class AppRoutingModule {
-  
+
 }
 
 

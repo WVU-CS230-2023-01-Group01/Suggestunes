@@ -10,8 +10,8 @@ import { CardComponent } from './Layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
-import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
-import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
+import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
+import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
 import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
@@ -29,6 +29,19 @@ import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-na
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
 import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-layout.component';
+import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
+// import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {ImageCropperModule} from "ngx-image-cropper";
+import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
+import {HttpClient} from "@angular/common/http";
+import { AngularFireModule} from '@angular/fire/compat'
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import {initializeApp} from "@angular/fire/app";
+import {environment} from "../environment/environment";
+import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
+import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -53,6 +66,11 @@ import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-la
     HomepageFooterComponent,
     StatsCarouselComponent,
     ChangeUpLayoutComponent,
+    PlaylistHomeLayoutComponent,
+    AccountLayoutComponent,
+    NavBarComponent,
+    AccountInfoComponent,
+    AccountFriendsComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +80,11 @@ import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-la
     MatButtonModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ImageCropperModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    // AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
