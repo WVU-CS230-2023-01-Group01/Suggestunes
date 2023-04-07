@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { initializeApp } from '@firebase/app';
-import { signInWithEmailAndPassword, getAuth } from '@firebase/auth';
-import { getDatabase, ref, update } from '@firebase/database'
+import { signInWithEmailAndPassword, signOut, getAuth } from '@firebase/auth';
+import { getDatabase, ref, update, onValue } from '@firebase/database'
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,10 +14,8 @@ export class LoginBoxComponentComponent {
   constructor(private _router: Router) { }
 
   callLogin(){
-    var redirect = login()
-    if (redirect! == true) {
-      this._router.navigate(['/AccountLayout'])
-    }
+
+    login(this._router)
   }
 }
 
@@ -37,13 +35,16 @@ const auth = getAuth(app)
 const database = getDatabase(app)
 var user;
 
-function login() : boolean {
+
+export { app }
+
+function login(_router : Router){
   var email = (<HTMLInputElement>document.getElementById("email")).value
   var password = (<HTMLInputElement>document.getElementById("password")).value
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(function () {
-      var user = auth.currentUser
+  .then(function () {
+     var user = auth.currentUser
 
       var database_ref = ref(database, 'users/' + user!.uid)
 
@@ -54,17 +55,16 @@ function login() : boolean {
 
       update(database_ref, user_data)
 
-      alert('User Logged In.')
-      console.log(auth.currentUser!.uid);
-      return true;
+      _router.navigate(['/AccountLayout'])
+
+
+      return true
     })
     .catch(function (error) {
       var error_code = error.code
       var error_message = error.message
 
       alert(error_message)
-      return false
+
     })
-    return true;
 }
-export {auth, database, app};

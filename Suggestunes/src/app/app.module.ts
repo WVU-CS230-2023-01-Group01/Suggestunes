@@ -4,10 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CardComponent } from './layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
 import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
-import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
+import { RegisterBoxComponentComponent } from './layouts/register-layout/register-box-component/register-box-component.component';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
 import { SongComponent } from './playlists/playlist/song/song.component';
@@ -23,7 +24,6 @@ import { LoginSignupComponent } from './landing-page/login-signup/login-signup.c
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
-import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
 // import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
@@ -36,7 +36,8 @@ import {environment} from "../environment/environment";
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
 import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
-import { HttpClientModule } from '@angular/common/http';
+import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
+import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { HttpClientModule } from '@angular/common/http';
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,
-    AccountFriendsComponent
+    AccountFriendsComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

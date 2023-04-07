@@ -7,6 +7,8 @@ import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.c
 import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
 import { PlaylistComponent } from './playlists/playlist/playlist.component'
 import { PlaylistHomeLayoutComponent} from './layouts/playlist-home-layout/playlist-home-layout.component'
+import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
+
 const routes: Routes = [
   {
     path: 'AccountLayout',
@@ -35,9 +37,13 @@ const routes: Routes = [
     path:'register',
     component: RegisterLayoutComponent
   },
-      {
+  {
     path: 'account',
     component: AccountLayoutComponent
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
   }
   ];
 
