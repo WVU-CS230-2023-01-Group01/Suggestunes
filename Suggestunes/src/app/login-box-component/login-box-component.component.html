@@ -1,5 +1,5 @@
-<div class="loginBox flex container">
-    <div class="bigFlex flex container">
+<div class="loginBox d-flex flex-wrap flex-column align-content-center justify-content-center">
+    <div class=" d-flex p-2 bigFlex">
         <div style="padding: 20px;">
             <h3 class="loginHeader">LOGIN</h3>
             <form class="loginForm">
@@ -12,7 +12,7 @@
                     <input type="password" class="form-control" id="exampleInputPassword1">
                 </div>
                 <div style="text-align: center; padding-top: 10px;">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <a href="/account" role="button" class="btn btn-primary">Log in</a>
                 </div>
             </form>
             <p style="padding: 10px; margin: 0;">
@@ -20,9 +20,9 @@
             </p>
         </div>
     </div>
-    <div class="signupBox flex container">
+    <div class="signupBox p-2">
         <p style="padding: 10px 30px; margin: 0; color: white;">Don't have an account?<br>
-            <a class="link" href="register">Sign up</a>
+            <a class="link" href="/register">Sign up</a>
         </p>
     </div>
 </div>
