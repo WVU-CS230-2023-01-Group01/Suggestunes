@@ -14,10 +14,7 @@ export class RegisterBoxComponentComponent {
   constructor(private _router: Router) { }
 
   public callRegister() {
-    var redirect = register()
-    if (redirect == true) {
-      this._router.navigate(['/signin'])
-    }
+    register(this._router)
   }
 }
 
@@ -36,7 +33,7 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const database = getDatabase(app)
 
-function register() {
+function register(_router: Router) {
   // Getting input fields
   var email = (<HTMLInputElement>document.getElementById("email")).value
   var username = (<HTMLInputElement>document.getElementById("username")).value
@@ -46,15 +43,15 @@ function register() {
   // Validate input fields
   if (validate_email(email) == false) {
     alert('Email is not valid.')
-    return false
+    return
   }
   if (validate_password(password) == false) {
     alert('Password must be greater than 6 characters.')
-    return false
+    return
   }
   if (validate_passwords(password, confirm_password) == false) {
     alert('Passwords must match.')
-    return false
+    return
   }
 
   // Move on with Auth
@@ -70,24 +67,23 @@ function register() {
       var user_data = {
         email: email,
         username: username,
-        last_login: Date.now()
+        last_login: Date.now(),
+        bio: "No bio"
       }
 
       set(database_ref, user_data)
 
       alert('User Created!')
-      return true
+
+      _router.navigate(['signin'])
     })
     .catch(function (error) {
       // Firebase will use this to alert of its errrors
       var error_code = error.code
       var error_message = error.message
-
       alert(error_message)
-      return false
+      return
     })
-
-  return true
 }
 
 function validate_email(email: string) {
@@ -117,3 +113,5 @@ function validate_passwords(password: string, confirm_password: string) {
     return false
   }
 }
+
+export { app } 

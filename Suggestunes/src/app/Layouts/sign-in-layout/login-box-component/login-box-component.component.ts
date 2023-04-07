@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { initializeApp } from '@firebase/app';
-import { signInWithEmailAndPassword, getAuth } from '@firebase/auth';
-import { getDatabase, ref, update } from '@firebase/database'
+import { signInWithEmailAndPassword, signOut, getAuth } from '@firebase/auth';
+import { getDatabase, ref, update, onValue } from '@firebase/database'
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,10 +14,7 @@ export class LoginBoxComponentComponent {
   constructor(private _router: Router) { }
 
   callLogin(){
-    var redirect = login()
-    if (redirect! == true) {
-      this._router.navigate(['/'])
-    }
+    login(this._router)
   }
 }
 
@@ -36,13 +33,15 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const database = getDatabase(app)
 
-function login() {
+export { app }
+
+function login(_router : Router){
   var email = (<HTMLInputElement>document.getElementById("email")).value
   var password = (<HTMLInputElement>document.getElementById("password")).value
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(function () {
-      var user = auth.currentUser
+  .then(function () { 
+     var user = auth.currentUser
 
       var database_ref = ref(database, 'users/' + user!.uid)
 
@@ -52,8 +51,9 @@ function login() {
       }
 
       update(database_ref, user_data)
+      
+      _router.navigate(['/AccountLayout'])
 
-      alert('User Logged In.')
       return true
     })
     .catch(function (error) {
@@ -61,6 +61,5 @@ function login() {
       var error_message = error.message
 
       alert(error_message)
-      return false
-    })
+    }) 
 }

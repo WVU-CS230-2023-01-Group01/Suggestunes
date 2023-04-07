@@ -9,10 +9,10 @@ import { AccountFriendsComponent } from './Layouts/account-layout/account-friend
 import { CardComponent } from './Layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
+import { LoginBoxComponentComponent } from './Layouts/sign-in-layout/login-box-component/login-box-component.component';
 import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
-import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
+import { RegisterBoxComponentComponent } from './Layouts/register-layout/register-box-component/register-box-component.component';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
 import { SongComponent } from './playlists/playlist/song/song.component';
@@ -29,6 +29,7 @@ import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-na
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
 import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-layout.component';
+import { ForgotPasswordComponent } from './Layouts/forgot-password-layout/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-la
     HomepageFooterComponent,
     StatsCarouselComponent,
     ChangeUpLayoutComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
