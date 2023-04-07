@@ -12,7 +12,7 @@
           <a href = "AccountLayout">View Profile</a>
           <a href = "ChangeUpLayout">Change Username/Password</a>
           <a data-bs-toggle="modal" data-bs-target="#bioModal">Change Bio</a>
-          <a href = "#">Logout</a>
+          <a (click) = (callLogout())>Logout</a>
         </div>
       </div>
       <h5 class = "nav-item" style = "float: right; font-size: 1rem; margin-top: 5px;">{{username}}</h5>

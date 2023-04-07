@@ -16,7 +16,7 @@ export class LoginBoxComponentComponent {
   callLogin(){
     var redirect = login()
     if (redirect! == true) {
-      this._router.navigate(['/'])
+      this._router.navigate(['/AccountLayout'])
     }
   }
 }
@@ -35,8 +35,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const database = getDatabase(app)
+var user;
 
-function login() {
+function login() : boolean {
   var email = (<HTMLInputElement>document.getElementById("email")).value
   var password = (<HTMLInputElement>document.getElementById("password")).value
 
@@ -54,7 +55,8 @@ function login() {
       update(database_ref, user_data)
 
       alert('User Logged In.')
-      return true
+      console.log(auth.currentUser!.uid);
+      return true;
     })
     .catch(function (error) {
       var error_code = error.code
@@ -63,4 +65,6 @@ function login() {
       alert(error_message)
       return false
     })
+    return true;
 }
+export {auth, database, app};

@@ -70,7 +70,8 @@ function register() {
       var user_data = {
         email: email,
         username: username,
-        last_login: Date.now()
+        last_login: Date.now(),
+        bio: "No bio"
       }
 
       set(database_ref, user_data)

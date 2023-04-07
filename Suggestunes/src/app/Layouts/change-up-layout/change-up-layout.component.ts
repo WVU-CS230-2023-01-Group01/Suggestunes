@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Router } from '@angular/router';
+import { database, app} from '../../login-box-component/login-box-component.component';
+import { getDatabase, get, ref, update, onValue, DatabaseReference} from '@firebase/database';
+import { getAuth, updatePassword } from '@firebase/auth';
 
 @Component({
   selector: 'app-change-up-layout',
@@ -9,18 +12,25 @@ import {HttpClient} from '@angular/common/http';
 
 export class ChangeUpLayoutComponent implements OnInit{
 
-  textFields = document.getElementsByClassName("textField");
-  submitButtons = document.getElementsByClassName("submitButton");
+  constructor(private router: Router) {
 
-  constructor(private http: HttpClient) {
+  }
 
+  callSubmitUsername() {
+    submitUsername();
+    this.router.navigate(['/AccountLayout']);
+  }
+
+  callSubmitPassword() {
+    submitPassword();
+    this.router.navigate(['/AccountLayout']);
   }
 
   ngOnInit() {
     //Clear default text the first time one of the fields is clicked on
-    for (var i = 0; i < this.textFields.length; i++) {
+    for (var i = 0; i < textFields.length; i++) {
 
-      this.textFields[i].addEventListener('click', function(e: Event) {
+      textFields[i].addEventListener('click', function(e: Event) {
         if (e.target != null) {
           console.log(e.target);
           var element = e.target as HTMLInputElement;
@@ -29,44 +39,67 @@ export class ChangeUpLayoutComponent implements OnInit{
       }, {once:true});
 
     }
-
-    //Functionality for the Change Username submit button
-    var newUserField = this.textFields[0];
-
-    this.submitButtons[0].addEventListener('click', function(e: Event) {
-
-      if ((newUserField as HTMLInputElement).value == "") {
-        alert("You cannot submit an empty username");
-        return;
-      }
-      var confirmation = confirm("Are you sure you want to submit this new username? This will change your permanent username.");
-      if (confirmation) {
-        var newUsername = (newUserField as HTMLInputElement).value;
-        //get list of existing usernames and search through comparing them with newUsername
-        //if newUsername already exists in the database, alert the user and quit
-        //otherwise, replace the username associated with this account with newUsername
-      }
-    });
-
-    //Functionality for the Change Password submit button
-    var newPassField = this.textFields[1];
-    var confirmNewPassField = this.textFields[2];
-    this.submitButtons[1].addEventListener('click', function(e: Event) {
-
-      var newPass = (newPassField as HTMLInputElement);
-      var confirmNewPass = (confirmNewPassField as HTMLInputElement);
-      if (newPass.value == "" || confirmNewPass.value == "") {
-        alert("Please fill out both fields");
-        return;
-      }
-      if (newPass.value != confirmNewPass.value) {
-        alert("Password and Confirm Password fields must match (case sensitive)");
-        return;
-      }
-      var confirmation = confirm("Are you sure you want to submit this new password? This will change your permanent password.");
-      //encrypt newPass in the same way all other passwords are encrypted
-      //replace the current password associated with this account with newPass
-    });
-
   }
 }
+
+  var textFields = document.getElementsByClassName("textField");
+  var newUserField:string;
+
+    //Functionality for the Change Username submit button
+    function submitUsername() {
+
+      var auth = getAuth(app);
+      var database_ref:DatabaseReference;
+      auth.onAuthStateChanged( (user) => {
+        if (user) {
+          var userId = user.uid
+          database_ref = ref(database, 'users/' + userId);
+
+          newUserField = (<HTMLInputElement>document.getElementById("newUsername")).value;
+          console.log(newUserField);
+          if (newUserField == "") {
+            alert("You cannot submit an empty username");
+            return;
+          }
+          var confirmation = confirm("Are you sure you want to submit this new username? This will change your permanent username.");
+          if (confirmation) {
+            var newUsername = newUserField;
+            //Change username in database
+            var newData = {
+              username: newUsername
+            }
+            update(database_ref, newData);
+            alert("Username changed");
+          }
+        }
+      });
+    };
+
+    //Functionality for the Change Password submit button
+    function submitPassword() {
+      var auth = getAuth(app);
+      var password = (document.getElementsByClassName("textField")[1] as HTMLInputElement).value;
+      var confirmPass = (document.getElementsByClassName("textField")[2] as HTMLInputElement).value;
+
+      if (password != confirmPass) {
+        alert("Password fields must match");
+        return false;
+      }
+
+      var confirmation = confirm("Are you sure you want to submit this new password? This will change your permanent password");
+      if (confirmation) {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            var newPass = password;
+            updatePassword(user, newPass).then(() => {
+              alert("Password changed succesfully");
+              return true;
+            }).catch(() => {
+              alert("Something went wrong. Password could not be changed");
+              return false;
+            })
+          }
+        });
+      }
+      return false;
+    }
