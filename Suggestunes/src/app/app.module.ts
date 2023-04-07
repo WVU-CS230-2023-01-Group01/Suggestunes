@@ -26,7 +26,7 @@ import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/play
 // import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
 import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import { AngularFireModule} from '@angular/fire/compat'
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {initializeApp} from "@angular/fire/app";
