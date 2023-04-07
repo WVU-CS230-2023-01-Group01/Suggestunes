@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path:'register',
     component: RegisterLayoutComponent
-  }
+  },
   {
     path: 'account',
     component: AccountLayoutComponent
