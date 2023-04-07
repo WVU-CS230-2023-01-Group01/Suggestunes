@@ -1,12 +1,38 @@
-<div class="navbar" style="background-color: #66318D">
-    <div class="container-fluid">
+<div class = "site-nav">
+  <div class = "nav-content">
       <a class = "nav-item" href = "#"><h3 class = "logo">Suggestunes</h3></a>
+      <div class = "nav-item" style = "width: 10px;"></div>
       <a class = "nav-item" href = "#"><h5 class = "nav-button">Songs</h5></a>
-      <a class = "nav-item" href = "/playlists"><h5 class = "nav-button">Playlists</h5></a>
+      <a class = "nav-item" href = "#"><h5 class = "nav-button">Playlists</h5></a>
       <a class = "nav-item" href = "#"><h5 class = "nav-button">Discover</h5></a>
-      <div class="d-flex justify-content-end">
-      <a class = "nav-item me-2" href = "/account" style = "float: right; margin-right: 25px;"><img src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" style="border-radius: 50%;" height = "32px" width = "32px"></a>
-      <h5 class = "nav-item me-2" style = "float: right;">{{username}}</h5>
+      <a class = "nav-item" href = "#"><h5 class = "nav-button">People</h5></a>
+      <div class = "dropdown nav-item">
+        <a class = "nav-item"><img src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" style="border-radius: 50%;" height = "32px" width = "32px"></a>
+        <div class = dropdown-content>
+          <a href = "AccountLayout">View Profile</a>
+          <a href = "ChangeUpLayout">Change Username/Password</a>
+          <a data-bs-toggle="modal" data-bs-target="#bioModal">Change Bio</a>
+          <a (click) = (callLogout())>Logout</a>
+        </div>
       </div>
+      <h5 class = "nav-item" style = "float: right; font-size: 1rem; margin-top: 5px;">{{username}}</h5>
+  </div>
+</div>
+
+<div class="modal fade" id="bioModal" tabindex="-1" aria-labelledby="BioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="BioModalLabel" style = "color: black;">Change Bio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea class = "bioField" type = "textarea" rows = "5" cols = "50" value = "{{bio}}"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary submit-bio">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,51 +1,53 @@
-.loginBox{
+.loginBox {
     background-color: #333333;
     border-radius: 10px;
-  margin-left:auto;
-  margin-right:auto;
-  margin-top: 5%
-    /* box-shadow: 1px 1px 5px 1px #66318D; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8%;
+        /* box-shadow: 1px 1px 5px 1px #66318D; */
 }
 
-.loginHeader{
+.loginHeader {
+    padding: 10px;
+    margin: 0;
+    color: white;
+}
+
+.loginForm {
     padding: 10px;
     color: white;
 }
 
-.loginForm{
-    padding: 10px;
-    color: white;
+.mb-3 {
+    padding-top: 5px;
 }
 
-.mb-3{
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.btn-primary{
+.btn-primary {
     color: white;
     background-color: #66318D;
     border-radius: 10px;
-    border-color: rgba(0,0,0,0);
-    width: 100px;
-    height: 30px;
+    border-color: rgba(0, 0, 0, 0);
+    width: 75%;
+    height: 40px;
+    padding: 0;
 }
 
-.btn-primary:hover{
-    background-color: #3E2149;
+.btn-primary:hover {
+    background-color: rgba(102, 49, 141, 0.7);
 }
 
-.link{
+.link {
     color: #66318D;
     font-size: 10px;
     font-weight: 800;
 }
 
-.signupBox{
+.signupBox {
     background-color: #333333;
     border-radius: 10px;
-  margin-top:1%;;
-  margin-left:auto;
-  margin-right:auto;
-  width:fit-content;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 20px;
+    width: fit-content;
 }

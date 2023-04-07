@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
+import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
+import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './Layouts/account-layout/account-friends/account-friends.component';
+import { CardComponent } from './Layouts/account-layout/card/card.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
 import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
@@ -16,12 +22,13 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
+import { LandingPageComponent } from './Layouts/landing-page/landing-page.component';
 import { InfoCardComponent } from './landing-page/info-card/info-card.component';
 import { LoginSignupComponent } from './landing-page/login-signup/login-signup.component';
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
+import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-layout.component';
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
 // import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
@@ -39,6 +46,11 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
+    AccountLayoutComponent,
+    NavBarComponent,
+    AccountInfoComponent,
+    AccountFriendsComponent,
+    CardComponent,
     LoginBoxComponentComponent,
     SignInLayoutComponent,
     RegisterLayoutComponent,
@@ -53,6 +65,7 @@ import { HttpClientModule } from '@angular/common/http';
     LandingNavbarComponent,
     HomepageFooterComponent,
     StatsCarouselComponent,
+    ChangeUpLayoutComponent,
     PlaylistHomeLayoutComponent,
     AccountLayoutComponent,
     NavBarComponent,
@@ -67,6 +80,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     ImageCropperModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),

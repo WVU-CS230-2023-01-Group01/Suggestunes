@@ -1,7 +1,9 @@
-.loginBox{
-    margin: 10px;
-    /* box-shadow: 1px 1px 5px 1px #66318D; */
-  justify-content: center;
+.loginBox {
+    background-color: #333333;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
 }
 
 .bigFlex {
@@ -25,8 +27,7 @@
 }
 
 .mb-3{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
 }
 
 .btn-primary{
@@ -35,7 +36,7 @@
     border-radius: 10px;
     border-color: rgba(0,0,0,0);
     width: 100px;
-    height: 30px;
+    height: 40px;
 }
 
 .btn-primary:hover{
@@ -48,6 +49,15 @@
     font-weight: 800;
 }
 
+.signupBox {
+    background-color: #333333;
+    border-radius: 10px;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 10px;
+    width: fit-content;
+}
 .signupBox{
     background-color: #333333;
     border-radius: 10px;

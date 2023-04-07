@@ -1,18 +1,16 @@
-<div class="loginBox d-flex flex-wrap flex-column align-content-center justify-content-center">
-    <div class=" d-flex p-2 bigFlex">
+<div class="d-flex flex-column justify-content-center">
+    <div class="loginBox d-flex">
         <div style="padding: 20px;">
             <h3 class="loginHeader">LOGIN</h3>
-            <form class="loginForm">
+            <form #postForm="ngForm" class="loginForm" (ngSubmit)="callLogin()">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label><br>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label><br>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
                 </div>
                 <div style="text-align: center; padding-top: 10px;">
-                    <a href="/account" role="button" class="btn btn-primary">Log in</a>
+                    <button class="btn btn-primary" type="submit" >Log in</button>
                 </div>
             </form>
             <p style="padding: 10px; margin: 0;">
