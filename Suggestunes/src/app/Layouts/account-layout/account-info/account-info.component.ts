@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { database, app } from '../../../login-box-component/login-box-component.component';
+import { database, app } from '../../sign-in-layout/login-box-component/login-box-component.component';
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { getAuth } from '@firebase/auth';
 

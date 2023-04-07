@@ -1,5 +1,5 @@
 import { Component, Input , OnInit} from '@angular/core';
-import { database, app } from '../../login-box-component/login-box-component.component';
+import { database, app } from '../../layouts/sign-in-layout/login-box-component/login-box-component.component';
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { Router } from '@angular/router';
 import { getAuth } from '@firebase/auth';
@@ -27,7 +27,7 @@ export class NavBarComponent implements OnInit{
     return true;
   }
 
-  
+
   ngOnInit(): void {
     var auth = getAuth(app);
     auth.onAuthStateChanged((user) => {

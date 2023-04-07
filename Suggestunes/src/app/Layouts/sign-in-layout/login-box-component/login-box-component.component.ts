@@ -36,7 +36,7 @@ const database = getDatabase(app)
 var user;
 
 
-export { app }
+export { app , database}
 
 function login(_router : Router){
   var email = (<HTMLInputElement>document.getElementById("email")).value
