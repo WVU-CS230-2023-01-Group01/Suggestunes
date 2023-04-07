@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AccountInfoComponent } from '../../Layouts/account-layout/account-info/account-info.component';
+import { AccountInfoComponent } from '../../layouts/account-layout/account-info/account-info.component';
 
 @Component({
   selector: 'app-nav-bar',
