@@ -41,6 +41,11 @@ export class CreatePlaylistModalComponent {
   }
 
   submitForm(playlist:PlaylistModel){
+    const myModal = document.getElementById("popup");
+    if(!playlist.name){
+      alert("Playlist name cannot be empty");
+      return;
+    }
     // @ts-ignore
     let songs = new Array<SongModel>();
     //@ts-ignore
@@ -54,5 +59,7 @@ export class CreatePlaylistModalComponent {
     // @ts-ignore
     console.log("emitting message");
     this.messageEvent.emit(playlist);
+    document.getElementById("close")!.click()
+
   }
 }
