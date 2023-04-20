@@ -55,6 +55,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
             console.log(data[0])
             for (let playlist of data) {
               console.log(playlist);
+              let hash = this.getHash(playlist);
               this.playlists.set(this.getHash(playlist),playlist)
             }
           }
