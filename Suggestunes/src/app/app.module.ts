@@ -63,6 +63,7 @@ import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot
     StatsCarouselComponent,
     ChangeUpLayoutComponent,
     PlaylistHomeLayoutComponent,
+    PlaylistComponent,
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,

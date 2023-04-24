@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { sendPasswordResetEmail, getAuth } from "firebase/auth"
-import { app } from 'src/app/layouts/sign-in-layout/login-box-component/login-box-component.component';
+import {app} from "../../app.component";
 import { Router } from '@angular/router';
 
 @Component({

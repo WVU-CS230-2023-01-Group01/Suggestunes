@@ -3,6 +3,7 @@ import { initializeApp } from '@firebase/app';
 import { signInWithEmailAndPassword, signOut, getAuth } from '@firebase/auth';
 import { getDatabase, ref, update, onValue } from '@firebase/database'
 import { Router } from '@angular/router';
+import {app} from "../../../app.component";
 
 @Component({
   selector: 'app-login-box-component',
@@ -19,24 +20,14 @@ export class LoginBoxComponentComponent {
   }
 }
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAu0Y5ImYX-isiDYT7A3aIPjCIJeoM0yhw",
-  authDomain: "suggestoons-app.firebaseapp.com",
-  databaseURL: "https://suggestoons-app-default-rtdb.firebaseio.com",
-  projectId: "suggestoons-app",
-  storageBucket: "suggestoons-app.appspot.com",
-  messagingSenderId: "241615938941",
-  appId: "1:241615938941:web:4336c2b32cfa1c6a2f5814",
-  measurementId: "G-EZ8HPMX0KB"
-};
 
-const app = initializeApp(firebaseConfig)
+// const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const database = getDatabase(app)
 var user;
 
 
-export { app , database}
+// export { app , database}
 
 function login(_router : Router){
   var email = (<HTMLInputElement>document.getElementById("email")).value

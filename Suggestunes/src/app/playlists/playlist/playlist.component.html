@@ -1,9 +1,8 @@
-<app-nav-bar class="nav-bar"></app-nav-bar>
-<div class="header container-fluid">
-    <img alt = "" src="assets/music note img.png" class="music-img rounded float-start">
+<div *ngIf="show"> <div class="header container-fluid">
+    <img alt = "" src="{{playlist!.image}}" class="music-img rounded float-start">
     <div class="title container">
-        <h1 class="playlist-title">Playlist Title</h1>
-        <h2 class="playlist-description">Playlist description</h2>
+        <div *ngIf="playlist"><h1 class="playlist-title">{{playlist!.name}}</h1>
+        <h2 class="playlist-description">{{playlist!.description}}</h2></div>
     </div>
 </div>
 <div class="body container-fluid">
@@ -11,4 +10,4 @@
         <label for="formGroupExampleInput" class="form-label">Add Songs</label>
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search">
       </div>
-</div>
+</div></div>
