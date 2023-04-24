@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
+import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
-import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
-import { AccountFriendsComponent } from './Layouts/account-layout/account-friends/account-friends.component';
-import { CardComponent } from './Layouts/account-layout/card/card.component';
+import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
+import { CardComponent } from './layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
-import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
-import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
+import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
+import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
 import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
@@ -32,16 +32,11 @@ import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-la
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
 // import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
-import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
-import {HttpClient} from "@angular/common/http";
 import { AngularFireModule} from '@angular/fire/compat'
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {initializeApp} from "@angular/fire/app";
 import {environment} from "../environment/environment";
-import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
-import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
-import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
-import { HttpClientModule } from '@angular/common/http';
+import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +65,8 @@ import { HttpClientModule } from '@angular/common/http';
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,
-    AccountFriendsComponent
+    AccountFriendsComponent,
+    SpotifyAuthLayoutComponent
   ],
   imports: [
     BrowserModule,
