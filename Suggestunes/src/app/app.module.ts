@@ -14,6 +14,7 @@ import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.c
 import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
 import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
 
+
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
 import { SongComponent } from './playlists/playlist/song/song.component';
 import { CreatePlaylistComponent } from './playlists/create-playlist/create-playlist.component';
@@ -22,13 +23,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import { LandingPageComponent } from './Layouts/landing-page/landing-page.component';
+import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
 import { InfoCardComponent } from './landing-page/info-card/info-card.component';
 import { LoginSignupComponent } from './landing-page/login-signup/login-signup.component';
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
-import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-layout.component';
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
 // import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
@@ -37,6 +37,11 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {initializeApp} from "@angular/fire/app";
 import {environment} from "../environment/environment";
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component';
+import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
+import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
+import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
+import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -62,11 +67,13 @@ import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotif
     StatsCarouselComponent,
     ChangeUpLayoutComponent,
     PlaylistHomeLayoutComponent,
+    PlaylistComponent,
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,
     AccountFriendsComponent,
-    SpotifyAuthLayoutComponent
+    SpotifyAuthLayoutComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

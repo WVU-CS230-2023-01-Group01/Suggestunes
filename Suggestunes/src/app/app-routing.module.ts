@@ -8,6 +8,7 @@ import { RegisterLayoutComponent } from './Layouts/register-layout/register-layo
 import { PlaylistComponent } from './playlists/playlist/playlist.component'
 import { PlaylistHomeLayoutComponent} from './layouts/playlist-home-layout/playlist-home-layout.component'
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component'
+
 const routes: Routes = [
   {
     path: 'AccountLayout',
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LandingPageComponent
+    component: PlaylistComponent
   },
   {
     path: 'ChangeUpLayout',
@@ -23,11 +24,12 @@ const routes: Routes = [
   },
   {
     path: "playlists",
-    component: PlaylistHomeLayoutComponent,
-    children: [{
-      path:'playlist',
-      component:PlaylistComponent
-    }]},
+    component: PlaylistHomeLayoutComponent
+  },
+  {
+    path:'playlists/playlist/:id',
+    component:PlaylistComponent
+  },
   {
     path:'signin',
     component: SignInLayoutComponent
@@ -36,18 +38,38 @@ const routes: Routes = [
     path:'register',
     component: RegisterLayoutComponent
   },
-      {
+  {
     path: 'account',
     component: AccountLayoutComponent
   },
   {
     path: 'spotify-auth',
     component: SpotifyAuthLayoutComponent
+    },{
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
   }
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),RouterModule.forRoot([
+    {
+      matcher: (url) => {
+        if (url.length === 1 && url[0].path.match(/^@[\w]+$/gm)) {
+          return {
+            consumed: url,
+            posParams: {
+              playlist_id: new UrlSegment(url[0].path.slice(1), {})
+            }
+          };
+        }
+
+        return null;
+      },
+      component: PlaylistComponent
+    }
+  ])],
+
   exports: [RouterModule]
 })
 

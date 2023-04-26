@@ -1,8 +1,8 @@
 import { Component, Input , OnInit} from '@angular/core';
-import { database, app } from '../../login-box-component/login-box-component.component';
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { Router } from '@angular/router';
 import { getAuth } from '@firebase/auth';
+import {app} from "../../app.component";
 
 @Component({
   selector: 'app-nav-bar',
@@ -27,9 +27,10 @@ export class NavBarComponent implements OnInit{
     return true;
   }
 
-  
+
   ngOnInit(): void {
     var auth = getAuth(app);
+    var database = getDatabase(app);
     auth.onAuthStateChanged((user) => {
       if (user) {
         var userId = user.uid;
