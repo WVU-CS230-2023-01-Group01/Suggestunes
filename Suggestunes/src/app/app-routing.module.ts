@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {RouterModule, Routes, UrlSegment} from '@angular/router';
 import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
 import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
 import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LandingPageComponent
+    component: PlaylistComponent
   },
   {
     path: 'ChangeUpLayout',
@@ -24,11 +24,12 @@ const routes: Routes = [
   },
   {
     path: "playlists",
-    component: PlaylistHomeLayoutComponent,
-    children: [{
-      path:'playlist',
-      component:PlaylistComponent
-    }]},
+    component: PlaylistHomeLayoutComponent
+  },
+  {
+    path:'playlists/playlist/:id',
+    component:PlaylistComponent
+  },
   {
     path:'signin',
     component: SignInLayoutComponent
@@ -48,7 +49,24 @@ const routes: Routes = [
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),RouterModule.forRoot([
+    {
+      matcher: (url) => {
+        if (url.length === 1 && url[0].path.match(/^@[\w]+$/gm)) {
+          return {
+            consumed: url,
+            posParams: {
+              playlist_id: new UrlSegment(url[0].path.slice(1), {})
+            }
+          };
+        }
+
+        return null;
+      },
+      component: PlaylistComponent
+    }
+  ])],
+
   exports: [RouterModule]
 })
 

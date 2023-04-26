@@ -4,7 +4,7 @@ export const mock_friends_list = [
     },
     {
         friendName: "User2"
-    },    
+    },
     {
         friendName: "User3"
     },
@@ -16,8 +16,8 @@ export const mock_friends_list = [
     },
     {
         friendName: "User7"
-    },    
+    },
     {
         friendName: "User8"
     }
-]
+];
