@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: PlaylistComponent
+    component: LandingPageComponent
   },
   {
     path: 'ChangeUpLayout',

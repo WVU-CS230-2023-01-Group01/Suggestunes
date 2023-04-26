@@ -3,8 +3,15 @@
 <h5 class = "fs-1" style = "justify-content: center;padding-top:1rem">Your Playlists</h5>
   <app-create-playlist (messageEvent)="addLink($event)"></app-create-playlist>
   <div class="d-flex justify-content-center">
-    <div id="container" class="list-group list-group-flush text-md-start" >
+    <div id="native_container" class="list-group list-group-flush text-md-start" >
+      <h5>Your Playlists</h5>
       <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
     </div>
+    <!--
+    <div id="imported_container" class="list-group list-group-flush text-md-start" >
+    <h5>Imported Playlists<h5>
+      <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
+    </div>
+    !-->
   </div>
 </div>
