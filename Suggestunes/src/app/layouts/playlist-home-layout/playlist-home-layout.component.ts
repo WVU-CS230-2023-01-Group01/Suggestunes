@@ -12,7 +12,7 @@ import {getAuth, initializeAuth} from "@angular/fire/auth";
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
 import {SpotifyService} from '../../../services/spotify.service';
 import {SpotifyPlaylistResponse} from "../spotify-auth-layout/spotify.playlist.response";
-
+import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   has_spotify = false;
 
   public show = true;
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private spotify:SpotifyService){
+  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, public spotify:SpotifyService){
     this.database = getDatabase(app);
   }
   addLink($event:any){
@@ -105,4 +105,5 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   getSpotifyEntries() {
     return Array.from(this.spotifyPlaylists.entries());
   }
+
 }

@@ -32,6 +32,7 @@ show = true;
   ngOnInit(): void {
 
     let auth = getAuth(app);
+
     auth.onAuthStateChanged((user)=>{
 
       if(user) {

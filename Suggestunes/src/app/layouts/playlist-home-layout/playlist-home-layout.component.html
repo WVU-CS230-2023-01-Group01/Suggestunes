@@ -16,4 +16,7 @@
   </div>
   </div>
   </span>
+  <span *ngIf="!has_spotify">
+    <button (click)="this.spotify.spotifyAuth()" class="btn">Link your Spotify</button>
+  </span>
 </div>
