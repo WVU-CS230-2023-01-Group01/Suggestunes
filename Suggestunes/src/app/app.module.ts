@@ -38,6 +38,7 @@ import { AccountInfoComponent } from './layouts/account-layout/account-info/acco
 import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
 import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
 import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
+import { EditPlaylistModalComponent } from './playlists/playlist/edit-playlist-modal/edit-playlist-modal.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot
     AccountInfoComponent,
     AccountFriendsComponent,
     ForgotPasswordComponent,
+    EditPlaylistModalComponent,
   ],
   imports: [
     BrowserModule,

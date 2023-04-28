@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {async, Observable, switchMap} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
@@ -13,14 +13,19 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./playlist.component.css']
 })
 @Injectable()
+
 export class PlaylistComponent implements OnInit {
-  playlist: PlaylistModel | null = new PlaylistModel('assets/music note img.png',"loading...","loading...",[]);
+  playlist: PlaylistModel | undefined = new PlaylistModel('assets/music note img.png',"loading...","loading...",[]);
   path: string | undefined;
   constructor(private route: ActivatedRoute, private db: AngularFireDatabase){}
 show = true;
 
-  ngOnInit(): void {
+updatePlaylist($event:PlaylistModel){
+  
+}
 
+  ngOnInit(): void {
+    
     let auth = getAuth(app);
     auth.onAuthStateChanged((user)=>{
 
@@ -34,7 +39,7 @@ show = true;
         this.path = 'users/' + user!.uid + '/playlists'
         this.db.object<PlaylistModel>(this.path + '/' + playlist_id$!).valueChanges().subscribe((data)=>{
           console.log(data)
-          this.playlist = data;
+          this.playlist = data!;
           console.log(this.playlist);
         });
       }

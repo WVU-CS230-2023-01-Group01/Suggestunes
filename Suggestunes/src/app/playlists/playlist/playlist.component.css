@@ -42,8 +42,7 @@ line-height: 28.8px;
 z-index: 3;
 width: 100%;
 height: 100px;
-text-align: center;
-text-transform: uppercase;
+text-align: center; 
 }
 .playlist-description
 {
@@ -91,4 +90,12 @@ background-color: #4B4B4B;
 color: white;
 border-color: #66318D;
 border-width: 2px;
+}
+.editButton{
+    background-color: #66318D;
+    margin-left: 5%;
+    color: white;
+}
+.btn:hover{
+    opacity: 50%;
 }

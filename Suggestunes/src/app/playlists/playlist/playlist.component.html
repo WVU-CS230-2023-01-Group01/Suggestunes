@@ -7,6 +7,8 @@
     </div>
 </div>
 <div class="body container-fluid">
+    <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
+    <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
     <div class="mb-3">
         <label for="formGroupExampleInput" class="form-label">Add Songs</label>
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Search">
