@@ -3,16 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
-import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
-import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
-import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
-import { CardComponent } from './layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginBoxComponentComponent } from './login-box-component/login-box-component.component';
-import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
-import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
-import { RegisterBoxComponentComponent } from './register-box-component/register-box-component.component';
+import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
+import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
+import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
+import { RegisterBoxComponentComponent } from './layouts/register-layout/register-box-component/register-box-component.component';
 
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
@@ -42,6 +38,7 @@ import { AccountInfoComponent } from './layouts/account-layout/account-info/acco
 import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
 import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
 import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
+import { CardComponent } from './layouts/account-layout/card/card.component';
 
 @NgModule({
   declarations: [

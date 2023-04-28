@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { database, app } from '../../login-box-component/login-box-component.component';
+// import { database, app } from '../../login-box-component/login-box-component.component';
 import { getAuth } from '@firebase/auth';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';

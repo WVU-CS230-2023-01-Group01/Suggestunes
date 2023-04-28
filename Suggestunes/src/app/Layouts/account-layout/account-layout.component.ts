@@ -8,7 +8,7 @@ import { Buffer } from 'buffer';
 
 //Spotify Imports
 import { getAuth } from '@firebase/auth';
-import { database, app } from '../../login-box-component/login-box-component.component';
+// import { database, app } from '../../login-box-component/login-box-component.component';
 import { ref, onValue} from '@firebase/database';
 
 @Component({
