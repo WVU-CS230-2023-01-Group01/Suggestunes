@@ -31,7 +31,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   has_spotify = false;
 
   public show = true;
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private http:HttpClient, private spotify:SpotifyService){
+  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private spotify:SpotifyService){
     this.database = getDatabase(app);
   }
   addLink($event:any){

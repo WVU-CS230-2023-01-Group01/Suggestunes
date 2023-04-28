@@ -7,6 +7,7 @@ import {app} from "../../app.component";
 import {PlaylistModel} from "./playlist.model";
 import { map } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
+import {SpotifyService} from "../../../services/spotify.service";
 
 @Component({
   selector: 'app-playlist',
@@ -21,7 +22,7 @@ export class PlaylistComponent implements OnInit {
   private songName:string = "default";
   private spotifyString:string = "";
 
-  constructor(private route: ActivatedRoute, private db: AngularFireDatabase){}
+  constructor(private route: ActivatedRoute, private db: AngularFireDatabase, private spotify:SpotifyService){}
 show = true;
 
   updatePlaylist($event:PlaylistModel){
@@ -46,7 +47,11 @@ show = true;
         // @ts-ignore
         console.log(playlist_id$)
         if (is_spotify!) {
-
+          console.log("https://api.spotify.com/v1/playlists/" + playlist_id$!);
+          this.spotify.get<PlaylistModel>("https://api.spotify.com/v1/playlists/" + playlist_id$!).subscribe(data=>{
+            this.playlist = data!;
+            this.playlist.image  = data.images![0].url;
+          })
         } else {
           this.path = 'users/' + user!.uid + '/playlists'
           this.db.object<PlaylistModel>(this.path + '/' + playlist_id$!).valueChanges().subscribe((data) => {
