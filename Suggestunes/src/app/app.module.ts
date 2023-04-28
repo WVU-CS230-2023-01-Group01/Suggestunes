@@ -41,6 +41,7 @@ import {
 import {LoginBoxComponentComponent} from "./layouts/sign-in-layout/login-box-component/login-box-component.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
+import {SpotifyService} from "../services/spotify.service";
 
 @NgModule({
   declarations: [
@@ -88,7 +89,7 @@ import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layo
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [SpotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

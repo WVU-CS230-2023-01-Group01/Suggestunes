@@ -51,9 +51,6 @@ export class CreatePlaylistModalComponent {
     }
     // @ts-ignore
     let songs = new Array<SongModel>();
-    //@ts-ignore
-    // let playlist = new PlaylistModel(<string>this.imageUrl.value, <string>document.getElementById("playlist-name").value, <string>document.getElementById("playlist-description").value, songs);
-    // @ts-ignore
     if(!this.imageUrl){
       playlist.image = "assets/music note img.png";
     }

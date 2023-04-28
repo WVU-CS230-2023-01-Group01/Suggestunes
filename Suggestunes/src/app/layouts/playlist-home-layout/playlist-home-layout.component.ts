@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Injectable, OnInit} from '@angular/core';
 import {PlaylistModel} from "../../playlists/playlist/playlist.model";
 import {playlist_list} from "./playlists_list";
 import {SongModel} from "../../playlists/playlist/song/song.model";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 
 import {AngularFireDatabase, AngularFireDatabaseModule, PathReference} from "@angular/fire/compat/database";
 import {Firestore} from "@angular/fire/firestore";
@@ -10,7 +10,7 @@ import {Reference} from "@angular/fire/compat/storage/interfaces";
 import {app} from "../../app.component";
 import {getAuth, initializeAuth} from "@angular/fire/auth";
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
-import {SpotifyService} from "../../../services/spotify.service";
+import {SpotifyService} from '../../../services/spotify.service';
 
 
 @Injectable({
@@ -65,9 +65,14 @@ export class PlaylistHomeLayoutComponent implements OnInit{
       }
     })
     let spotify_token = this.spotify.getAccessToken();
+    console.log(spotify_token);
     if(spotify_token){
       this.has_spotify = true;
 
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + spotify_token)
+
+      let response = this.http.get("https://api.spotify.com/v1/me/playlists?limit=50&offset=0",{'headers' : headers}).forEach((data)=>console.log(data));
+      console.log(response)
     }
     console.log('initializing playlist home component')
     // while(!this.path){}
