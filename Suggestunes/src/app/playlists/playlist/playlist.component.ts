@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {async, Observable, switchMap} from "rxjs";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
@@ -25,27 +25,36 @@ export class PlaylistComponent implements OnInit {
 show = true;
 
 updatePlaylist($event:PlaylistModel){
-  
+
 }
 
   ngOnInit(): void {
-    
+
     let auth = getAuth(app);
     auth.onAuthStateChanged((user)=>{
 
       if(user) {
-        let playlist_id$:string
+        let is_spotify: boolean
+        let playlist_id$: string
+        this.route.paramMap.pipe(
+          map((params: ParamMap) => params.get('spotify')!)
+        ).forEach(value => is_spotify = value === "true");
+        console.log(is_spotify!);
         this.route.paramMap.pipe(
           map((params: ParamMap) => params.get('id')!)
         ).forEach(value => playlist_id$ = value);
         // @ts-ignore
         console.log(playlist_id$)
-        this.path = 'users/' + user!.uid + '/playlists'
-        this.db.object<PlaylistModel>(this.path + '/' + playlist_id$!).valueChanges().subscribe((data)=>{
-          console.log(data)
-          this.playlist = data!;
-          console.log(this.playlist);
-        });
+        if (is_spotify!) {
+
+        } else {
+          this.path = 'users/' + user!.uid + '/playlists'
+          this.db.object<PlaylistModel>(this.path + '/' + playlist_id$!).valueChanges().subscribe((data) => {
+            console.log(data)
+            this.playlist = data!;
+            console.log(this.playlist);
+          });
+        }
       }
     })
   }
@@ -53,7 +62,7 @@ updatePlaylist($event:PlaylistModel){
    this.show = false;
     setTimeout(()=>this.show=true);
   }
-  
+
   public search(data: NgForm){
     this.songName = data.value.track;
   }

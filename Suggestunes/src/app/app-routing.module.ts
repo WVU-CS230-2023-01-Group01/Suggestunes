@@ -28,7 +28,7 @@ const routes: Routes = [
     component: PlaylistHomeLayoutComponent
   },
   {
-    path:'playlists/playlist/:id',
+    path:'playlists/playlist/:spotify/:id',
     component:PlaylistComponent
   },
   {

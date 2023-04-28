@@ -11,6 +11,7 @@ import {app} from "../../app.component";
 import {getAuth, initializeAuth} from "@angular/fire/auth";
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
 import {SpotifyService} from '../../../services/spotify.service';
+import {SpotifyResponse} from "../spotify-auth-layout/spotify.response";
 
 
 @Injectable({
@@ -26,6 +27,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   database:Database;
   path: string | undefined;
   playlists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
+  spotifyPlaylists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
   has_spotify = false;
   public show = true;
   constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private http:HttpClient, private spotify:SpotifyService){
@@ -71,8 +73,14 @@ export class PlaylistHomeLayoutComponent implements OnInit{
 
       const headers = new HttpHeaders().set('Authorization', 'Bearer ' + spotify_token)
 
-      let response = this.http.get("https://api.spotify.com/v1/me/playlists?limit=50&offset=0",{'headers' : headers}).forEach((data)=>console.log(data));
-      console.log(response)
+      let response = this.http.get<SpotifyResponse>("https://api.spotify.com/v1/me/playlists?limit=50&offset=0",{'headers' : headers}).subscribe(data =>{
+        console.log(data.items);
+        for(let playlist of data.items){
+          console.log(playlist.image);
+          playlist.image = playlist.images![0].url
+          this.spotifyPlaylists.set(playlist.id!,playlist);
+        }
+      })
     }
     console.log('initializing playlist home component')
     // while(!this.path){}
@@ -94,6 +102,6 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   }
 
   getSpotifyEntries() {
-    return undefined;
+    return Array.from(this.spotifyPlaylists.entries());
   }
 }
