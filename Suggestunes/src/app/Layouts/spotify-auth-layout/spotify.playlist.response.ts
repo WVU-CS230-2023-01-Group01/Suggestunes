@@ -1,6 +1,6 @@
 import {PlaylistModel} from "../../playlists/playlist/playlist.model";
 
-export interface SpotifyResponse{
+export interface SpotifyPlaylistResponse{
   href : string
   items: Array<PlaylistModel>
 limit:number

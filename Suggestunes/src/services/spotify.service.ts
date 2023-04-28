@@ -1,4 +1,11 @@
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+@Injectable()
 export class SpotifyService{
+  access_token:string | undefined;
+  constructor(private http:HttpClient) {
+    this.access_token = this.getAccessToken();
+  }
   getAccessToken() {
     let ca: Array<string> = document.cookie.split(';');
     let caLen: number = ca.length;
@@ -12,6 +19,12 @@ export class SpotifyService{
       }
     }
     return undefined;
+  }
+  public get<T>(endpoint:string){
+
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.access_token)
+
+    return this.http.get<T>(endpoint,{'headers' : headers});
   }
 
 }
