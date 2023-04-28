@@ -24,9 +24,9 @@ export class PlaylistComponent implements OnInit {
   constructor(private route: ActivatedRoute, private db: AngularFireDatabase){}
 show = true;
 
-updatePlaylist($event:PlaylistModel){
+  updatePlaylist($event:PlaylistModel){
 
-}
+  }
 
   ngOnInit(): void {
 
