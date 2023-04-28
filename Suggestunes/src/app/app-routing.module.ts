@@ -8,6 +8,7 @@ import { PlaylistHomeLayoutComponent} from './layouts/playlist-home-layout/playl
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component'
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {ForgotPasswordComponent} from "./layouts/forgot-password-layout/forgot-password.component";
+import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
 
 const routes: Routes = [
   {

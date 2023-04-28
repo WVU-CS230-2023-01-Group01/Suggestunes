@@ -10,6 +10,7 @@ import {Reference} from "@angular/fire/compat/storage/interfaces";
 import {app} from "../../app.component";
 import {getAuth, initializeAuth} from "@angular/fire/auth";
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
+import {SpotifyService} from "../../../services/spotify.service";
 
 
 @Injectable({
@@ -25,8 +26,9 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   database:Database;
   path: string | undefined;
   playlists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
+  has_spotify = false;
   public show = true;
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase){
+  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private http:HttpClient, private spotify:SpotifyService){
     this.database = getDatabase(app);
   }
   addLink($event:any){
@@ -34,7 +36,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
     console.log("in add link");
     const db_ref = ref(this.database, this.path + '/' + this.getHash(playlist));
 
-    set(db_ref, playlist)
+    set(db_ref, playlist);
     // this.db.list<PlaylistModel>(this.path!).push(playlist);
     this.reload();
   }
@@ -62,7 +64,11 @@ export class PlaylistHomeLayoutComponent implements OnInit{
         )
       }
     })
+    let spotify_token = this.spotify.getAccessToken();
+    if(spotify_token){
+      this.has_spotify = true;
 
+    }
     console.log('initializing playlist home component')
     // while(!this.path){}
 
@@ -80,5 +86,9 @@ export class PlaylistHomeLayoutComponent implements OnInit{
       hash += message.charCodeAt(i)
     }
     return hash.toString(16);
+  }
+
+  getSpotifyEntries() {
+    return undefined;
   }
 }

@@ -7,11 +7,12 @@
       <h5>Your Playlists</h5>
       <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
     </div>
-    <!--
-    <div id="imported_container" class="list-group list-group-flush text-md-start" >
-    <h5>Imported Playlists<h5>
-      <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
-    </div>
-    !-->
+  </div>
+  <div class="d-flex justify-content-center">
+  <div *ngIf="has_spotify"> <div id="spotify_container" class="list-group list-group-flush text-md-start" >
+    <h5>Imported Playlists</h5>
+    <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getSpotifyEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
+  </div>
+  </div>
   </div>
 </div>
