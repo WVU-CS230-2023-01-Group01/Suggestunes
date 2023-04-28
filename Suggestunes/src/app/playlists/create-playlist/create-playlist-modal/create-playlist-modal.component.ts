@@ -4,6 +4,9 @@ import {PlaylistModel} from "../../playlist/playlist.model";
 import { SongModel } from '../../playlist/song/song.model';
 import {playlist_list} from "../../../layouts/playlist-home-layout/playlists_list";
 import {PlaylistHomeLayoutComponent} from "../../../layouts/playlist-home-layout/playlist-home-layout.component";
+import {getBlob, getStorage, ref, uploadBytes} from "@angular/fire/storage";
+import {app} from "../../../app.component";
+import {getAuth} from "@angular/fire/auth";
 
 @Injectable()
 
@@ -53,17 +56,16 @@ export class CreatePlaylistModalComponent {
     // @ts-ignore
     if(!this.imageUrl.value){
       console.log(playlist.image)
-      playlist.image = "assets/music note img.png";
     }
     else{
       playlist.image = this.imageUrl.value!
     }
+
     playlist.songs = [];
     console.log(playlist);
     // @ts-ignore
     console.log("emitting message");
     this.messageEvent.emit(playlist);
     document.getElementById("close")!.click()
-
   }
 }

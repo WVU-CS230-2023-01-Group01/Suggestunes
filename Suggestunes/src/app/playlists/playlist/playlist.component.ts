@@ -6,6 +6,7 @@ import {getAuth} from "@angular/fire/auth";
 import {app} from "../../app.component";
 import {PlaylistModel} from "./playlist.model";
 import { map } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-playlist',
@@ -17,6 +18,9 @@ import { map } from 'rxjs/operators';
 export class PlaylistComponent implements OnInit {
   playlist: PlaylistModel | undefined = new PlaylistModel('assets/music note img.png',"loading...","loading...",[]);
   path: string | undefined;
+  private songName:string = "default";
+  private spotifyString:string = "";
+
   constructor(private route: ActivatedRoute, private db: AngularFireDatabase){}
 show = true;
 
@@ -49,4 +53,10 @@ updatePlaylist($event:PlaylistModel){
    this.show = false;
     setTimeout(()=>this.show=true);
   }
+  
+  public search(data: NgForm){
+    this.songName = data.value.track;
+  }
+
+
 }
