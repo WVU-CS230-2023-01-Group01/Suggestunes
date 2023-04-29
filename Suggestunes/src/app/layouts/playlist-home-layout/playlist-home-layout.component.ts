@@ -11,7 +11,7 @@ import {app} from "../../app.component";
 import {getAuth, initializeAuth} from "@angular/fire/auth";
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
 import {SpotifyService} from '../../../services/spotify.service';
-import {SpotifyPlaylistResponse} from "../spotify-auth-layout/spotify.playlist.response";
+import {SpotifyPlaylistResponse} from "../../spotify-elements/spotify.playlist.response";
 import { Buffer } from 'buffer';
 
 @Injectable({
@@ -77,8 +77,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
       let response = this.spotify.get<SpotifyPlaylistResponse>("https://api.spotify.com/v1/me/playlists?limit=50&offset=0").subscribe(data =>{
         console.log(data.items);
         for(let playlist of data.items){
-          console.log(playlist.image);
-          playlist.image = playlist.images![0].url
+          playlist.image = playlist.images![0].url;
           this.spotifyPlaylists.set(playlist.id!,playlist);
         }
       })
