@@ -28,6 +28,7 @@ export class PlaylistComponent implements OnInit {
   private songName:string = "default";
   private spotifyString:string = "";
   has_active_device = false;
+  public is_spotify = false;
 
   constructor(private route: ActivatedRoute,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService){}
 show = true;
@@ -43,17 +44,15 @@ show = true;
     auth.onAuthStateChanged((user)=>{
 
       if(user) {
-        let is_spotify: boolean
         let playlist_id$: string
         this.route.paramMap.pipe(
           map((params: ParamMap) => params.get('spotify')!)
-        ).forEach(value => is_spotify = value === "true");
-        console.log(is_spotify!);
+        ).forEach(value => this.is_spotify = value === "true");
         this.route.paramMap.pipe(
           map((params: ParamMap) => params.get('id')!)
         ).forEach(value => playlist_id$ = value);
         // @ts-ignore
-        if (is_spotify!) {
+        if (this.is_spotify!) {
           this.spotify.get<PlaylistModel>("https://api.spotify.com/v1/playlists/" + playlist_id$!).subscribe(data=>{
             this.playlist = data!;
             this.playlist.songs = []

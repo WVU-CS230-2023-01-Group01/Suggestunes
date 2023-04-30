@@ -104,8 +104,7 @@ text-align: center;
 }
 .body.container-fluid
 {
-padding-top: 400px;
-height: 1100px;
+height: fit-content;
 background-color: #1E1E1E!important;
 
 }
