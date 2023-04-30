@@ -44,6 +44,7 @@ import { CardComponent } from './layouts/account-layout/card/card.component';
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
 import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
+import { SuggestionAiComponent } from './suggestion-ai/suggestion-ai.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,8 @@ import { AccountFriendsComponent } from './layouts/account-layout/account-friend
     ForgotPasswordComponent,
     EditPlaylistModalComponent,
     SpotifyAuthLayoutComponent,
+    ForgotPasswordComponent,
+    SuggestionAiComponent
   ],
   imports: [
     BrowserModule,
