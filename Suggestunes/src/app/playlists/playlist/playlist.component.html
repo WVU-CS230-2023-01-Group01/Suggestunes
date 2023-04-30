@@ -7,7 +7,7 @@
             <h2 class="playlist-description">{{playlist!.description}}</h2></div>
         </div>
     </div>
-  <button *ngIf="has_active_device"(click) = "play('')">play some jams</button>
+  <button *ngIf="has_active_device" (click) = "play()">play some jams</button>
   <br>
   <div class="list-group list-group-flush text-md-start">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item.uri!)">

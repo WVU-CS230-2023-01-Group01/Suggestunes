@@ -90,30 +90,38 @@ show = true;
   public search(data: NgForm){
     this.songName = data.value.track;
   }
-  play(track_uri:string){
-console.log("playing: " + track_uri);
-    console.log({
-      "context_uri": this.playlist!.uri!,
-      "offset":{"uri":
-        track_uri
-      },
-      "position_ms":0
-
-    })
-    this.http.put('https://api.spotify.com/v1/me/player/play',
-      {
-        "context_uri": this.playlist!.uri,
-        "offset": {
-          "uri": track_uri
+  play(track_uri?:string){
+    if(track_uri){
+      this.http.put('https://api.spotify.com/v1/me/player/play',
+        {
+          "context_uri": this.playlist!.uri,
+          "offset": {
+            "uri": track_uri
+          },
+          "position_ms": 0
         },
-        "position_ms": 0
-      },
-      {
-        headers: {
-          'Authorization': 'Bearer ' + this.spotify.access_token
-        }
-      })
-      .subscribe();
+        {
+          headers: {
+            'Authorization': 'Bearer ' + this.spotify.access_token
+          }
+        })
+        .subscribe();
+    }
+    else{
+      this.http.put('https://api.spotify.com/v1/me/player/play',
+        {
+          "context_uri": this.playlist!.uri,
+          "position_ms": 0
+        },
+        {
+          headers: {
+            'Authorization': 'Bearer ' + this.spotify.access_token
+          }
+        })
+        .subscribe();
+    }
+console.log("playing: " + track_uri);
+
   }
 
 }
