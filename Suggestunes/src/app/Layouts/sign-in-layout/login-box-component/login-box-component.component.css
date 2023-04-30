@@ -55,7 +55,7 @@
     margin-top: 1%;
     margin-left: auto;
     margin-right: auto;
-    padding: 0px 10px;
+    padding: 0px;
     width: fit-content;
 }
 .signupBox{
@@ -66,4 +66,13 @@
   margin-right:auto;
   margin-top: 1%;
 
+}
+
+.btn-secondary{
+    text-align: center;
+    margin-top: 10px;
+    padding: 5px 30px;
+    width: 100%;
+    border-radius: 0px 0px 10px 10px;
+    vertical-align: center;
 }

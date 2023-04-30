@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { database, app } from '../../../login-box-component/login-box-component.component';
+import {app} from "../../../app.component";
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { getAuth } from '@firebase/auth';
 
@@ -26,6 +26,7 @@ export class AccountInfoComponent implements OnInit{
 
 ngOnInit(): void {
   var auth = getAuth(app);
+  var database = getDatabase(app);
   //onAuthStateChanged fires when user logs in or out
   auth.onAuthStateChanged((user) => {
     //if user, then user is logged in

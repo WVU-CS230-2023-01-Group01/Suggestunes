@@ -1,11 +1,11 @@
 import { Component, Input , OnInit} from '@angular/core';
-import { database, app } from '../../login-box-component/login-box-component.component';
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { Router } from '@angular/router';
 import { getAuth, User } from '@firebase/auth';
 
 //This is the variable we will use to store the session user to avoid having to keep calling onAuthStateChanged. We will set this in ngOnInit.
 var sessionUser: User;
+import {app} from "../../app.component";
 
 @Component({
   selector: 'app-nav-bar',
@@ -30,9 +30,10 @@ export class NavBarComponent implements OnInit{
     return true;
   }
 
-  
+
   ngOnInit(): void {
     var auth = getAuth(app);
+    var database = getDatabase(app);
     auth.onAuthStateChanged((user) => {
       if (user) {
         sessionUser = user;

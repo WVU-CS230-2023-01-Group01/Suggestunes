@@ -40,15 +40,26 @@ export class CreatePlaylistModalComponent {
     document.getElementById("playlist-description").value="";
   }
 
-  submitForm(event:Event){
+  submitForm(playlist:PlaylistModel){
+    const myModal = document.getElementById("popup");
+    if(!playlist.name){
+      alert("Playlist name cannot be empty");
+      return;
+    }
     // @ts-ignore
     let songs = new Array<SongModel>();
     //@ts-ignore
-    let playlist = new PlaylistModel(<string>this.imageUrl.value, <string>document.getElementById("playlist-name").value, <string>document.getElementById("playlist-description").value, songs);
+    // let playlist = new PlaylistModel(<string>this.imageUrl.value, <string>document.getElementById("playlist-name").value, <string>document.getElementById("playlist-description").value, songs);
     // @ts-ignore
+    if(!playlist.image){
+      playlist.image = "assets/music note img.png";
+    }
+    playlist.songs = [];
     console.log(playlist);
     // @ts-ignore
     console.log("emitting message");
     this.messageEvent.emit(playlist);
+    document.getElementById("close")!.click()
+
   }
 }

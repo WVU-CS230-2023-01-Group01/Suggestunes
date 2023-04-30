@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { database, app} from '../../login-box-component/login-box-component.component';
+import {app} from '../../app.component';
 import { getDatabase, get, ref, update, onValue, DatabaseReference} from '@firebase/database';
 import { getAuth, updatePassword } from '@firebase/auth';
 
@@ -49,6 +49,7 @@ export class ChangeUpLayoutComponent implements OnInit{
     function submitUsername() {
 
       var auth = getAuth(app);
+      var database = getDatabase(app);
       var database_ref:DatabaseReference;
       auth.onAuthStateChanged( (user) => {
         if (user) {

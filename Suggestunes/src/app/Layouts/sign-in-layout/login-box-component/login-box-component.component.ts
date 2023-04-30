@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { initializeApp } from '@firebase/app';
-import { signInWithEmailAndPassword, getAuth } from '@firebase/auth';
-import { getDatabase, ref, update } from '@firebase/database'
+import { signInWithEmailAndPassword, signOut, getAuth } from '@firebase/auth';
+import { getDatabase, ref, update, onValue } from '@firebase/database'
 import { Router } from '@angular/router';
+import {app} from "../../../app.component";
 
 @Component({
   selector: 'app-login-box-component',
@@ -14,38 +15,28 @@ export class LoginBoxComponentComponent {
   constructor(private _router: Router) { }
 
   callLogin(){
-    var redirect = login()
-    console.log(redirect);
-    if (redirect! == true) {
-      this._router.navigate(['/AccountLayout'])
-    }
+
+    login(this._router)
   }
 }
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAu0Y5ImYX-isiDYT7A3aIPjCIJeoM0yhw",
-  authDomain: "suggestoons-app.firebaseapp.com",
-  databaseURL: "https://suggestoons-app-default-rtdb.firebaseio.com",
-  projectId: "suggestoons-app",
-  storageBucket: "suggestoons-app.appspot.com",
-  messagingSenderId: "241615938941",
-  appId: "1:241615938941:web:4336c2b32cfa1c6a2f5814",
-  measurementId: "G-EZ8HPMX0KB"
-};
 
-const app = initializeApp(firebaseConfig)
+// const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const database = getDatabase(app)
 
 
-function login() : boolean {
+
+// export { app , database}
+
+function login(_router : Router){
   var email = (<HTMLInputElement>document.getElementById("email")).value
   var password = (<HTMLInputElement>document.getElementById("password")).value
   var result:boolean = true;
 
   signInWithEmailAndPassword(auth, email, password)
-    .then(function () {
-      var user = auth.currentUser
+  .then(function () {
+     var user = auth.currentUser
 
       var database_ref = ref(database, 'users/' + user!.uid)
 
@@ -58,14 +49,16 @@ function login() : boolean {
 
       alert('User Logged In.')
       console.log(auth.currentUser!.uid);
+      _router.navigate(['/AccountLayout'])
+
+
+      return true
     })
     .catch(function (error) {
       var error_code = error.code
       var error_message = error.message
 
-      alert(error_message + "okayyyyyyy")
-      result = false;
+      alert(error_message)
+
     })
-    return result;
 }
-export {auth, database, app};

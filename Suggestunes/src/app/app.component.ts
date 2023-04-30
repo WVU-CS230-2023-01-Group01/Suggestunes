@@ -1,23 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { initializeApp } from "@firebase/app";
-import { getAuth } from "@firebase/auth";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAu0Y5ImYX-isiDYT7A3aIPjCIJeoM0yhw",
-  authDomain: "suggestoons-app.firebaseapp.com",
-  databaseURL: "https://suggestoons-app-default-rtdb.firebaseio.com",
-  projectId: "suggestoons-app",
-  storageBucket: "suggestoons-app.appspot.com",
-  messagingSenderId: "241615938941",
-  appId: "1:241615938941:web:4336c2b32cfa1c6a2f5814",
-  measurementId: "G-EZ8HPMX0KB"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import {initializeApp} from "firebase/app";
+import {environment} from "../environment/environment";
+import {getAnalytics} from "firebase/analytics";
+import {initializeAuth} from "@angular/fire/auth";
+import {getDatabase} from "@angular/fire/database";
 
 @Component({
   selector: 'app-root',
@@ -27,7 +13,12 @@ const auth = getAuth(app);
 export class AppComponent {
   title = 'Suggestunes';
 }
+const app = initializeApp(environment.firebase);
 
-window.onhashchange = function() {
-  
-}
+// const analytics = getAnalytics(app)
+//
+// const auth = initializeAuth(app)
+//
+// const database = getDatabase(app)
+
+export {app}
