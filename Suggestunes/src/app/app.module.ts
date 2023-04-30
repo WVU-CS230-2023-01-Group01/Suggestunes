@@ -8,10 +8,8 @@ import { AccountInfoComponent } from './Layouts/account-layout/account-info/acco
 import { CardComponent } from './Layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginBoxComponentComponent } from './Layouts/sign-in-layout/login-box-component/login-box-component.component';
 import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
-import { RegisterBoxComponentComponent } from './Layouts/register-layout/register-box-component/register-box-component.component';
 
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
@@ -22,7 +20,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import { LandingPageComponent } from './Layouts/landing-page/landing-page.component';
 import { InfoCardComponent } from './landing-page/info-card/info-card.component';
 import { LoginSignupComponent } from './landing-page/login-signup/login-signup.component';
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
@@ -35,8 +32,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {initializeApp} from "@angular/fire/app";
 import {environment} from "../environment/environment";
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component';
-import { ChangeUpLayoutComponent } from './Layouts/change-up-layout/change-up-layout.component';
-import { ForgotPasswordComponent } from './Layouts/forgot-password-layout/forgot-password.component';
+import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
+import {
+  RegisterBoxComponentComponent
+} from "./layouts/register-layout/register-box-component/register-box-component.component";
+import {LoginBoxComponentComponent} from "./layouts/sign-in-layout/login-box-component/login-box-component.component";
+import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
+import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 
 @NgModule({
   declarations: [
