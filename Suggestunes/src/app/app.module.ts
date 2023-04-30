@@ -39,6 +39,7 @@ import { AccountFriendsComponent } from './layouts/account-layout/account-friend
 import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
 import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
 import { CardComponent } from './layouts/account-layout/card/card.component';
+import { SuggestionAiComponent } from './suggestion-ai/suggestion-ai.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { CardComponent } from './layouts/account-layout/card/card.component';
     AccountInfoComponent,
     AccountFriendsComponent,
     SpotifyAuthLayoutComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    SuggestionAiComponent
   ],
   imports: [
     BrowserModule,
