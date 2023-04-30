@@ -97,6 +97,18 @@ show = true;
 
   }
 
+  public add(track:SpotifyTrackObject){
+    this.http.post(
+      "https://api.spotify.com/v1/playlists/" + this.playlist?.id + "/tracks",{
+        'uris':[track.uri]
+      },{
+        headers: {
+          'Authorization': 'Bearer ' + this.spotify.access_token
+        }
+      }
+    ).subscribe()
+  }
+
   play(track_uri?:string){
     if(track_uri){
       this.http.put('https://api.spotify.com/v1/me/player/play',
@@ -106,8 +118,7 @@ show = true;
             "uri": track_uri
           },
           "position_ms": 0
-        },
-        {
+        },{
           headers: {
             'Authorization': 'Bearer ' + this.spotify.access_token
           }
@@ -129,6 +140,22 @@ show = true;
     }
 console.log("playing: " + track_uri);
 
+  }
+  playSearchItem(track:SpotifyTrackObject){
+    this.http.put('https://api.spotify.com/v1/me/player/play',
+      {
+        "context_uri": track.album.uri,
+        "offset": {
+          "uri": track.uri
+        },
+        "position_ms": 0
+      },
+      {
+        headers: {
+          'Authorization': 'Bearer ' + this.spotify.access_token
+        }
+      })
+      .subscribe();
   }
 
 }
