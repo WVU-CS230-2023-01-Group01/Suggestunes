@@ -2,7 +2,10 @@ import { Component, Input , OnInit} from '@angular/core';
 import { database, app } from '../../login-box-component/login-box-component.component';
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { Router } from '@angular/router';
-import { getAuth } from '@firebase/auth';
+import { getAuth, User } from '@firebase/auth';
+
+//This is the variable we will use to store the session user to avoid having to keep calling onAuthStateChanged. We will set this in ngOnInit.
+var sessionUser: User;
 
 @Component({
   selector: 'app-nav-bar',
@@ -32,27 +35,22 @@ export class NavBarComponent implements OnInit{
     var auth = getAuth(app);
     auth.onAuthStateChanged((user) => {
       if (user) {
-        var userId = user.uid;
-        var database_ref = ref(database, 'users/' + userId);
+        sessionUser = user;
+        var database_ref = ref(database, 'users/' + sessionUser.uid);
         onValue(database_ref, (snapshot) => {
           const data = snapshot.val();
           this.username = data.username;
           this.bio = data.bio;
         })
       }
-      //else {
-       // alert("Couldn't load nav data");
-      //}
     });
-
+    
     var submitBio = document.getElementsByClassName("submit-bio")[0];
     var newBio = (document.getElementsByClassName("bioField")[0] as HTMLInputElement);
     var changeBio = false;
-    submitBio.addEventListener('click', (e:Event) => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          var userId = user.uid;
-          var database_ref = ref(database, 'users/' + userId);
+    submitBio.addEventListener('click', (e: Event) => {
+        if (sessionUser) {
+          var database_ref = ref(database, 'users/' + sessionUser.uid);
           changeBio = this.bioChanged(newBio.value);
           if (changeBio) {
             this.bio = newBio.value;
@@ -68,7 +66,6 @@ export class NavBarComponent implements OnInit{
         else {
           alert("Couldn't change bio");
         }
-     });
     });
   }
 

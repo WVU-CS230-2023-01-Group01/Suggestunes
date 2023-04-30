@@ -27,3 +27,7 @@ const auth = getAuth(app);
 export class AppComponent {
   title = 'Suggestunes';
 }
+
+window.onhashchange = function() {
+  
+}

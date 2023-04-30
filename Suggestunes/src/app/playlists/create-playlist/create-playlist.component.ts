@@ -11,4 +11,6 @@ export class CreatePlaylistComponent {
   sendMessage($event: PlaylistModel){
     this.messageEvent.emit($event);
   }
+
+  //Need to get the current user and push new playlist to user's playlists
 }

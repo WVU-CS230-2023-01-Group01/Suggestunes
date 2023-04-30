@@ -10,12 +10,3 @@
         <a class = "showAllButton" href = "#">Show All</a>
     </div>
 </div>
-<div class = "friends-component">
-    <h1 style = "text-decoration: underline;">My Friends</h1>
-    <div style = "overflow-x: scroll; max-width: 1152px; margin: 0 auto; white-space: nowrap;">
-        <div *ngFor = "let product of products" style = "display: inline-block;">
-                <app-account-friends friendName = {{product.friendName}}></app-account-friends>
-        </div>
-        <a class = "showAllButton" href = "#">Show All</a>
-    </div>
-</div>
