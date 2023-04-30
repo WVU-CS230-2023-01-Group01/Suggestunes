@@ -1,37 +1,35 @@
 <app-nav-bar></app-nav-bar>
 <div *ngIf="show">
-    <div class="header container-fluid">
-        <img alt = "" src="{{playlist!.image}}" class="music-img rounded float-start">
-        <div class="title container">
-            <div *ngIf="playlist"><h1 class="playlist-title">{{playlist!.name}}</h1>
-            <h2 class="playlist-description">{{playlist!.description}}</h2></div>
+  <div class="header container-fluid">
+      <img alt = "" src="{{playlist!.image}}" class="music-img rounded float-start">
+      <div class="title container">
+        <div *ngIf="playlist"><h1 class="playlist-title">{{playlist!.name}}</h1>
+          <h2 class="playlist-description">{{playlist!.description}}</h2>
         </div>
+      </div>
     </div>
   <button *ngIf="has_active_device" (click) = "play()">play some jams</button>
-  <br>
-  <div class="body container-fluid">
-    <span *ngIf="!this.is_spotify">
+  <div class="body container-fluid"> 
     <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
     <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
-    </span>
-    <div class="">
+    <div class="mb-3">
       <form class="form-label" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Song Title" ngModel name="track">
-        <button type="submit" class="search button">
-          Search
-        </button>
+          <button type="submit" class="search button">
+                  Search
+          </button>
       </form>
     </div>
   </div>
+      <button class="list-group-item" *ngFor="let item of this.searchResults">{{item.name}}</button>
+
   <div class="list-group list-group-flush text-md-start">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item.uri!)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
-        <span class = "top">{{item.name!}} <br>
-      </span>
-
+        <span class = "top">{{item.name!}} </span>
       <span class="bottom">{{item.artist!}}</span>
     </p>
     </button>
   </div>
-</div>
+</div> 

@@ -104,9 +104,9 @@ text-align: center;
 }
 .body.container-fluid
 {
-height: 210px;
+height: min-content;
 background-color: #1E1E1E!important;
-
+padding-bottom: 150px;
 }
 .form-label{
 padding-left: 54px;

@@ -14,6 +14,8 @@ import {SpotifyPlaylistObject} from "../../spotify-elements/spotify.playlist.obj
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {DeviceObject} from "../../spotify-elements/device.object";
 import {DeviceResponse} from "../../spotify-elements/device.response"
+import { SearchResponse } from 'src/app/spotify-elements/search.response';
+import { SpotifyTrackObject } from 'src/app/spotify-elements/spotify.track.object';
 
 @Component({
   selector: 'app-playlist',
@@ -27,6 +29,7 @@ export class PlaylistComponent implements OnInit {
   path: string | undefined;
   private songName:string = "default";
   private spotifyString:string = "";
+  searchResults:SpotifyTrackObject[] | undefined;
   has_active_device = false;
   public is_spotify = false;
 
@@ -88,7 +91,12 @@ show = true;
 
   public search(data: NgForm){
     this.songName = data.value.track;
+    this.spotify.get<SearchResponse>("https://api.spotify.com/v1/search?q=" + this.songName + "&type=track").subscribe(data => {
+      this.searchResults = data.tracks.items;
+    })
+
   }
+
   play(track_uri?:string){
     if(track_uri){
       this.http.put('https://api.spotify.com/v1/me/player/play',
