@@ -35,8 +35,8 @@
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item.uri!)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
-        <span class = "top">{{item.name!}} </span>
-      <span class="bottom">{{item.artist!}}</span>
+        <span class = "top" style="font-size: large;">{{item.name!}} <br> </span>
+      <span class="bottom" style="font-size:small;">{{item.artist!}}</span>
     </p>
     </button>
   </div>
