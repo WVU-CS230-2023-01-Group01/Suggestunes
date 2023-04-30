@@ -16,6 +16,7 @@ import {DeviceObject} from "../../spotify-elements/device.object";
 import {DeviceResponse} from "../../spotify-elements/device.response"
 import { SearchResponse } from 'src/app/spotify-elements/search.response';
 import { SpotifyTrackObject } from 'src/app/spotify-elements/spotify.track.object';
+import {Database, getDatabase, ref, set} from "@angular/fire/database";
 
 @Component({
   selector: 'app-playlist',
@@ -32,8 +33,12 @@ export class PlaylistComponent implements OnInit {
   searchResults:SpotifyTrackObject[] | undefined;
   has_active_device = false;
   public is_spotify = false;
+  database:Database
+  playlist_id$:string|undefined
 
-  constructor(private route: ActivatedRoute,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService){}
+  constructor(private route: ActivatedRoute,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService){
+    this.database = getDatabase(app);
+  }
 show = true;
 
   updatePlaylist($event:PlaylistModel){
@@ -47,21 +52,20 @@ show = true;
     auth.onAuthStateChanged((user)=>{
 
       if(user) {
-        let playlist_id$: string
         this.route.paramMap.pipe(
           map((params: ParamMap) => params.get('spotify')!)
         ).forEach(value => this.is_spotify = value === "true");
         this.route.paramMap.pipe(
           map((params: ParamMap) => params.get('id')!)
-        ).forEach(value => playlist_id$ = value);
+        ).forEach(value => this.playlist_id$ = value);
         // @ts-ignore
-        if (this.is_spotify!) {
-          this.spotify.get<PlaylistModel>("https://api.spotify.com/v1/playlists/" + playlist_id$!).subscribe(data=>{
+        if (this.is_spotify == true) {
+          this.spotify.get<PlaylistModel>("https://api.spotify.com/v1/playlists/" + this.playlist_id$!).subscribe(data=>{
             this.playlist = data!;
             this.playlist.songs = [];
             this.playlist.image  = data.images![0].url;
           })
-          this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + playlist_id$! + "/tracks").subscribe(data=>{
+          this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks").subscribe(data=>{
             for(let item of data.items){
               this.playlist!.songs!.push(new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri));
             }
@@ -77,7 +81,7 @@ show = true;
           })
         } else {
           this.path = 'users/' + user!.uid + '/playlists'
-          this.db.object<PlaylistModel>(this.path + '/' + playlist_id$!).valueChanges().subscribe((data) => {
+          this.db.object<PlaylistModel>(this.path + '/' + this.playlist_id$!).valueChanges().subscribe((data) => {
             this.playlist = data!;
             if(!this.playlist.songs){
               this.playlist.songs = [];
@@ -103,6 +107,8 @@ show = true;
   }
 
   public add(track:SpotifyTrackObject){
+    let song = new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri)
+    this.playlist!.songs!.push(song);
     if(this.is_spotify){
       this.http.post(
         "https://api.spotify.com/v1/playlists/" + this.playlist?.id + "/tracks",{
@@ -114,8 +120,13 @@ show = true;
         }
       ).subscribe()
     }
-      this.playlist!.songs!.push(new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri));
+    else{
+      const db_ref = ref(this.database, this.path + '/' + this.playlist_id$);
+      set(db_ref, this.playlist);
+    }
+
     this.reload();
+    this.searchResults = []
   }
 
   play(track_uri?:string){
@@ -165,6 +176,15 @@ console.log("playing: " + track_uri);
         }
       })
       .subscribe();
+  }
+  getHash(playlist:PlaylistModel){
+    var p = 11;
+    let message = playlist.name + playlist.description;
+    var hash = 0;
+    for(let i =0;i<message.length;i++){
+      hash += message.charCodeAt(i)
+    }
+    return hash.toString(16);
   }
 
 }
