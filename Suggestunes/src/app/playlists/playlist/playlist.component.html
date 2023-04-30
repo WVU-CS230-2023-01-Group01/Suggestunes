@@ -32,6 +32,7 @@
   </button>
 
   <div class="list-group list-group-flush text-md-start">
+    <span *ngIf="show">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item.uri!)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
@@ -39,5 +40,6 @@
       <span class="bottom">{{item.artist!}}</span>
     </p>
     </button>
+    </span>
   </div>
 </div>

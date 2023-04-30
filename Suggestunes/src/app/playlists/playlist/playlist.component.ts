@@ -58,13 +58,15 @@ show = true;
         if (this.is_spotify!) {
           this.spotify.get<PlaylistModel>("https://api.spotify.com/v1/playlists/" + playlist_id$!).subscribe(data=>{
             this.playlist = data!;
-            this.playlist.songs = []
+            this.playlist.songs = [];
             this.playlist.image  = data.images![0].url;
           })
           this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + playlist_id$! + "/tracks").subscribe(data=>{
             for(let item of data.items){
               this.playlist!.songs!.push(new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri));
             }
+            console.log(this.playlist!.songs);
+            this.reload()
           })
           this.spotify.get<DeviceResponse>('https://api.spotify.com/v1/me/player/devices').subscribe((data)=>{
             for(let device of data.devices) {
@@ -77,11 +79,14 @@ show = true;
           this.path = 'users/' + user!.uid + '/playlists'
           this.db.object<PlaylistModel>(this.path + '/' + playlist_id$!).valueChanges().subscribe((data) => {
             this.playlist = data!;
+            if(!this.playlist.songs){
+              this.playlist.songs = [];
+            }
           });
         }
-        this.reload();
       }
     })
+    this.playlist!.songs = this.playlist!.songs
   }
   reload(){
    this.show = false;
@@ -98,15 +103,19 @@ show = true;
   }
 
   public add(track:SpotifyTrackObject){
-    this.http.post(
-      "https://api.spotify.com/v1/playlists/" + this.playlist?.id + "/tracks",{
-        'uris':[track.uri]
-      },{
-        headers: {
-          'Authorization': 'Bearer ' + this.spotify.access_token
+    if(this.is_spotify){
+      this.http.post(
+        "https://api.spotify.com/v1/playlists/" + this.playlist?.id + "/tracks",{
+          'uris':[track.uri]
+        },{
+          headers: {
+            'Authorization': 'Bearer ' + this.spotify.access_token
+          }
         }
-      }
-    ).subscribe()
+      ).subscribe()
+    }
+      this.playlist!.songs!.push(new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri));
+    this.reload();
   }
 
   play(track_uri?:string){
