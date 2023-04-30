@@ -77,7 +77,11 @@ export class PlaylistHomeLayoutComponent implements OnInit{
       let response = this.spotify.get<SpotifyPlaylistResponse>("https://api.spotify.com/v1/me/playlists?limit=50&offset=0").subscribe(data =>{
         console.log(data.items);
         for(let playlist of data.items){
-          playlist.image = playlist.images![0].url;
+          if(playlist.images![0]){
+          playlist.image = playlist.images![0].url;}
+          else{
+            playlist.image = "assets/music note img.png"
+          }
           this.spotifyPlaylists.set(playlist.id!,playlist);
         }
       })

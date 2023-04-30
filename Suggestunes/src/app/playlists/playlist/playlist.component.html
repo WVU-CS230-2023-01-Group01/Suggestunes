@@ -8,7 +8,19 @@
         </div>
     </div>
   <button *ngIf="has_active_device" (click) = "play()">play some jams</button>
-  <br>
+  <div class="body container-fluid"> 
+  <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
+  <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
+  <div class="mb-3">
+          <form class="form-label" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
+              <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Song Title" ngModel name="track">
+              <button type="submit" class="search button">
+                  Search
+              </button>
+          </form>
+        </div>
+      </div>
+    </div> 
   <div class="list-group list-group-flush text-md-start">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item.uri!)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
@@ -20,22 +32,4 @@
     </p>
     </button>
   </div>
-    <div class="body container-fluid">
-        <div class="mb-3">
-            <form class="form-label" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Song Title" ngModel name="track">
-                <button type="submit" class="search button">
-                    Search
-                </button>
-            </form>
-         </div>
-    </div>
-</div>
-<div class="body container-fluid">
-    <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
-    <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
-    <div class="mb-3">
-        <label for="formGroupExampleInput" class="form-label">Add Songs</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Search">
-      </div>
-</div>
+
