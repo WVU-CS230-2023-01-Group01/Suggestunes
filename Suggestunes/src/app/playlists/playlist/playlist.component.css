@@ -1,6 +1,6 @@
 .list-group-flush{
   width:90%;
-  margin-left: 5%;
+  margin-left: 20px;
   margin-right: 5%
 }
 .list-group-item{
@@ -12,16 +12,10 @@
   width:100%;
   align-content:center;
   vertical-align: center;
-  height: 5em;
+  height: 100px;
 }
-/*p{*/
-/*  display:block;*/
-/*  margin-top: auto;*/
-/*  margin-bottom: auto;*/
-/*}*/
 .list-group-item:hover{
   background-color: #333333!important;
-  -webkit-box-shadow: inset 0 0 .75em .75em #1E1E1E;
 }
 .track-img{
   height: 75%;
@@ -32,8 +26,6 @@
 a{
   height: 5em;
 }
-
-
 
 .top{
   font-size: 14px
