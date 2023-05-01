@@ -9,10 +9,11 @@ import {Firestore} from "@angular/fire/firestore";
 import {Reference} from "@angular/fire/compat/storage/interfaces";
 import {app} from "../../app.component";
 import {getAuth, initializeAuth} from "@angular/fire/auth";
-import {Database, getDatabase, ref, set} from "@angular/fire/database";
+import {Database, getDatabase, ref, remove, set} from "@angular/fire/database";
 import {SpotifyService} from '../../../services/spotify.service';
 import {SpotifyPlaylistResponse} from "../../spotify-elements/spotify.playlist.response";
 import { Buffer } from 'buffer';
+import {Router, RouterModule} from "@angular/router";
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   has_spotify = false;
 
   public show = true;
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, public spotify:SpotifyService){
+  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, public spotify:SpotifyService,public router:Router){
     this.database = getDatabase(app);
   }
   addLink($event:any){
@@ -109,4 +110,12 @@ export class PlaylistHomeLayoutComponent implements OnInit{
     return Array.from(this.spotifyPlaylists.entries());
   }
 
+  remove(itemElement: string) {
+    let confirmation = confirm("Delete this playlist?")
+    if(confirmation) {
+      this.playlists.delete(itemElement);
+      let db_ref = ref(this.database, this.path + '/' + itemElement)
+      remove(db_ref);
+    }
+  }
 }

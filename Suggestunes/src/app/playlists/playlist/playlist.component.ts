@@ -17,6 +17,8 @@ import {DeviceResponse} from "../../spotify-elements/device.response"
 import { SearchResponse } from 'src/app/spotify-elements/search.response';
 import { SpotifyTrackObject } from 'src/app/spotify-elements/spotify.track.object';
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
+import {Hasher} from "../../../services/hasher";
+import {AlgoliaSearcher} from "../../../services/algolia.searcher";
 
 @Component({
   selector: 'app-playlist',
@@ -30,13 +32,13 @@ export class PlaylistComponent implements OnInit {
   path: string | undefined;
   private songName:string = "default";
   private spotifyString:string = "";
-  searchResults:SpotifyTrackObject[] | undefined;
+  searchResults:SongModel[] | undefined;
   has_active_device = false;
   public is_spotify = false;
   database:Database
   playlist_id$:string|undefined
 
-  constructor(private route: ActivatedRoute,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService){
+  constructor(private route: ActivatedRoute,private hasher:Hasher,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService,private searcher:AlgoliaSearcher){
     this.database = getDatabase(app);
   }
 show = true;
@@ -48,7 +50,7 @@ show = true;
   ngOnInit(): void {
 
     let auth = getAuth(app);
-
+    this.playlist = new PlaylistModel('assets/music note img.png',"loading...","loading...",[]);
     auth.onAuthStateChanged((user)=>{
 
       if(user) {
@@ -59,18 +61,11 @@ show = true;
           map((params: ParamMap) => params.get('id')!)
         ).forEach(value => this.playlist_id$ = value);
         // @ts-ignore
-        if (this.is_spotify == true) {
+        if (this.is_spotify) {
           this.spotify.get<PlaylistModel>("https://api.spotify.com/v1/playlists/" + this.playlist_id$!).subscribe(data=>{
             this.playlist = data!;
             this.playlist.songs = [];
             this.playlist.image  = data.images![0].url;
-          })
-          this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks").subscribe(data=>{
-            for(let item of data.items){
-              this.playlist!.songs!.push(new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri));
-            }
-            console.log(this.playlist!.songs);
-            this.reload()
           })
           this.spotify.get<DeviceResponse>('https://api.spotify.com/v1/me/player/devices').subscribe((data)=>{
             for(let device of data.devices) {
@@ -78,6 +73,16 @@ show = true;
                 this.has_active_device = true;
               }
             }
+          })
+          this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks").subscribe(data=>{
+            for(let item of data.items){
+              let song = new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri,item.track.popularity)
+              let db_ref = ref(this.database,'Songs/'+this.hasher.songHash(song))
+              set(db_ref,song);
+              this.searcher.add(song);
+              this.playlist!.songs!.push(song);
+            }
+            this.reload()
           })
         } else {
           this.path = 'users/' + user!.uid + '/playlists'
@@ -90,29 +95,48 @@ show = true;
         }
       }
     })
-    this.playlist!.songs = this.playlist!.songs
   }
   reload(){
    this.show = false;
-   console.log("reloading...")
     setTimeout(()=>this.show=true);
+    for(let song of this.playlist!.songs!){
+      console.log(song);
+    }
   }
 
   public search(data: NgForm){
-    this.songName = data.value.track;
-    this.spotify.get<SearchResponse>("https://api.spotify.com/v1/search?q=" + this.songName + "&type=track").subscribe(data => {
-      this.searchResults = data.tracks.items;
-    })
+    console.log("searching...")
+    this.searchResults = []
+    if(this.is_spotify){
+      this.songName = data.value.track;
+      this.spotify.get<SearchResponse>("https://api.spotify.com/v1/search?q=" + this.songName + "&type=track").subscribe(data => {
+        for(let item of data.tracks.items){
+          let song = new SongModel(item.album!.images![0].url!,item.name,item.artists![0].name,item.uri!,item.popularity)
+          this.searchResults!.push(song)
+          let db_ref = ref(this.database,'Songs/'+this.hasher.songHash(song))
+          set(db_ref,song);
+          this.searcher.add(song)
+        }
+      })
+    }
+    else{
+      //@ts-ignore
+      this.searcher.search(data.value.track).then(({hits})=>{
+        //@ts-ignore
+        hits.forEach((hit)=>{
+          this.searchResults!.push(hit.song!)
+        })
+      })
+    }
 
   }
 
-  public add(track:SpotifyTrackObject){
-    let song = new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri)
+  public add(song:SongModel){
     this.playlist!.songs!.push(song);
     if(this.is_spotify){
       this.http.post(
         "https://api.spotify.com/v1/playlists/" + this.playlist?.id + "/tracks",{
-          'uris':[track.uri]
+          'uris':[song.uri]
         },{
           headers: {
             'Authorization': 'Bearer ' + this.spotify.access_token
@@ -177,14 +201,32 @@ console.log("playing: " + track_uri);
       })
       .subscribe();
   }
-  getHash(playlist:PlaylistModel){
-    var p = 11;
-    let message = playlist.name + playlist.description;
-    var hash = 0;
-    for(let i =0;i<message.length;i++){
-      hash += message.charCodeAt(i)
-    }
-    return hash.toString(16);
-  }
 
+  remove(song : SongModel) {
+    if(this.is_spotify){
+      this.http.delete(`https://api.spotify.com/v1/playlists/${this.playlist_id$}`,
+        {
+          headers: {
+            'Authorization': 'Bearer ' + this.spotify.access_token
+          },
+          body:{
+            "tracks": [
+              {
+                "uri": song.uri!
+              }
+            ],
+            "snapshot_id": this.playlist!.snapshot_id
+          }
+        }
+        ).subscribe()
+    }
+    else{
+      const db_ref = ref(this.database, this.path + '/' + this.playlist_id$);
+      set(db_ref, this.playlist);
+    }
+    const index = this.playlist!.songs!.indexOf(song);
+    if (index > -1) {
+      this.playlist!.songs!.splice(index, 1);
+    }
+  }
 }

@@ -10,6 +10,7 @@ border-color: #1e1e1e;
   width:100%;
   align-content:center;
   vertical-align: center;
+  height:5em;
 }
 p{
   display:block;
@@ -26,9 +27,7 @@ img{
   border-radius: 15%;
 }
 
-a{
-  height: 5em;
-}
+
 button {
   color:white;
   background-color: #3E2149;
@@ -42,4 +41,17 @@ button:active{
 }
 button:focus{
   background-color: #3E2149!important;
+}
+
+.addBtn{
+  margin-left: auto!important;
+  background-color: #66318D!important;
+  color:white!important;
+  opacity:100%!important;
+  margin-top:auto;
+  margin-bottom: auto;
+}
+.addBtn:hover{
+  background-color: #66318D!important;
+  transform:scale(1.05);
 }

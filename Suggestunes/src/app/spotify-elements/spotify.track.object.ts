@@ -8,4 +8,5 @@ export interface SpotifyTrackObject {
   id : string
   name : string
   uri:string
+  popularity:number
 }

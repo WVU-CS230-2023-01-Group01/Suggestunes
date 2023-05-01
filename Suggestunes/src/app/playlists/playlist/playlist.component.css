@@ -37,9 +37,12 @@ a{
   font-size: 13px
 }
 .bottom{
-  font-size: 19px;
+  font-size: 11px;
 }
-
+.pad{
+  margin-top: 1em;
+  margin-left:5%;
+}
 .header.container-fluid
 {
 margin-top: 100px;
@@ -162,4 +165,17 @@ p{
   width:90%;
   margin-left: auto;
   margin-right:auto;
+}
+.addBtn{
+  margin-left: auto!important;
+  background-color: #66318D!important;
+  color:white!important;
+  z-index:100;
+  opacity:100%!important;
+  margin-top:auto;
+  margin-bottom: auto;
+}
+.addBtn:hover{
+  background-color: #66318D!important;
+  transform:scale(1.05);
 }

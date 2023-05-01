@@ -9,6 +9,7 @@ export class PlaylistModel{
   uri:string|undefined
 
   images:SpotifyImage[]|undefined
+  snapshot_id:string|undefined;
   constructor(image:string,name:string,description:string,songs?:SongModel[],id?:string,images?:SpotifyImage[],uri?:string) {
     this.image = image;
     this.name = name;

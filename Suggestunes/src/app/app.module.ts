@@ -43,6 +43,8 @@ import {LoginBoxComponentComponent} from "./layouts/sign-in-layout/login-box-com
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {SpotifyService} from "../services/spotify.service";
+import {Hasher} from "../services/hasher";
+import {AlgoliaSearcher} from "../services/algolia.searcher";
 
 @NgModule({
   declarations: [
@@ -91,7 +93,7 @@ import {SpotifyService} from "../services/spotify.service";
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule,
   ],
-  providers: [SpotifyService],
+  providers: [SpotifyService,Hasher,AlgoliaSearcher],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
