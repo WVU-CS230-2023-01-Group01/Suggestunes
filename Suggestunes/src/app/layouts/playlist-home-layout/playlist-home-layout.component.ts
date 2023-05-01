@@ -14,6 +14,7 @@ import {SpotifyService} from '../../../services/spotify.service';
 import {SpotifyPlaylistResponse} from "../../spotify-elements/spotify.playlist.response";
 import { Buffer } from 'buffer';
 import {Router, RouterModule} from "@angular/router";
+import {Hasher} from "../../../services/hasher";
 
 @Injectable({
   providedIn: 'root',
@@ -32,13 +33,13 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   has_spotify = false;
 
   public show = true;
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, public spotify:SpotifyService,public router:Router){
+  constructor(cdr:ChangeDetectorRef,private hasher:Hasher, private db:AngularFireDatabase, public spotify:SpotifyService,public router:Router){
     this.database = getDatabase(app);
   }
   addLink($event:any){
     let playlist:PlaylistModel = $event;
     console.log("in add link");
-    const db_ref = ref(this.database, this.path + '/' + this.getHash(playlist));
+    const db_ref = ref(this.database, this.path + '/' + this.hasher.playlistHash(playlist));
 
     set(db_ref, playlist);
     // this.db.list<PlaylistModel>(this.path!).push(playlist);
@@ -61,8 +62,8 @@ export class PlaylistHomeLayoutComponent implements OnInit{
             console.log(data[0])
             for (let playlist of data) {
               console.log(playlist);
-              let hash = this.getHash(playlist);
-              this.playlists.set(this.getHash(playlist),playlist)
+              let hash = this.hasher.playlistHash(playlist);
+              this.playlists.set(this.hasher.playlistHash(playlist),playlist)
             }
           }
         )
@@ -95,15 +96,6 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   }
   getEntries(){
     return Array.from(this.playlists.entries());
-  }
-  getHash(playlist:PlaylistModel){
-    var p = 11;
-    let message = playlist.name + playlist.description;
-    var hash = 0;
-    for(let i =0;i<message.length;i++){
-      hash += message.charCodeAt(i)
-    }
-    return hash.toString(16);
   }
 
   getSpotifyEntries() {

@@ -9,6 +9,7 @@ import { Database } from '@angular/fire/database';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { getAuth } from 'firebase/auth';
 import { app } from 'src/app/app.component';
+import {Hasher} from "../../../../services/hasher";
 
 @Injectable()
 
@@ -25,10 +26,10 @@ export class EditPlaylistModalComponent implements OnInit{
   playlists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
   public show = true;
 
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase){
+  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private hasher:Hasher){
     this.database = getDatabase(app);
   }
-  
+
   ngOnInit(): void {
     this.auth.onAuthStateChanged((user)=>{
       if(user){
@@ -36,7 +37,7 @@ export class EditPlaylistModalComponent implements OnInit{
       }
     })
   }
-  
+
   @Output() messageEvent = new EventEmitter<PlaylistModel>()
   imageUrl = new FormControl('assets/music note img.png');
   updateImageUrl(event: Event){
@@ -60,7 +61,7 @@ export class EditPlaylistModalComponent implements OnInit{
     console.log("in add link");
     playlist.image = this.imageUrl.value!;
     console.log(playlist.image);
-    const db_ref = ref(this.database, this.path + '/' + this.getHash(playlist));
+    const db_ref = ref(this.database, this.path + '/' + this.hasher.playlistHash(playlist));
 
     set(db_ref, playlist);
 
@@ -74,13 +75,5 @@ export class EditPlaylistModalComponent implements OnInit{
     setTimeout(()=>this.show=true);
   }
 
-  getHash(playlist:PlaylistModel){
-    var p = 11;
-    let message = playlist.name + playlist.description;
-    var hash = 0;
-    for(let i =0;i<message.length;i++){
-      hash += message.charCodeAt(i)
-    }
-    return hash.toString(16);
-  }
+
 }
