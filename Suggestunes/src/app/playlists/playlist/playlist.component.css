@@ -57,20 +57,13 @@ height: 200px;
 margin-left: 50px;
 margin-top: 50px;
 }
-.music-img.rounded.float-start:hover
-{
-cursor: pointer;
-transform: scale(1.05);
-transition-timing-function: ease-in-out;
-transition-duration: .2s;
-}
 .title.container
 {
 z-index: 1;
 width: 100%;
 height: 200px;
 margin-right: 200px;
-  padding-top: 60px;
+padding-top: 60px;
 margin-top: 75px;
 }
 .playlist-title
