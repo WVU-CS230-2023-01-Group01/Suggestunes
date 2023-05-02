@@ -1,5 +1,4 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="show">
   <div class="header container-fluid">
       <img alt = "" src="{{playlist!.image}}" class="music-img rounded float-start">
       <div class="title container">
@@ -9,9 +8,11 @@
       </div>
     </div>
   <div class="body container-fluid">
-    <span *ngIf="!this.is_spotify">
-      <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
-      <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
+    <span>
+      <span *ngIf="!this.is_spotify"> 
+        <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
+        <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
+      </span>
       <button *ngIf="has_active_device" (click) = "play()" class="btn editButton">play some jams</button>
     </span>
     <div class="mb-3">
@@ -38,7 +39,6 @@
   <h2 class = 'pad'>Songs In This Playlist</h2>
 
   <div class="list-group list-group-flush text-md-start">
-    <span *ngIf="show">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
@@ -47,6 +47,4 @@
     </p>
       <button class="addBtn btn " (click)="remove(item)">-</button>
     </button>
-    </span>
   </div>
-</div>
