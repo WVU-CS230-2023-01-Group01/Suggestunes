@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -6,15 +7,21 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit{
-  @Input() imgDescription: string;
-  @Input() description: string;
+  @Input() name: string;
+  @Input() link: string;
   @Input() img: string;
 
-constructor() {
-  this.img ="hey";
-  this.imgDescription = "No description found";
-  this.description = "No information found";
- }
- ngOnInit(): void {
-}
+  constructor(private router:Router) {
+    this.img ="No image";
+    this.name = "No name";
+    this.link = "No link";
+  }
+
+  reroute():void {
+    this.router.navigate([this.link]);
+  }
+
+  ngOnInit(): void {
+
+  }
 }

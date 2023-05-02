@@ -1,13 +1,15 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { ProductModel } from './account-layout.component.product_model';
-import { mock_list } from './card/mock_list';
 import { CardModel } from './card/card.model';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { Buffer } from 'buffer';
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {app} from "../../../environment/environment.prod";
+import { getDatabase } from 'firebase/database';
+import {PlaylistModel} from "../../playlists/playlist/playlist.model";
+import {Observable} from "rxjs";
 
 //Spotify Imports
-import { getAuth } from '@firebase/auth';
-// import { database, app } from '../../login-box-component/login-box-component.component';
+import { getAuth, User } from '@firebase/auth';
 import { ref, onValue} from '@firebase/database';
 
 @Component({
@@ -15,15 +17,40 @@ import { ref, onValue} from '@firebase/database';
   templateUrl: './account-layout.component.html',
   styleUrls: ['./account-layout.component.css']
 })
-export class AccountLayoutComponent {
-  products: ProductModel[] = [];
-  cards: CardModel [] = [];
+export class AccountLayoutComponent implements OnInit{
+  cards: CardModel[] = [];
 
-  constructor() {
-    for (var item of mock_list){
-      console.log(item);
-      this.cards.push(item);
-    }
+  constructor(private db:AngularFireDatabase) {
+    var auth = getAuth(app);
+    var database = getDatabase(app);
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+
+        this.getPlaylistData(user).subscribe((items) => {
+          //This will be a variable to keep track of the # of playlists displayed in the widget. This should not exceed 5.
+          var playlistsDisplayed = 0;
+
+          for (var item of items) {
+
+            if (playlistsDisplayed < 5) {
+              var cardInst:CardModel = {
+                img: item.payload.val()?.image ?? "assets/music note img.png",
+                name: item.payload.val()?.name ?? "No Name",
+                link: "playlists/playlist/" + item.key
+              }
+
+              this.cards.push(cardInst);
+              playlistsDisplayed++;
+            }
+            else break;
+          }
+        });
+      }
+    });
+  }
+
+  getPlaylistData(user:User) {
+    return this.db.list<PlaylistModel>("users/" + user.uid + "/playlists").snapshotChanges();
   }
 
   generateRandomString(length : any) {
@@ -61,5 +88,9 @@ export class AccountLayoutComponent {
     });
 
     window.location.href = 'https://accounts.spotify.com/authorize?' + args;
+  }
+
+  ngOnInit(): void {
+
   }
 }
