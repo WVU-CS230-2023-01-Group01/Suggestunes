@@ -144,32 +144,32 @@ const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
         }
       }`;
     const result = await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        query: mutationDocument,
-        variables: { input: { libraryTrackId } }
-      }),
-      headers: {
-        Authorization: "Bearer " + ACCESS_TOKEN,
-        "Content-Type": "application/json"
-      }
+        method: "POST",
+        body: JSON.stringify({
+            query: mutationDocument,
+            variables: { input: { spotifyTrackId } }
+        }),
+        headers: {
+            Authorization: "Bearer " + ACCESS_TOKEN,
+            "Content-Type": "application/json"
+        }
     }).then(res => res.json());
-    console.log("[info] libraryTrackEnqueue response: ");
+    console.log("[info] spotifyTrackEnqueue response: ");
     console.log(JSON.stringify(result, undefined, 2));
-    if (result.data.libraryTrackEnqueue.__typename.endsWith("Error")) {
-      throw new Error(result.data.inDepthAnalysisFileUpload.message);
+    if (result.data.spotifyTrackEnqueue.__typename.endsWith("Error")) {
+        throw new Error(result.data.inDepthAnalysisFileUpload.message);
     }
-  
+
     return result.data;
-  };
+};
 
 const fetch = require("node-fetch");
 
 exports.sendRequest = functions.https.onRequest((_req, res) => {
-const libraryTrackEnqueue = async libraryTrackId => {
-    const mutationDocument = /* GraphQL */ `
+    const spotifyTrackEnqueue = async spotifyTrackId => {
+        const mutationDocument = /* GraphQL */ `
     query SimilarTracksQuery($trackId: ID!) {
-        libraryTrack(id: $trackId) {
+        spotifyTrack(id: $trackId) {
           __typename
           ... on Error {
             message
@@ -186,21 +186,25 @@ const libraryTrackEnqueue = async libraryTrackId => {
                 edges {
                   node {
                     id
+                  }
+                }
+            }
+        }
       }  
     `;
 
-    const result = await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify({
-            query: spotifyTrackQueryDocument,
-            variables: { spotifyTrackId }
-        }),
-        headers: {
-            Authorization: "Bearer " + ACCESS_TOKEN,
-            "Content-Type": "application/json"
-        }
-    }).then(res => res.json());
-    console.log("[info] spotifyTrack result");
-    console.log(JSON.stringify(result, undefined, 2));
-};
+        const result = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                query: spotifyTrackQueryDocument,
+                variables: { spotifyTrackId }
+            }),
+            headers: {
+                Authorization: "Bearer " + ACCESS_TOKEN,
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json());
+        console.log("[info] spotifyTrack result");
+        console.log(JSON.stringify(result, undefined, 2));
+    };
 });
