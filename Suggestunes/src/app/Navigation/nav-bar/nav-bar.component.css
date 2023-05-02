@@ -26,14 +26,12 @@ h3 h5 {
 
 .logo {
     -webkit-font-smoothing: antialiased;
-    font-family:Arial, Helvetica, sans-serif;
     color: white;
     font-size: 1.25rem;
 }
 
 .nav-button {
     -webkit-font-smoothing: antialiased;
-    font-family:Arial, Helvetica, sans-serif;
     color: white;
     font-size: 1rem;
     padding: 5px;
@@ -71,4 +69,7 @@ h3 h5 {
 
 body.dark .modal-content {
 	background-color: #1e2229;
+}
+.bioField{
+    width: 470px;
 }

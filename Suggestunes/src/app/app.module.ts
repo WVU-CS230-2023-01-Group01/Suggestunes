@@ -35,12 +35,16 @@ import {initializeApp} from "@angular/fire/app";
 import {environment} from "../environment/environment";
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component';
 import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
+import { EditPlaylistModalComponent } from './playlists/playlist/edit-playlist-modal/edit-playlist-modal.component';
 import {
   RegisterBoxComponentComponent
 } from "./layouts/register-layout/register-box-component/register-box-component.component";
 import {LoginBoxComponentComponent} from "./layouts/sign-in-layout/login-box-component/login-box-component.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
+import {SpotifyService} from "../services/spotify.service";
+import {Hasher} from "../services/hasher";
+import {AlgoliaSearcher} from "../services/algolia.searcher";
 
 @NgModule({
   declarations: [
@@ -71,8 +75,9 @@ import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layo
     NavBarComponent,
     AccountInfoComponent,
     AccountFriendsComponent,
+    ForgotPasswordComponent,
+    EditPlaylistModalComponent,
     SpotifyAuthLayoutComponent,
-    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +93,7 @@ import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layo
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [SpotifyService,Hasher,AlgoliaSearcher],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

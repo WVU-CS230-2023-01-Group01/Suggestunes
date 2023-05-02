@@ -10,17 +10,19 @@ import { Buffer } from 'buffer';
 import { getAuth } from '@firebase/auth';
 // import { database, app } from '../../login-box-component/login-box-component.component';
 import { ref, onValue} from '@firebase/database';
+import {SpotifyService} from "../../../services/spotify.service";
 
 @Component({
   selector: 'app-account-layout',
   templateUrl: './account-layout.component.html',
   styleUrls: ['./account-layout.component.css']
 })
-export class AccountLayoutComponent {
+export class AccountLayoutComponent implements OnInit{
   products: ProductModel[] = [];
   cards: CardModel [] = [];
+  spotify_token : string|undefined
 
-  constructor( private router: Router) {
+  constructor( private router: Router, private spotify:SpotifyService) {
     for (var product of mock_friends_list) {
       this.products.push(product);
     }
@@ -65,10 +67,14 @@ export class AccountLayoutComponent {
     let args = new URLSearchParams({
       response_type: 'code',
       client_id: 'a183b7596de144229a97c4e6fae8d8eb',
-      scope: 'user-read-private',
+      scope: 'user-read-private,user-modify-playback-state,user-read-playback-state,playlist-modify-public,playlist-modify-private',
       redirect_uri: 'http://localhost:4200/spotify-auth',
     });
 
     window.location.href = 'https://accounts.spotify.com/authorize?' + args;
+  }
+
+  ngOnInit(): void {
+    this.spotify_token = this.spotify.access_token;
   }
 }

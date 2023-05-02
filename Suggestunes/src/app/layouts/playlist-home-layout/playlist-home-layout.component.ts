@@ -2,15 +2,19 @@ import {ChangeDetectorRef, Component, Injectable, OnInit} from '@angular/core';
 import {PlaylistModel} from "../../playlists/playlist/playlist.model";
 import {playlist_list} from "./playlists_list";
 import {SongModel} from "../../playlists/playlist/song/song.model";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 
 import {AngularFireDatabase, AngularFireDatabaseModule, PathReference} from "@angular/fire/compat/database";
 import {Firestore} from "@angular/fire/firestore";
 import {Reference} from "@angular/fire/compat/storage/interfaces";
 import {app} from "../../app.component";
 import {getAuth, initializeAuth} from "@angular/fire/auth";
-import {Database, getDatabase, ref, set} from "@angular/fire/database";
-
+import {Database, getDatabase, ref, remove, set} from "@angular/fire/database";
+import {SpotifyService} from '../../../services/spotify.service';
+import {SpotifyPlaylistResponse} from "../../spotify-elements/spotify.playlist.response";
+import { Buffer } from 'buffer';
+import {Router, RouterModule} from "@angular/router";
+import {Hasher} from "../../../services/hasher";
 
 @Injectable({
   providedIn: 'root',
@@ -25,16 +29,19 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   database:Database;
   path: string | undefined;
   playlists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
+  spotifyPlaylists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
+  has_spotify = false;
+
   public show = true;
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase){
+  constructor(cdr:ChangeDetectorRef,private hasher:Hasher, private db:AngularFireDatabase, public spotify:SpotifyService,public router:Router){
     this.database = getDatabase(app);
   }
   addLink($event:any){
     let playlist:PlaylistModel = $event;
     console.log("in add link");
-    const db_ref = ref(this.database, this.path + '/' + this.getHash(playlist));
+    const db_ref = ref(this.database, this.path + '/' + this.hasher.playlistHash(playlist));
 
-    set(db_ref, playlist)
+    set(db_ref, playlist);
     // this.db.list<PlaylistModel>(this.path!).push(playlist);
     this.reload();
   }
@@ -55,14 +62,32 @@ export class PlaylistHomeLayoutComponent implements OnInit{
             console.log(data[0])
             for (let playlist of data) {
               console.log(playlist);
-              let hash = this.getHash(playlist);
-              this.playlists.set(this.getHash(playlist),playlist)
+              let hash = this.hasher.playlistHash(playlist);
+              this.playlists.set(this.hasher.playlistHash(playlist),playlist)
             }
           }
         )
       }
     })
+    let spotify_token = this.spotify.getAccessToken();
+    console.log(this.spotify.access_token);
+    if(this.spotify.access_token){
+      this.has_spotify = true;
 
+      const headers = new HttpHeaders().set('Authorization', 'Bearer ' + spotify_token)
+
+      let response = this.spotify.get<SpotifyPlaylistResponse>("https://api.spotify.com/v1/me/playlists?limit=50&offset=0").subscribe(data =>{
+        console.log(data.items);
+        for(let playlist of data.items){
+          if(playlist.images![0]){
+          playlist.image = playlist.images![0].url;}
+          else{
+            playlist.image = "assets/music note img.png"
+          }
+          this.spotifyPlaylists.set(playlist.id!,playlist);
+        }
+      })
+    }
     console.log('initializing playlist home component')
     // while(!this.path){}
 
@@ -72,13 +97,17 @@ export class PlaylistHomeLayoutComponent implements OnInit{
   getEntries(){
     return Array.from(this.playlists.entries());
   }
-  getHash(playlist:PlaylistModel){
-    var p = 11;
-    let message = playlist.name + playlist.description;
-    var hash = 0;
-    for(let i =0;i<message.length;i++){
-      hash += message.charCodeAt(i)
+
+  getSpotifyEntries() {
+    return Array.from(this.spotifyPlaylists.entries());
+  }
+
+  remove(itemElement: string) {
+    let confirmation = confirm("Delete this playlist?")
+    if(confirmation) {
+      this.playlists.delete(itemElement);
+      let db_ref = ref(this.database, this.path + '/' + itemElement)
+      remove(db_ref);
     }
-    return hash.toString(16);
   }
 }
