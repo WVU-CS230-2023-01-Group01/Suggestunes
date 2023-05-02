@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class ="list-group list-group-flush text-md-start">
-  <button *ngFor="let item of this.searchResults" class = "list-group-item" (click)="play(item!.uri)">
+  <button *ngFor="let item of this.searchResults" class = "list-group-item" (click)="play(item)">
     <img class = "track-img" alt = "default image" src = "{{item.image}}">
     <p>
         <span class = "top">{{item.name!}} <br>
@@ -39,7 +39,7 @@
 
   <div class="list-group list-group-flush text-md-start">
     <span *ngIf="show">
-    <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item.uri!)">
+    <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
         <span class = "top" style="font-size: large;">{{item.name!}} <br> </span>

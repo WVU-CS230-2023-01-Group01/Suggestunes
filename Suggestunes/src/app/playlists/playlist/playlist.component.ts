@@ -77,6 +77,7 @@ show = true;
           this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks").subscribe(data=>{
             for(let item of data.items){
               let song = new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri,item.track.popularity)
+              song.album_uri = item.track.album.uri
               let db_ref = ref(this.database,'Songs/'+this.hasher.songHash(song))
               set(db_ref,song);
               this.searcher.add(song);
@@ -112,6 +113,7 @@ show = true;
       this.spotify.get<SearchResponse>("https://api.spotify.com/v1/search?q=" + this.songName + "&type=track").subscribe(data => {
         for(let item of data.tracks.items){
           let song = new SongModel(item.album!.images![0].url!,item.name,item.artists![0].name,item.uri!,item.popularity)
+          song.album_uri = item.album.uri
           this.searchResults!.push(song)
           let db_ref = ref(this.database,'Songs/'+this.hasher.songHash(song))
           set(db_ref,song);
@@ -153,21 +155,40 @@ show = true;
     this.searchResults = []
   }
 
-  play(track_uri?:string){
-    if(track_uri){
-      this.http.put('https://api.spotify.com/v1/me/player/play',
-        {
-          "context_uri": this.playlist!.uri,
-          "offset": {
-            "uri": track_uri
-          },
-          "position_ms": 0
-        },{
-          headers: {
-            'Authorization': 'Bearer ' + this.spotify.access_token
-          }
-        })
-        .subscribe();
+  play(song?:SongModel){
+    if(song){
+      if(this.is_spotify) {
+        this.http.put('https://api.spotify.com/v1/me/player/play',
+          {
+            "context_uri": this.playlist!.uri,
+            "offset": {
+              "uri": song.uri
+            },
+            "position_ms": 0
+          }, {
+            headers: {
+              'Authorization': 'Bearer ' + this.spotify.access_token
+            }
+          })
+          .subscribe();
+      }else{
+        console.log(song.album_uri)
+        console.log(song.uri)
+          this.http.put('https://api.spotify.com/v1/me/player/play',
+            {
+              "context_uri": song.album_uri,
+              "offset": {
+                "uri": song.uri
+              },
+              "position_ms": 0
+            }, {
+              headers: {
+                'Authorization': 'Bearer ' + this.spotify.access_token
+              }
+            })
+            .subscribe();
+
+      }
     }
     else{
       this.http.put('https://api.spotify.com/v1/me/player/play',
@@ -182,8 +203,6 @@ show = true;
         })
         .subscribe();
     }
-console.log("playing: " + track_uri);
-
   }
   playSearchItem(track:SpotifyTrackObject){
     this.http.put('https://api.spotify.com/v1/me/player/play',
