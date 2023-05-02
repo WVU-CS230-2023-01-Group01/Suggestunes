@@ -5,9 +5,9 @@ import { AppComponent } from './app.component';
 import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
 import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
+import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
 import { RegisterBoxComponentComponent } from './layouts/register-layout/register-box-component/register-box-component.component';
 
 
@@ -19,7 +19,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import { LandingPageComponent } from './layouts/landing-page/landing-page.component';
 import { InfoCardComponent } from './landing-page/info-card/info-card.component';
 import { LoginSignupComponent } from './landing-page/login-signup/login-signup.component';
 import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-navbar.component';
@@ -33,12 +32,18 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {initializeApp} from "@angular/fire/app";
 import {environment} from "../environment/environment";
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component';
+import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
+import { EditPlaylistModalComponent } from './playlists/playlist/edit-playlist-modal/edit-playlist-modal.component';
+import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
+import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
+import {SpotifyService} from "../services/spotify.service";
+import {Hasher} from "../services/hasher";
+import {AlgoliaSearcher} from "../services/algolia.searcher";
+import { CardComponent } from './layouts/account-layout/card/card.component';
+
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
 import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
-import { ChangeUpLayoutComponent } from './layouts/change-up-layout/change-up-layout.component';
-import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
-import { CardComponent } from './layouts/account-layout/card/card.component';
 import { SuggestionAiComponent } from './suggestion-ai/suggestion-ai.component';
 
 @NgModule({
@@ -70,6 +75,8 @@ import { SuggestionAiComponent } from './suggestion-ai/suggestion-ai.component';
     NavBarComponent,
     AccountInfoComponent,
     AccountFriendsComponent,
+    ForgotPasswordComponent,
+    EditPlaylistModalComponent,
     SpotifyAuthLayoutComponent,
     ForgotPasswordComponent,
     SuggestionAiComponent
@@ -88,7 +95,7 @@ import { SuggestionAiComponent } from './suggestion-ai/suggestion-ai.component';
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [SpotifyService,Hasher,AlgoliaSearcher],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

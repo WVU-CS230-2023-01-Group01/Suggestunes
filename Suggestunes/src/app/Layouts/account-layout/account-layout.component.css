@@ -20,3 +20,14 @@
 .showAllButton:hover {
     text-decoration: underline;
 }
+.addBtn.btn{
+    margin-top: 25px;
+    margin-bottom:25px;
+    align-content: center; 
+    background-color: #552d63; 
+    color: white;
+    transform: scale(1.5);
+}
+.addBtn.btn:hover{
+    transform: scale(1.55);
+}

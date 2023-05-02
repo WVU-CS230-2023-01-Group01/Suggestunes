@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-// import { database, app } from '../../login-box-component/login-box-component.component';
+import { app } from '../../app.component'
 import { getAuth } from '@firebase/auth';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -45,7 +45,7 @@ export class SpotifyAuthLayoutComponent implements OnInit {
     }).then(data => {
       document.cookie = "access_token=" + data.access_token;
 
-      this.router.navigate(['account']);
+      this.router.navigate(['playlists']);
     })
   }
 }

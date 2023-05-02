@@ -1,8 +1,9 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Song } from './song.model';
 import { Genre } from './genre.model';
 import { Artist } from './artist.model';
 import { HttpClient } from '@angular/common/http'
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {SongModel} from "../../playlists/playlist/song/song.model";
 
 @Injectable()
 
@@ -14,20 +15,20 @@ import { HttpClient } from '@angular/common/http'
 
 export class StatsCarouselComponent implements OnInit {
 
-  private songList: Array<Song>;
+  private songList: Array<SongModel>;
   private artistList: Array<Artist>;
   private genreList: Array<Genre>;
 
   private numElements: Number;
   private defaultMode: boolean;
 
-  private topSongs: Array<Song>;
+  private topSongs: Array<SongModel>;
   private topArtists: Array<Artist>;
   private topGenres: Array<Genre>;
 
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private db:AngularFireDatabase) {
     this.songList = [];
     this.artistList = [];
     this.genreList = [];
@@ -59,7 +60,7 @@ export class StatsCarouselComponent implements OnInit {
   }
 
   getSongs() {
-    return this.http.get<Song[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Songs.json')
+    return this.db.list<SongModel>('Songs').valueChanges()
   }
 
   getArtists() {
@@ -71,7 +72,7 @@ export class StatsCarouselComponent implements OnInit {
   }
 
   saveSongs() {
-    this.getSongs().subscribe((data: Song[]) => {
+    this.getSongs().subscribe(data => {
       console.log('Saving Songs');
       console.log(data);
       this.songList = data;
@@ -107,13 +108,10 @@ export class StatsCarouselComponent implements OnInit {
     return tempSongs;
   }
 
-  defaultSongs(): Array<Song> {
-    let tempSongs = Array<Song>(this.numElements.valueOf());
+  defaultSongs(): Array<SongModel> {
+    let tempSongs = Array<SongModel>(this.numElements.valueOf());
     for (let i = 0; i < this.numElements.valueOf() || i < tempSongs.length; i++) {
-      let song: Song = {
-        name: "Default Song_" + i,
-        popularity: (this.numElements.valueOf() - i)
-      };
+      let song: SongModel = new SongModel("assets/music note img.png","Default Song_" + i,"Default Artist_", undefined,(this.numElements.valueOf() - i))
       tempSongs[i] = song;
       console.log(i);
     }
@@ -144,15 +142,15 @@ export class StatsCarouselComponent implements OnInit {
     return tempGenres;
   }
 
-  getTopSongs(): Array<Song> {
+  getTopSongs(): Array<SongModel> {
     return this.topSongs;
   }
 
-  getTopArtists(): Array<Song> {
+  getTopArtists(): Array<Artist> {
     return this.topArtists;
   }
 
-  getTopGenres(): Array<Song> {
+  getTopGenres(): Array<Genre> {
     return this.topGenres;
   }
 

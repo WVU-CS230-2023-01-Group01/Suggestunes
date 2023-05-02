@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { initializeApp } from '@firebase/app';
 import { signInWithEmailAndPassword, signOut, getAuth } from '@firebase/auth';
 import { getDatabase, ref, update, onValue } from '@firebase/database'
 import { Router } from '@angular/router';
