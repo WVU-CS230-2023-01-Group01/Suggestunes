@@ -8,11 +8,11 @@
         </div>
       </div>
     </div>
-  <button *ngIf="has_active_device" (click) = "play()">play some jams</button>
   <div class="body container-fluid">
     <span *ngIf="!this.is_spotify">
       <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
-      <app-edit-playlist-modal [target_playlist] = "playlist" [id] = "this.playlist_id$!"></app-edit-playlist-modal>
+      <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
+      <button *ngIf="has_active_device" (click) = "play()" class="btn editButton">play some jams</button>
     </span>
     <div class="mb-3">
       <form class="form-label" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
