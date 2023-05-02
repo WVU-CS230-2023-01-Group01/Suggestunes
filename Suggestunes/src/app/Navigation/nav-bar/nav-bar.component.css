@@ -70,3 +70,6 @@ h3 h5 {
 body.dark .modal-content {
 	background-color: #1e2229;
 }
+.bioField{
+    width: 470px;
+}
