@@ -90,3 +90,56 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
     res.status(500).send('An error occurred while processing the webhook' + '\n' + error +'\n' + req + '\n' + functions.config().webhooks.secrettoken);
   }
 });
+
+
+const fetch = require("node-fetch");
+const API_URL = '';
+
+exports.sendRequest = functions.https.onRequest((_req, res) => {
+const libraryTrackEnqueue = async libraryTrackId => {
+    const mutationDocument = /* GraphQL */ `
+    query SimilarTracksQuery($trackId: ID!) {
+        libraryTrack(id: $trackId) {
+          __typename
+          ... on Error {
+            message
+          }
+          ... on Track {
+            id
+            similarTracks(target: { spotify: {} }) {
+              __typename
+              ... on SimilarTracksError {
+                code
+                message
+              }
+              ... on SimilarTracksConnection {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`;
+    const result = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        query: mutationDocument,
+        variables: { input: { libraryTrackId } }
+      }),
+      headers: {
+        Authorization: "Bearer " + ACCESS_TOKEN,
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json());
+    console.log("[info] libraryTrackEnqueue response: ");
+    console.log(JSON.stringify(result, undefined, 2));
+    if (result.data.libraryTrackEnqueue.__typename.endsWith("Error")) {
+      throw new Error(result.data.inDepthAnalysisFileUpload.message);
+    }
+  
+    return result.data;
+  };
+});
