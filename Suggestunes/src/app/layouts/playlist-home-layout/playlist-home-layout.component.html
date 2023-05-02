@@ -3,8 +3,20 @@
 <h5 class = "fs-1" style = "justify-content: center;padding-top:1rem">Your Playlists</h5>
   <app-create-playlist (messageEvent)="addLink($event)"></app-create-playlist>
   <div class="d-flex justify-content-center">
-    <div id="container" class="list-group list-group-flush text-md-start" >
-      <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getEntries()" href="/playlists/playlist/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
+    <div id="native_container" class="list-group list-group-flush text-md-start" >
+      <h5>Your Playlists</h5>
+      <span *ngIf="show"  style="border:none;"><button *ngFor="let item of getEntries()" (click)="router.navigate(['playlists/playlist/false/'+item[0]])" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p><button class="addBtn btn " (click)="remove(item[0])">-</button></button></span>
     </div>
   </div>
+  <span *ngIf="has_spotify">
+  <div class="d-flex justify-content-center">
+    <div id="spotify_container" class="list-group list-group-flush text-md-start" >
+    <h5>Imported Playlists</h5>
+    <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getSpotifyEntries()" href="/playlists/playlist/true/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
+  </div>
+  </div>
+  </span>
+  <span *ngIf="!has_spotify">
+    <button (click)="this.spotify.spotifyAuth()" class="btn">Link your Spotify</button>
+  </span>
 </div>

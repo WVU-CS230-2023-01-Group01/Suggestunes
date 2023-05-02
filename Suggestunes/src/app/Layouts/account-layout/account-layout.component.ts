@@ -11,6 +11,7 @@ import {Observable} from "rxjs";
 //Spotify Imports
 import { getAuth, User } from '@firebase/auth';
 import { ref, onValue} from '@firebase/database';
+import {SpotifyService} from "../../../services/spotify.service";
 
 @Component({
   selector: 'app-account-layout',
@@ -19,8 +20,9 @@ import { ref, onValue} from '@firebase/database';
 })
 export class AccountLayoutComponent implements OnInit{
   cards: CardModel[] = [];
+  spotify_token : string|undefined
 
-  constructor(private db:AngularFireDatabase) {
+  constructor(private db:AngularFireDatabase, private spotify:SpotifyService, private router:Router) {
     var auth = getAuth(app);
     var database = getDatabase(app);
     auth.onAuthStateChanged((user) => {
@@ -83,7 +85,7 @@ export class AccountLayoutComponent implements OnInit{
     let args = new URLSearchParams({
       response_type: 'code',
       client_id: 'a183b7596de144229a97c4e6fae8d8eb',
-      scope: 'user-read-private',
+      scope: 'user-read-private,user-modify-playback-state,user-read-playback-state,playlist-modify-public,playlist-modify-private',
       redirect_uri: 'http://localhost:4200/spotify-auth',
     });
 
@@ -91,6 +93,6 @@ export class AccountLayoutComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+    this.spotify_token = this.spotify.access_token;
   }
 }

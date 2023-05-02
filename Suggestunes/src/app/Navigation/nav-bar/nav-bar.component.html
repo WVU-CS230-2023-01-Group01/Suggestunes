@@ -1,7 +1,9 @@
 <div class = "site-nav">
-  <div class = "nav-content">
+  <div class = "nav-content d-flex justify-content-between">
+    <span>
       <a class = "nav-item" href = "#"><h3 class = "logo">Suggestunes</h3></a>
       <div class = "nav-item" style = "width: 10px;"></div>
+    </span>
       <a class = "nav-item" href = "#"><h5 class = "nav-button">Songs</h5></a>
       <a class = "nav-item" href = "playlists"><h5 id = "playlist-btn" class = "nav-button">Playlists</h5></a>
       <a class = "nav-item" href = "#"><h5 class = "nav-button">Discover</h5></a>
@@ -10,11 +12,11 @@
         <div class = dropdown-content>
           <a href = "AccountLayout">View Profile</a>
           <a href = "ChangeUpLayout">Change Username/Password</a>
-          <a data-bs-toggle="modal" data-bs-target="#bioModal">Change Bio</a>
-          <a (click) = (callLogout())>Logout</a>
+          <a data-bs-toggle="modal" data-bs-target="#bioModal" style="cursor: pointer;">Change Bio</a>
+          <a (click) = (callLogout()) style="cursor: pointer;">Logout</a>
         </div>
       </div>
-      <h5 class = "nav-item" style = "float: right; font-size: 1rem; margin-top: 5px;">{{username}}</h5>
+      <h5 class = "nav-item" style = "float: right; font-size: 1rem; margin-top: 5px;">{{username}}</h5></span>
   </div>
 </div>
 

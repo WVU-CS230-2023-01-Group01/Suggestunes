@@ -1,6 +1,9 @@
 <app-nav-bar></app-nav-bar>
 <div style = "height: 100px;"></div>
 <app-account-info></app-account-info>
+<div class="spotify-component" style="width:fit-content; margin: 0 auto;">
+    <button (click)="spotifyAuth()" class="addBtn btn ">Link your Spotify</button>
+</div>
 <div class = "playlists-component">
     <h1 style = "text-decoration: underline;">My Playlists</h1>
     <div style = "overflow-x: scroll; max-width: 1152px; margin: 0 auto; white-space: nowrap">
@@ -9,7 +12,4 @@
         </div>
         <a class = "showAllButton" href = "playlists">Show All</a>
     </div>
-</div>
-<div class="spotify-component">
-    <button (click)="spotifyAuth()">Link your Spotify</button>
 </div>

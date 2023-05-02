@@ -1,0 +1,50 @@
+img{
+    object-fit: cover;
+    width: 230px;
+    height: 230px;
+    border-radius: 5%;
+  }
+  .modal-content{
+    background-color: #333333;
+    color:white!important;
+  }
+  button{
+  
+    background-color: #3E2149;
+    border: #66318D 5px;
+  }
+  button:hover{
+    background-color: #66318D;
+  }
+  textarea{
+    background-color: #333333;
+    color:white!important;
+  }
+  .form-control{
+    width: 100%;
+    color: white!important;
+  }
+  .form-control:focus{
+    background-color: #333333!important;
+  }
+  .input-group{
+    width:fit-content!important;
+    margin-right: 5%;
+  }
+  input[type="file"]{
+    display: none;
+    width:0px!important;
+  }
+  input{
+    background-color: #333333;
+  }
+  .modal-dialog{
+    --bs-modal-width: 50%;
+  }
+  .mb-3{
+    width:100%;
+  }
+  .btn{
+    color:white!important;
+  }
+  
