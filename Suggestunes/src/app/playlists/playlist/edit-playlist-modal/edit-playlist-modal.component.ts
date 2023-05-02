@@ -5,11 +5,12 @@ import { SongModel } from '../../playlist/song/song.model';
 import {playlist_list} from "../../../layouts/playlist-home-layout/playlists_list";
 import {PlaylistHomeLayoutComponent} from "../../../layouts/playlist-home-layout/playlist-home-layout.component";
 import { getDatabase, ref, set } from 'firebase/database';
-import { Database } from '@angular/fire/database';
+import {Database, remove} from '@angular/fire/database';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { getAuth } from 'firebase/auth';
 import { app } from 'src/app/app.component';
 import {Hasher} from "../../../../services/hasher";
+import {Router} from "@angular/router";
 
 @Injectable()
 
@@ -20,13 +21,14 @@ import {Hasher} from "../../../../services/hasher";
 })
 export class EditPlaylistModalComponent implements OnInit{
   @Input() target_playlist:PlaylistModel | undefined;
+  @Input() id:string|undefined
   auth = getAuth(app);
   database:Database;
   path: string | undefined;
   playlists: Map<string,PlaylistModel> = new Map<string, PlaylistModel>();
   public show = true;
-
-  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private hasher:Hasher){
+oldHash:string|undefined;
+  constructor(cdr:ChangeDetectorRef, private db:AngularFireDatabase, private hasher:Hasher,private router:Router){
     this.database = getDatabase(app);
   }
 
@@ -59,12 +61,15 @@ export class EditPlaylistModalComponent implements OnInit{
 
   submitForm(playlist:PlaylistModel){
     console.log("in add link");
+    console.log(this.id);
+    let db_ref = ref(this.database, this.path + '/' + this.id);
     playlist.image = this.imageUrl.value!;
-    console.log(playlist.image);
-    const db_ref = ref(this.database, this.path + '/' + this.hasher.playlistHash(playlist));
-
+    remove(db_ref)
+    let newHash = this.hasher.playlistHash(playlist)
+    console.log(newHash);
+    db_ref = ref(this.database, this.path + '/' + newHash)
     set(db_ref, playlist);
-
+    this.router.navigate(['playlists/playlist/false/' + newHash]);
     this.reload();
 
   }
