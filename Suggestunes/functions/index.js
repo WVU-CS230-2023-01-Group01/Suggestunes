@@ -48,7 +48,8 @@ const crypto = require('crypto');
 
 // Get the Secret Token variable from the environment
 // Set this varibale using 'firebase functions:config:set myapp.secret_token="SECRET_TOKEN"'
-const SECRET_TOKEN = process.env.secret_token;
+const SECRET_TOKEN = functions.config().webhooks.secrettoken;
+const ACCESS_TOKEN = functions.config().webhooks.accesstoken;
 
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSW50ZWdyYXRpb25BY2Nlc3NUb2tlbiIsInZlcnNpb24iOiIxLjAiLCJpbnRlZ3JhdGlvbklkIjo1MjgsInVzZXJJZCI6Mjc5OTIsImFjY2Vzc1Rva2VuU2VjcmV0IjoiOTMzN2Y4NDJiNTM2MGE5NGM4ZGNjOGJjMzIwNTUyOTA4NDFjNTVmZGU5YzYwYTllMTViNDY4ODdiNWEwMGE1ZCIsImlhdCI6MTY4MzA0MzgyOX0.jcSVXrNMp8OjfRA9MRWhKLBurJb8Wi2uHIY5L8w5gNc
 
@@ -68,20 +69,24 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
     // If either the signature or body do not exist, the request is invalid
     if (!signature || !body){
         res.status(400).send('Invalid Request');
-        console.log("Invalid Request");
+        console.log("Invalid Request" + '\n' + SECRET_TOKEN + '\n' + ACCESS_TOKEN);
         return;
     }
     console.log("Request had both signature and body");
 
+    // If the signure is not correct, spit out unauthorized request response
     if (signature !== correctSignature){
         res.status(401).send('Unauthorized Request');
     }
 
+    if (req.body.event.type === "AudioAnalysisV6" && req.body.event.status === "finished") {
+        console.log("[info]")
+    }
     // Your webhook logic goes here, using the payload object
     res.status(200).send('Webhook processed successfully');
   } catch (error) {
     console.log(req);
     console.error(error);
-    res.status(500).send('An error occurred while processing the webhook' + '\n' + error +'\n' + req + '\n' + process.env.secret_token);
+    res.status(500).send('An error occurred while processing the webhook' + '\n' + error +'\n' + req + '\n' + functions.config().webhooks.secrettoken);
   }
 });
