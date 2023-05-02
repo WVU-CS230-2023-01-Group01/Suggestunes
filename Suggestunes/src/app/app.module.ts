@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
+import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
-import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
-import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
-import { CardComponent } from './layouts/account-layout/card/card.component';
+import { AccountInfoComponent } from './Layouts/account-layout/account-info/account-info.component';
+import { CardComponent } from './Layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
@@ -27,7 +26,6 @@ import { LandingNavbarComponent } from './landing-page/landing-navbar/landing-na
 import { HomepageFooterComponent } from './landing-page/homepage-footer/homepage-footer.component';
 import { StatsCarouselComponent } from './landing-page/stats-carousel/stats-carousel.component';
 import { PlaylistHomeLayoutComponent } from './layouts/playlist-home-layout/playlist-home-layout.component';
-// import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {ImageCropperModule} from "ngx-image-cropper";
 import { AngularFireModule} from '@angular/fire/compat'
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -52,7 +50,6 @@ import {AlgoliaSearcher} from "../services/algolia.searcher";
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,
-    AccountFriendsComponent,
     CardComponent,
     LoginBoxComponentComponent,
     SignInLayoutComponent,
@@ -74,7 +71,6 @@ import {AlgoliaSearcher} from "../services/algolia.searcher";
     AccountLayoutComponent,
     NavBarComponent,
     AccountInfoComponent,
-    AccountFriendsComponent,
     ForgotPasswordComponent,
     EditPlaylistModalComponent,
     SpotifyAuthLayoutComponent,

@@ -27,22 +27,20 @@ export class AccountInfoComponent implements OnInit{
 ngOnInit(): void {
   var auth = getAuth(app);
   var database = getDatabase(app);
+  //onAuthStateChanged fires when user logs in or out
   auth.onAuthStateChanged((user) => {
+    //if user, then user is logged in
     if (user) {
       var userId = user.uid;
       var database_ref = ref(database, 'users/' + userId);
-
+      //onValue obtains data from the specified database reference via a snapshot
       onValue(database_ref, (snapshot) => {
         const data = snapshot.val();
         this.bio = data.bio;
         this.username = data.username;
       })
     }
-
-  //else {
-    //alert("Couldn't load user data");
-  //}
-});
+  });
 }
 }
 

@@ -1,14 +1,15 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { ProductModel } from './account-layout.component.product_model';
-import {mock_friends_list} from './account-layout.component.mock_friends_list';
-import { mock_list } from './card/mock_list';
 import { CardModel } from './card/card.model';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { Buffer } from 'buffer';
+import {AngularFireDatabase} from "@angular/fire/compat/database";
+import {app} from "../../../environment/environment.prod";
+import { getDatabase } from 'firebase/database';
+import {PlaylistModel} from "../../playlists/playlist/playlist.model";
+import {Observable} from "rxjs";
 
 //Spotify Imports
-import { getAuth } from '@firebase/auth';
-// import { database, app } from '../../login-box-component/login-box-component.component';
+import { getAuth, User } from '@firebase/auth';
 import { ref, onValue} from '@firebase/database';
 import {SpotifyService} from "../../../services/spotify.service";
 
@@ -18,23 +19,40 @@ import {SpotifyService} from "../../../services/spotify.service";
   styleUrls: ['./account-layout.component.css']
 })
 export class AccountLayoutComponent implements OnInit{
-  products: ProductModel[] = [];
-  cards: CardModel [] = [];
+  cards: CardModel[] = [];
   spotify_token : string|undefined
 
-  constructor( private router: Router, private spotify:SpotifyService) {
-    for (var product of mock_friends_list) {
-      this.products.push(product);
-    }
+  constructor(private db:AngularFireDatabase, private spotify:SpotifyService, private router:Router) {
+    var auth = getAuth(app);
+    var database = getDatabase(app);
+    auth.onAuthStateChanged((user) => {
+      if (user) {
 
-    for (var item of mock_list){
-      console.log(item);
-      this.cards.push(item);
-    }
-    //need to be able to determine which user logs in
-    //need to be able to update account elements to reflect the currently logged in user
-    //need to be able to warn user that they will be logged out if they try to manually go to certain pages
+        this.getPlaylistData(user).subscribe((items) => {
+          //This will be a variable to keep track of the # of playlists displayed in the widget. This should not exceed 5.
+          var playlistsDisplayed = 0;
 
+          for (var item of items) {
+
+            if (playlistsDisplayed < 5) {
+              var cardInst:CardModel = {
+                img: item.payload.val()?.image ?? "assets/music note img.png",
+                name: item.payload.val()?.name ?? "No Name",
+                link: "playlists/playlist/" + item.key
+              }
+
+              this.cards.push(cardInst);
+              playlistsDisplayed++;
+            }
+            else break;
+          }
+        });
+      }
+    });
+  }
+
+  getPlaylistData(user:User) {
+    return this.db.list<PlaylistModel>("users/" + user.uid + "/playlists").snapshotChanges();
   }
 
   generateRandomString(length : any) {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes, UrlSegment} from '@angular/router';
-import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
+import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
 import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
 import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
 import { PlaylistComponent } from './playlists/playlist/playlist.component'
