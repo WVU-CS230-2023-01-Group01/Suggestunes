@@ -83,6 +83,7 @@ show = true;
               this.searcher.add(song);
               this.playlist!.songs!.push(song);
             }
+
             this.reload()
           })
         } else {
@@ -171,7 +172,8 @@ show = true;
             }
           })
           .subscribe();
-      }else{
+      }
+      else{
         console.log(song.album_uri)
         console.log(song.uri)
           this.http.put('https://api.spotify.com/v1/me/player/play',
@@ -247,5 +249,14 @@ show = true;
     if (index > -1) {
       this.playlist!.songs!.splice(index, 1);
     }
+  }
+
+  getSongIds(){
+    let regex = /spotify:track:([0-9a-z]*)/ig
+    let ids: (string)[] = [];
+    this.playlist!.songs!.forEach(song=>{
+      ids.push(regex.exec(song.uri!)![1]);
+    })
+    return ids
   }
 }
