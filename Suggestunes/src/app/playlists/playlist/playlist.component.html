@@ -1,5 +1,4 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="show">
   <div class="header container-fluid">
       <img alt = "" src="{{playlist!.image}}" class="music-img rounded float-start">
       <div class="title container">
@@ -38,7 +37,6 @@
   <h2 class = 'pad'>Songs In This Playlist</h2>
 
   <div class="list-group list-group-flush text-md-start">
-    <span *ngIf="show">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
@@ -47,6 +45,4 @@
     </p>
       <button class="addBtn btn " (click)="remove(item)">-</button>
     </button>
-    </span>
   </div>
-</div>
