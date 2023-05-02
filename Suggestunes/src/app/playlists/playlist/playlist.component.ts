@@ -225,7 +225,7 @@ show = true;
 
   remove(song : SongModel) {
     if(this.is_spotify){
-      this.http.delete(`https://api.spotify.com/v1/playlists/${this.playlist_id$}`,
+      this.http.delete(`https://api.spotify.com/v1/playlists/${this.playlist_id$}/tracks`,
         {
           headers: {
             'Authorization': 'Bearer ' + this.spotify.access_token
