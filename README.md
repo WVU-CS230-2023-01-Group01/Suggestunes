@@ -1,23 +1,10 @@
+![Ascii art](https://user-images.githubusercontent.com/111535512/235831331-a1640383-857c-4a27-a80f-7e563e9ec6ec.png)
+
 # Suggestunes
 Suggestunes is a music suggestions app that allows you to find/play songs, create playlists of songs, and export those playlists to Spotify.
 
 # Motivation
 We wanted a music service that provides personalized suggestions for music, has a simple layout that is easy to understand and use, and has a heavy focus on playlist creation using the Spotify API
-# NEXT
-      |\
-      | \
-      |  \
-      |   )
-      |  /  
-     _|.'
-   .' |
-  /   |_.
- |  .'|  '.
-  \ * |   /
-   '._|_.'
-      |
-    * |
-    '.'
 
 # Code Style
 This project uses Angular, so we have tried our best to conform to the Angular coding style.
