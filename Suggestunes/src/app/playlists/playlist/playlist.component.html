@@ -36,9 +36,10 @@
     <button class="addBtn btn " (click)="add(item)">+</button>
   </button>
   </div>
-  <h2 class = 'pad'>Songs In This Playlist</h2>
+  <h2 class = 'pad'>Songs In This Playlist <button class="refresh addBtn btn" (click)="reload()">refresh</button></h2>
 
   <div class="list-group list-group-flush text-md-start">
+    <span *ngIf="show">
     <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="spotify.play(this.is_spotify,playlist,item)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
@@ -47,4 +48,5 @@
     </p>
       <button class="addBtn btn " (click)="remove(item)">-</button>
     </button>
+    </span>
   </div>
