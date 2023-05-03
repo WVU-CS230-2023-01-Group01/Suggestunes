@@ -18,6 +18,11 @@ We wanted a music service that provides personalized suggestions for music, has 
 # Code Style
 This project uses Angular, so we have tried our best to conform to the Angular coding style.
 
+# Demo
+https://user-images.githubusercontent.com/119431824/235966413-06db579d-aacb-497e-88f8-2623b688da8d.mp4
+
+
+
 # Pictures of Site
 ![2023-05-03](https://user-images.githubusercontent.com/111523827/235965779-c8dda1cf-3e72-423e-b885-cd508b51806c.png)
 ![2023-05-03 (1)](https://user-images.githubusercontent.com/111523827/235965868-7cbdf4d7-683a-44d3-9b3a-138a12501f8a.png)
