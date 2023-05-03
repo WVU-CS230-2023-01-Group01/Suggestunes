@@ -42,7 +42,8 @@ Angular TypeScript
 
 # API Reference
 Spotify API:
-* https://developer.spotify.com/documentation/web-api <br>
+* https://developer.spotify.com/documentation/web-api
+
 Cyanite AI:
 * https://cyanite.ai/
 
