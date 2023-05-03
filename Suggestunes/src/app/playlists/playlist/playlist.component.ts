@@ -19,6 +19,7 @@ import { SpotifyTrackObject } from 'src/app/spotify-elements/spotify.track.objec
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
 import {Hasher} from "../../../services/hasher";
 import {AlgoliaSearcher} from "../../../services/algolia.searcher";
+import {Suggestion} from "../../suggestion-ai/suggestion";
 
 @Component({
   selector: 'app-playlist',
@@ -272,12 +273,21 @@ show = true;
     const randomSong = this.getRandomSongId();
     console.log(randomSong);
     const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifyTrackId=' + randomSong);
-    //@ts-ignore
-    response.then(({hits})=>{
-      //@ts-ignore
-        hits.forEach(hit=>{
-          console.log(hit);
-        })
+    response.then((res)=>{
+      console.log(res);
     })
   }
+  getSongs(ids:string[]){
+    let songs:SongModel[] = []
+    for(let id of ids){
+      this.spotify.get<SpotifyTrackObject>(`https://api.spotify.com/v1/tracks/${id}`).subscribe((track:SpotifyTrackObject)=>{
+        let song = new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri,track.popularity);
+        songs.push(song);
+      })
+    }
+    return songs;
+
+  }
 }
+
+
