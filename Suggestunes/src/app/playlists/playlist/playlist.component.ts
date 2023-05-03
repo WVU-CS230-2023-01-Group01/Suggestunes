@@ -38,7 +38,7 @@ export class PlaylistComponent implements OnInit {
   database:Database
   playlist_id$:string|undefined
 
-  constructor(private route: ActivatedRoute,private hasher:Hasher,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService,private searcher:AlgoliaSearcher){
+  constructor(private route: ActivatedRoute,private hasher:Hasher,private http:HttpClient, private db: AngularFireDatabase, public spotify:SpotifyService,private searcher:AlgoliaSearcher){
     this.database = getDatabase(app);
   }
 show = true;
@@ -154,57 +154,6 @@ show = true;
 
     this.reload();
     this.searchResults = []
-  }
-
-  play(song?:SongModel){
-    if(song){
-      if(this.is_spotify) {
-        this.http.put('https://api.spotify.com/v1/me/player/play',
-          {
-            "context_uri": this.playlist!.uri,
-            "offset": {
-              "uri": song.uri
-            },
-            "position_ms": 0
-          }, {
-            headers: {
-              'Authorization': 'Bearer ' + this.spotify.access_token
-            }
-          })
-          .subscribe();
-      }
-      else{
-        console.log(song.album_uri)
-        console.log(song.uri)
-          this.http.put('https://api.spotify.com/v1/me/player/play',
-            {
-              "context_uri": song.album_uri,
-              "offset": {
-                "uri": song.uri
-              },
-              "position_ms": 0
-            }, {
-              headers: {
-                'Authorization': 'Bearer ' + this.spotify.access_token
-              }
-            })
-            .subscribe();
-
-      }
-    }
-    else{
-      this.http.put('https://api.spotify.com/v1/me/player/play',
-        {
-          "context_uri": this.playlist!.uri,
-          "position_ms": 0
-        },
-        {
-          headers: {
-            'Authorization': 'Bearer ' + this.spotify.access_token
-          }
-        })
-        .subscribe();
-    }
   }
   playSearchItem(track:SpotifyTrackObject){
     this.http.put('https://api.spotify.com/v1/me/player/play',

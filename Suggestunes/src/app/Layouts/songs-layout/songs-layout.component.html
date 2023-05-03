@@ -1,0 +1,11 @@
+<app-nav-bar></app-nav-bar>
+<h2>Songs</h2>
+<div class="list-group list-group-flush text-md-start">
+  <button *ngFor="let item of this.songs!" class = "list-group-item" (click)="spotify.play(false,undefined,item)">
+    <img class = "track-img" alt = "default image" src = "{{item.image!}}">
+    <p>
+      <span class = "top" style="font-size: large;">{{item.name!}} <br> </span>
+      <span class="bottom" style="font-size:small;">{{item.artist!}}</span>
+    </p>
+  </button>
+</div>

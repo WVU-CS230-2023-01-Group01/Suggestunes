@@ -43,6 +43,7 @@ import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layo
 import {SpotifyService} from "../services/spotify.service";
 import {Hasher} from "../services/hasher";
 import {AlgoliaSearcher} from "../services/algolia.searcher";
+import { SongsLayoutComponent } from './layouts/songs-layout/songs-layout.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import {AlgoliaSearcher} from "../services/algolia.searcher";
     ForgotPasswordComponent,
     EditPlaylistModalComponent,
     SpotifyAuthLayoutComponent,
+    SongsLayoutComponent,
   ],
   imports: [
     BrowserModule,

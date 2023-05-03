@@ -9,6 +9,7 @@ import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotif
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {ForgotPasswordComponent} from "./layouts/forgot-password-layout/forgot-password.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
+import {SongsLayoutComponent} from "./layouts/songs-layout/songs-layout.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,9 @@ const routes: Routes = [
     },{
     path: 'forgotPassword',
     component: ForgotPasswordComponent
+  },{
+  path:'songs',
+    component:SongsLayoutComponent
   }
   ];
 

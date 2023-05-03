@@ -1,6 +1,8 @@
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import { Buffer } from 'buffer';
+import {SongModel} from "../app/playlists/playlist/song/song.model";
+import {PlaylistModel} from "../app/playlists/playlist/playlist.model";
 @Injectable()
 export class SpotifyService{
   access_token:string | undefined;
@@ -61,5 +63,56 @@ export class SpotifyService{
     });
 
     window.location.href = 'https://accounts.spotify.com/authorize?' + args;
+  }
+
+  play(is_spotify:boolean,playlist?:PlaylistModel,song?:SongModel){
+    if(song){
+      if(is_spotify) {
+        this.http.put('https://api.spotify.com/v1/me/player/play',
+          {
+            "context_uri": playlist!.uri,
+            "offset": {
+              "uri": song.uri
+            },
+            "position_ms": 0
+          }, {
+            headers: {
+              'Authorization': 'Bearer ' + this.access_token
+            }
+          })
+          .subscribe();
+      }
+      else{
+        console.log(song.album_uri)
+        console.log(song.uri)
+        this.http.put('https://api.spotify.com/v1/me/player/play',
+          {
+            "context_uri": song.album_uri,
+            "offset": {
+              "uri": song.uri
+            },
+            "position_ms": 0
+          }, {
+            headers: {
+              'Authorization': 'Bearer ' + this.access_token
+            }
+          })
+          .subscribe();
+
+      }
+    }
+    else{
+      this.http.put('https://api.spotify.com/v1/me/player/play',
+        {
+          "context_uri": playlist!.uri,
+          "position_ms": 0
+        },
+        {
+          headers: {
+            'Authorization': 'Bearer ' + this.access_token
+          }
+        })
+        .subscribe();
+    }
   }
 }
