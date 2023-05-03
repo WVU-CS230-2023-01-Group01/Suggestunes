@@ -1,3 +1,4 @@
+//@author Jackson Monk
 import { Component, Input , OnInit} from '@angular/core';
 import { getDatabase, get, ref, update, onValue, DatabaseReference } from '@firebase/database';
 import { Router } from '@angular/router';
@@ -21,7 +22,7 @@ export class NavBarComponent implements OnInit{
     this.username = "";
     this.bio = "";
   }
-
+  //Checking to see if the bio has been changed
   bioChanged(newBio: string): boolean {
     if (this.bio == newBio) {
       alert("Bio has not been changed");
@@ -32,6 +33,7 @@ export class NavBarComponent implements OnInit{
 
 
   ngOnInit(): void {
+    //When the page loads, check if the user is authenticated. If they are, load the data to the navbar
     var auth = getAuth(app);
     var database = getDatabase(app);
     auth.onAuthStateChanged((user) => {
@@ -50,6 +52,7 @@ export class NavBarComponent implements OnInit{
     var newBio = (document.getElementsByClassName("bioField")[0] as HTMLInputElement);
     var changeBio = false;
     submitBio.addEventListener('click', (e: Event) => {
+      //Upon submitting the bio, if the user is logged in, check if the bio has changed. If it has, update the database with the new bio.
         if (sessionUser) {
           var database_ref = ref(database, 'users/' + sessionUser.uid);
           changeBio = this.bioChanged(newBio.value);
@@ -71,6 +74,7 @@ export class NavBarComponent implements OnInit{
   }
 
   callLogout() {
+    //Confirm logout, check result of logout and redirect if true
     var confirmation = confirm("Are you sure you want to logout?");
     if (confirmation) {
       var redirect = logout();
@@ -82,6 +86,7 @@ export class NavBarComponent implements OnInit{
 }
 
 function logout() : boolean {
+  //Get the current user if there is one and sign them out
   var auth = getAuth(app);
   console.log(auth.currentUser!.uid);
   if (auth.currentUser) {
