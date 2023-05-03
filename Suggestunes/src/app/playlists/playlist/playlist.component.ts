@@ -229,7 +229,10 @@ show = true;
           ids.push(object.node.id);
         }
       })
-      this.suggestions = this.getSongs(ids);
+      console.log(ids)
+      let songresult = this.getSongs(ids)
+      this.suggestions = songresult;
+      this.reload()
     })
   }
   getSongs(ids:string[]){

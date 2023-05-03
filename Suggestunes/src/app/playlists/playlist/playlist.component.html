@@ -41,6 +41,7 @@
   </button>
   </div>
 <div class ="list-group list-group-flush text-md-start">
+  <div *ngIf="show">
   <button *ngFor="let item of this.suggestions" class = "list-group-item" (click)="spotify.play(is_spotify,playlist,item)">
     <img class = "track-img" alt = "default image" src = "{{item.image}}">
     <p>
@@ -51,6 +52,7 @@
     </p>
     <button class="addBtn btn " (click)="add(item)">+</button>
   </button>
+  </div>
 </div>
   <h2 class = 'pad'>Songs In This Playlist <button class="refresh addBtn btn" (click)="reload()">refresh</button></h2>
 
