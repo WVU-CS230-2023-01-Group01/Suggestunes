@@ -58,7 +58,7 @@ export class SpotifyService{
     let args = new URLSearchParams({
       response_type: 'code',
       client_id: 'a183b7596de144229a97c4e6fae8d8eb',
-      scope: 'user-read-private',
+      scope: 'user-read-private,user-modify-playback-state,user-read-playback-state,playlist-modify-public,playlist-modify-private',
       redirect_uri: 'https://suggestoons-app.web.app/spotify-auth',
     });
 

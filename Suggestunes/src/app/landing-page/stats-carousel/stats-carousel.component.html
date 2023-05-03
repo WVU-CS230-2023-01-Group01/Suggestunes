@@ -1,5 +1,8 @@
+<!-- @author Jalen Beeman-->
+<!-- Initializing carousel for the homepage -->
 <div id="carouselExampleIndicators" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel" style="padding-bottom:100px">
   <div class="carousel-indicators">
+    <!-- Creating scroll buttons to visit different carousel pages-->
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
@@ -11,7 +14,9 @@
           <li class="list-group-item statItem">
             <h1>Top Songs This Week</h1>
           </li>
+          <!-- Populating carousel with top songs to be displayed on homepage-->
           <li *ngFor = "let item of getTopSongs()" class="list-group-item statItem">
+            <!-- Name of the song-->
             {{item.name}}
            </li>
         </ul>
@@ -23,7 +28,9 @@
           <li class="list-group-item statItem">
             <h1>Top Genres This Week</h1>
           </li>
+          <!-- Populating carousel with top genres to be displayed on homepage-->
           <li *ngFor = "let item of getTopGenres()" class="list-group-item statItem">
+            <!-- Name of the genre-->
             {{item.name}}
            </li>
         </ul>
@@ -35,8 +42,10 @@
           <li class="list-group-item statItem">
             <h1>Top Artists This Week</h1>
           </li>
+          <!-- Populating carousel with top artists to be displayed on homepage-->
           <li *ngFor = "let item of getTopArtists()" class="list-group-item statItem">
-           {{item.name}}
+            <!-- Name of the artist-->
+            {{item.name}}
           </li>
         </ul>
       </div>

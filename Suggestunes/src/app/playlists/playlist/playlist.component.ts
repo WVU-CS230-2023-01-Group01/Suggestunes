@@ -76,6 +76,7 @@ show = true;
           })
           const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.spotify.access_token)
           this.http.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks",{'headers':headers}).subscribe(data=>{
+
             for(let item of data.items){
               let song = new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri,item.track.popularity)
               song.album_uri = item.track.album.uri
