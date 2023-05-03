@@ -67,13 +67,6 @@ show = true;
             this.playlist.songs = [];
             this.playlist.image  = data.images![0].url;
           })
-          this.spotify.get<DeviceResponse>('https://api.spotify.com/v1/me/player/devices').subscribe((data)=>{
-            for(let device of data.devices) {
-              if (device.is_active) {
-                this.has_active_device = true;
-              }
-            }
-          })
           const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.spotify.access_token)
           this.http.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks",{'headers':headers}).subscribe(data=>{
 
@@ -97,6 +90,7 @@ show = true;
             }
           });
         }
+        console.log(this.playlist!.songs!);
       }
     })
   }
