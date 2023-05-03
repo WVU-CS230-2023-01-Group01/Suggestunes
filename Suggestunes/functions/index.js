@@ -1,3 +1,6 @@
+//@author Jalen Beeman and William Valentine
+
+//Declaring necessary constants
 const functions = require("firebase-functions");
 const cors = require('cors')({ origin: true });
 
@@ -11,6 +14,7 @@ const spotifyConfig = {
 
 var spotifyApi = new SpotifyWebApi(spotifyConfig);
 
+//Function to get an access token from Cyanite, allowing us to send a request
 exports.getTokens = functions.https.onRequest((_req, res) => {
     cors(_req, res, () => {
 
@@ -18,6 +22,7 @@ exports.getTokens = functions.https.onRequest((_req, res) => {
         const code = _req.query.code;
         const refreshToken = _req.query.refresh_token;
 
+        //Code and refresh token not available, send an error message 
         if (!code && !refreshToken) {
             return res.status(403).json({ success: false, data: "Not authorized" });
         }
@@ -52,10 +57,6 @@ const SECRET_TOKEN = functions.config().webhooks.secrettoken;
 const ACCESS_TOKEN = functions.config().webhooks.accesstoken;
 const API_URL = functions.config().webhooks.apiurl;
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSW50ZWdyYXRpb25BY2Nlc3NUb2tlbiIsInZlcnNpb24iOiIxLjAiLCJpbnRlZ3JhdGlvbklkIjo1MjgsInVzZXJJZCI6Mjc5OTIsImFjY2Vzc1Rva2VuU2VjcmV0IjoiOTMzN2Y4NDJiNTM2MGE5NGM4ZGNjOGJjMzIwNTUyOTA4NDFjNTVmZGU5YzYwYTllMTViNDY4ODdiNWEwMGE1ZCIsImlhdCI6MTY4MzA0MzgyOX0.jcSVXrNMp8OjfRA9MRWhKLBurJb8Wi2uHIY5L8w5gNc
-
-//Secret Token = SECRET_TOKEN
-
 exports.getSuggestion = functions.https.onRequest(async (req, res) => {
     try {
         // Split and save important info from the request
@@ -67,6 +68,7 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
         console.log("The request is:");
         console.log(req);
 
+        // If the body does not exist, the request is invalid
         if (!req.body) {
             console.log('[info] unprocessable entity')
             res.status(422).send('Invalid Request - No Body');
@@ -75,12 +77,13 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
         console.log("[info] incoming event:");
         console.log(JSON.stringify(req.body, undefined, 2));
 
+        //Log a processing message
         if (req.body.type === "TEST") {
             console.log("[info] processing test event");
             res.status(200).send('Processing Test Event');
         }
 
-        // If either the signature or body do not exist, the request is invalid
+        // If the signature does not exist, the request is invalid
         if (!signature) {
             res.status(400).send('Invalid Request - No Signature' + '\n' + SECRET_TOKEN + '\n' + ACCESS_TOKEN);
             console.log("Invalid Request");
@@ -93,6 +96,7 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
             res.status(401).send('Unauthorized Request');
         }
 
+        //Checking if the request type is correct and that the request is finished
         if (req.body.event.type === "AudioAnalysisV6" && req.body.event.status === "finished") {
             console.log("[info]")
             asynchronouslyFetchspotifyTrackResult(req.body.resource.id);
@@ -106,6 +110,7 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
     }
 });
 
+//Fetching the spotify information for the song we need to analyze
 const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
     // fetch the whole information
     const spotifyTrackQueryDocument = /* GraphQL */ `
@@ -143,6 +148,7 @@ const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
           }
         }
       }`;
+      //Send the request using the JSON body, the graphQL query, and the track ID of the song we need analyzed
     const result = await fetch(API_URL, {
         method: "POST",
         body: JSON.stringify({
@@ -153,6 +159,8 @@ const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
             Authorization: "Bearer " + ACCESS_TOKEN,
             "Content-Type": "application/json"
         }
+
+        //Receive the response from cyanite in the form of a JSON file
     }).then(res => res.json());
     console.log("[info] spotifyTrackEnqueue response: ");
     console.log(JSON.stringify(result, undefined, 2));
@@ -160,11 +168,13 @@ const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
         throw new Error(result.data.inDepthAnalysisFileUpload.message);
     }
 
+    //return the resulting response 
     return result.data;
 };
 
 const fetch = require("node-fetch");
 
+//Using the spotify information to search for a similar song
 exports.sendRequest = functions.https.onRequest((_req, res) => {
     const spotifyTrackEnqueue = async spotifyTrackId => {
         const mutationDocument = /* GraphQL */ `
@@ -193,6 +203,8 @@ exports.sendRequest = functions.https.onRequest((_req, res) => {
       }  
     `;
 
+
+    //Sending the request to cyanite using the JSON body, the graphQL query, and the track ID of the song we need compared
         const result = await fetch(API_URL, {
             method: "POST",
             body: JSON.stringify({
@@ -203,6 +215,8 @@ exports.sendRequest = functions.https.onRequest((_req, res) => {
                 Authorization: "Bearer " + ACCESS_TOKEN,
                 "Content-Type": "application/json"
             }
+
+            //Receive the response from cyanite in the form of a JSON file containing the ID of the new song
         }).then(res => res.json());
         console.log("[info] spotifyTrack result");
         console.log(JSON.stringify(result, undefined, 2));
