@@ -38,6 +38,7 @@ export class PlaylistComponent implements OnInit {
   public is_spotify = false;
   database:Database
   playlist_id$:string|undefined
+  suggestions:SongModel[] = []
 
   constructor(private route: ActivatedRoute,private hasher:Hasher,private http:HttpClient, private db: AngularFireDatabase, private spotify:SpotifyService,private searcher:AlgoliaSearcher){
     this.database = getDatabase(app);
@@ -272,9 +273,18 @@ show = true;
   getSuggestions(){
     const randomSong = this.getRandomSongId();
     console.log(randomSong);
-    const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifyTrackId=' + randomSong);
+
+    const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifytrackid=' + randomSong);
     response.then((res)=>{
+      let ids:string[] = []
       console.log(res);
+      this.http.get<Suggestion>(res.url).subscribe(data=>{
+        console.log(data)
+        for(let object of data.suggestions){
+          ids.push(object.node.id);
+        }
+      })
+      this.suggestions = this.getSongs(ids);
     })
   }
   getSongs(ids:string[]){

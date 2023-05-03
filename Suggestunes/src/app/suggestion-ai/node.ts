@@ -1,3 +1,3 @@
-export interface Node {
+export interface SuggestionNode {
   id:string
 }
