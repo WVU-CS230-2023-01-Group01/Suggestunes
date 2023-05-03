@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes, UrlSegment} from '@angular/router';
-import {SpotifyAuthLayoutComponent} from "./layouts/spotify-auth-layout/spotify-auth-layout.component";
-import {SignInLayoutComponent} from "./layouts/sign-in-layout/sign-in-layout.component";
 import {SongsLayoutComponent} from "./layouts/songs-layout/songs-layout.component";
-import {AccountLayoutComponent} from "./layouts/account-layout/account-layout.component";
-import {PlaylistComponent} from "./playlists/playlist/playlist.component";
+import { AccountLayoutComponent } from './layouts/account-layout/account-layout.component';
+import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
+import { PlaylistComponent } from './playlists/playlist/playlist.component'
+import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component'
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {ForgotPasswordComponent} from "./layouts/forgot-password-layout/forgot-password.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";

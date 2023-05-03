@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
+import { RegisterBoxComponentComponent } from './layouts/register-layout/register-box-component/register-box-component.component';
 import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
-import { RegisterBoxComponentComponent } from './layouts/register-layout/register-box-component/register-box-component.component';
 
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
