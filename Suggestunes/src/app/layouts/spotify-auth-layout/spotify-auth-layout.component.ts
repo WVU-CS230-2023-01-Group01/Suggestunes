@@ -45,7 +45,7 @@ export class SpotifyAuthLayoutComponent implements OnInit {
     }).then(data => {
       document.cookie = "access_token=" + data.access_token;
 
-      this.router.navigate(['playlists']);
+      this.router.navigate(['#','playlists']);
     })
   }
 }
