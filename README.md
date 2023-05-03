@@ -3,7 +3,7 @@ Suggestunes is a music suggestions app that allows you to find/play songs, creat
 
 # Motivation
 We wanted a music service that provides personalized suggestions for music, has a simple layout that is easy to understand and use, and has a heavy focus on playlist creation using the Spotify API
-#
+# NEXT
        =IY;           
       XRVRRi          
      =Ri :RR          
@@ -35,5 +35,3 @@ We wanted a music service that provides personalized suggestions for music, has 
     YRRR+ ;YV:        
     .tRRRRR+          
       .;;:
-      
-# next
