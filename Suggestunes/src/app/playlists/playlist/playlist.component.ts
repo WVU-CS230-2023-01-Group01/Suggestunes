@@ -239,6 +239,7 @@ show = true;
     for(let id of ids){
       this.spotify.get<SpotifyTrackObject>(`https://api.spotify.com/v1/tracks/${id}`).subscribe((track:SpotifyTrackObject)=>{
         let song = new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri,track.popularity);
+        song.album_uri = track.album.uri;
         songs.push(song);
       })
     }
