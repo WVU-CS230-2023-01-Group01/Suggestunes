@@ -269,7 +269,15 @@ show = true;
     return regex.exec(this.playlist!.songs![song].uri!)![1]
   }
   getSuggestions(){
-    const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifyTrackId=' + this.getRandomSongId());
-    console.log(response);
+    const randomSong = this.getRandomSongId();
+    console.log(randomSong);
+    const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifyTrackId=' + randomSong);
+    //@ts-ignore
+    response.then(({hits})=>{
+      //@ts-ignore
+        hits.forEach(hit=>{
+          console.log(hit);
+        })
+    })
   }
 }

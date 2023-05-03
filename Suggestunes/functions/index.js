@@ -18,7 +18,7 @@ var spotifyApi = new SpotifyWebApi(spotifyConfig);
 exports.getTokens = functions.https.onRequest((_req, res) => {
     cors(_req, res, () => {
 
-        //Retrieve code from request
+        //Retrieve code from _request
         const code = _req.query.code;
         const refreshToken = _req.query.refresh_token;
 
@@ -57,33 +57,35 @@ const SECRET_TOKEN = functions.config().webhooks.secrettoken;
 const ACCESS_TOKEN = functions.config().webhooks.accesstoken;
 const API_URL = functions.config().webhooks.apiurl;
 
-exports.getSuggestion = functions.https.onRequest(async (req, res) => {
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiSW50ZWdyYXRpb25BY2Nlc3NUb2tlbiIsInZlcnNpb24iOiIxLjAiLCJpbnRlZ3JhdGlvbklkIjo1MjgsInVzZXJJZCI6Mjc5OTIsImFjY2Vzc1Rva2VuU2VjcmV0IjoiOTMzN2Y4NDJiNTM2MGE5NGM4ZGNjOGJjMzIwNTUyOTA4NDFjNTVmZGU5YzYwYTllMTViNDY4ODdiNWEwMGE1ZCIsImlhdCI6MTY4MzA0MzgyOX0.jcSVXrNMp8OjfRA9MRWhKLBurJb8Wi2uHIY5L8w5gNc
+
+//Secret Token = SECRET_TOKEN
+
+exports.getSuggestion = functions.https.onRequest(async (_req, res) => {
     try {
-        // Split and save important info from the request
-        const body = req.body;
-        const signature = req.headers.signature;
+        // Split and save important info from the _request
+        const body = _req.body;
+        const signature = _req.headers.signature;
         const correctSignature = crypto.createHmac("sha512", SECRET_TOKEN).update(JSON.stringify(body)).digest("hex");
 
-        // Print out what the request is
-        console.log("The request is:");
-        console.log(req);
+        // Print out what the _request is
+        console.log("The _request is:");
+        console.log(_req);
 
-        // If the body does not exist, the request is invalid
-        if (!req.body) {
+        if (!_req.body) {
             console.log('[info] unprocessable entity')
             res.status(422).send('Invalid Request - No Body');
         }
 
         console.log("[info] incoming event:");
-        console.log(JSON.stringify(req.body, undefined, 2));
+        console.log(JSON.stringify(_req.body, undefined, 2));
 
-        //Log a processing message
-        if (req.body.type === "TEST") {
+        if (_req.body.type === "TEST") {
             console.log("[info] processing test event");
             res.status(200).send('Processing Test Event');
         }
 
-        // If the signature does not exist, the request is invalid
+        // If either the signature or body do not exist, the _request is invalid
         if (!signature) {
             res.status(400).send('Invalid Request - No Signature' + '\n' + SECRET_TOKEN + '\n' + ACCESS_TOKEN);
             console.log("Invalid Request");
@@ -91,22 +93,21 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
         }
         console.log("Request had both signature and body");
 
-        // If the signure is not correct, spit out unauthorized request response
+        // If the signure is not correct, spit out unauthorized _request response
         if (signature !== correctSignature) {
             res.status(401).send('Unauthorized Request');
         }
 
-        //Checking if the request type is correct and that the request is finished
-        if (req.body.event.type === "AudioAnalysisV6" && req.body.event.status === "finished") {
+        if (_req.body.event.type === "AudioAnalysisV6" && _req.body.event.status === "finished") {
             console.log("[info]")
-            asynchronouslyFetchspotifyTrackResult(req.body.resource.id);
+            asynchronouslyFetchspotifyTrackResult(_req.body.resource.id);
         }
         // Your webhook logic goes here, using the payload object
         res.status(200).send('Webhook processed successfully');
     } catch (error) {
-        console.log(req);
+        console.log(_req);
         console.error(error);
-        res.status(500).send('An error occurred while processing the webhook' + '\n' + error + '\n' + req + '\n' + functions.config().webhooks.secrettoken);
+        res.status(500).send('An error occurred while processing the webhook' + '\n' + error + '\n' + _req + '\n' + functions.config().webhooks.secrettoken);
     }
 });
 
@@ -114,70 +115,6 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
 const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
     // fetch the whole information
     const spotifyTrackQueryDocument = /* GraphQL */ `
-      query SpotifyTrack($spotifyTrackId: ID!) {
-        spotifyTrack(id: $spotifyTrackId) {
-          ... on SpotifyTrackNotFoundError {
-            message
-          }
-          ... on SpotifyTrack {
-            id
-            audioAnalysisV6 {
-              ... on AudioAnalysisV6Finished {
-                result {
-                  genre {
-                    ambient
-                    blues
-                  }
-                }
-              }
-            }
-            similarSpotifyTracks {
-              ... on SimilarSpotifyTracksError {
-                message
-              }
-              ... on SimilarSpotifyTrackConnection {
-                edges {
-                  node {
-                    spotifyTrack {
-                      id
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }`;
-      //Send the request using the JSON body, the graphQL query, and the track ID of the song we need analyzed
-    const result = await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify({
-            query: mutationDocument,
-            variables: { input: { spotifyTrackId } }
-        }),
-        headers: {
-            Authorization: "Bearer " + ACCESS_TOKEN,
-            "Content-Type": "application/json"
-        }
-
-        //Receive the response from cyanite in the form of a JSON file
-    }).then(res => res.json());
-    console.log("[info] spotifyTrackEnqueue response: ");
-    console.log(JSON.stringify(result, undefined, 2));
-    if (result.data.spotifyTrackEnqueue.__typename.endsWith("Error")) {
-        throw new Error(result.data.inDepthAnalysisFileUpload.message);
-    }
-
-    //return the resulting response 
-    return result.data;
-};
-
-const fetch = require("node-fetch");
-
-//Using the spotify information to search for a similar song
-exports.sendRequest = functions.https.onRequest((_req, res) => {
-    const spotifyTrackEnqueue = async spotifyTrackId => {
-        const mutationDocument = /* GraphQL */ `
     query SimilarTracksQuery($trackId: ID!) {
         spotifyTrack(id: $trackId) {
           __typename
@@ -198,27 +135,38 @@ exports.sendRequest = functions.https.onRequest((_req, res) => {
                     id
                   }
                 }
+              }
             }
+          }
         }
-      }  
-    `;
+      }`;
+      //Send the request using the JSON body, the graphQL query, and the track ID of the song we need analyzed
+    const result = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            query: spotifyTrackQueryDocument,
+            variables: { trackId: spotifyTrackId }
+        }),
+        headers: {
+            Authorization: "Bearer " + ACCESS_TOKEN,
+            "Content-Type": "application/json"
+        }
 
+        //Receive the response from cyanite in the form of a JSON file
+    }).then(res => res.json());
+    // console.log("[info] spotifyTrackEnqueue response: ");
+    // console.log(JSON.stringify(result, undefined, 2));
+    if (result.data.spotifyTrack.__typename.endsWith("Error")) {
+        throw new Error(result.data.inDepthAnalysisFileUpload.message);
+    }
+    return {"test2" : result.data};
+};
 
-    //Sending the request to cyanite using the JSON body, the graphQL query, and the track ID of the song we need compared
-        const result = await fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({
-                query: spotifyTrackQueryDocument,
-                variables: { spotifyTrackId }
-            }),
-            headers: {
-                Authorization: "Bearer " + ACCESS_TOKEN,
-                "Content-Type": "application/json"
-            }
+const fetch = require("node-fetch");
 
-            //Receive the response from cyanite in the form of a JSON file containing the ID of the new song
-        }).then(res => res.json());
-        console.log("[info] spotifyTrack result");
-        console.log(JSON.stringify(result, undefined, 2));
-    };
+exports.sendRequest = functions.https.onRequest(async (_req, res) => {
+    cors(_req, res, async () => {
+    spotifyTrackId = _req.query.spotifytrackid;
+    return res.json({"Test" : await asynchronouslyFetchspotifyTrackResult(spotifyTrackId)});
+    })
 });
