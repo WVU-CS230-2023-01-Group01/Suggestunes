@@ -22,7 +22,7 @@ export class AccountLayoutComponent implements OnInit{
   cards: CardModel[] = [];
   spotify_token : string|undefined
 
-  constructor(private db:AngularFireDatabase, private spotify:SpotifyService, private router:Router) {
+  constructor(private db:AngularFireDatabase, public spotify:SpotifyService, private router:Router) {
     var auth = getAuth(app);
     var database = getDatabase(app);
     auth.onAuthStateChanged((user) => {
