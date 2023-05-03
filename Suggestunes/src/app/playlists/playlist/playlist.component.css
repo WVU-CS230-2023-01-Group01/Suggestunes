@@ -114,7 +114,6 @@ line-height: 28.8px;
 z-index: 3;
 width: 100%;
 height: 25px;
-color: #66318D;
 }
 .form-control{
 margin-top:10px;
@@ -185,4 +184,7 @@ p{
 }
 .Suggestion.button:active{
   background-color: #3e1d54;
+}
+.refresh{
+  justify-self: right;
 }

@@ -23,7 +23,7 @@ export class LoginBoxComponentComponent {
 // const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 const database = getDatabase(app)
-var user;
+
 
 
 // export { app , database}
@@ -31,6 +31,7 @@ var user;
 function login(_router : Router){
   var email = (<HTMLInputElement>document.getElementById("email")).value
   var password = (<HTMLInputElement>document.getElementById("password")).value
+  var result:boolean = true;
 
   signInWithEmailAndPassword(auth, email, password)
   .then(function () {
@@ -44,7 +45,7 @@ function login(_router : Router){
       }
 
       update(database_ref, user_data)
-
+      
       _router.navigate(['/AccountLayout'])
 
 

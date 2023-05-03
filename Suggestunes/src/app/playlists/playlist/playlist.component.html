@@ -9,11 +9,11 @@
     </div>
   <div class="body container-fluid">
     <span>
-      <span *ngIf="!this.is_spotify"> 
+      <span *ngIf="!this.is_spotify">
         <button class="btn editButton" type="button" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit playlist</button>
         <app-edit-playlist-modal [target_playlist] = "playlist"></app-edit-playlist-modal>
       </span>
-      <button *ngIf="has_active_device" (click) = "play()" class="btn editButton">play some jams</button>
+      <button *ngIf="has_active_device && is_spotify" (click) = "spotify.play(is_spotify,playlist)" class="btn editButton">play some jams</button>
     </span>
     <div class="mb-3">
       <form class="form-label" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class ="list-group list-group-flush text-md-start">
-  <button *ngFor="let item of this.searchResults" class = "list-group-item" (click)="play(item)">
+  <button *ngFor="let item of this.searchResults" class = "list-group-item" (click)="spotify.play(is_spotify,playlist,item)">
     <img class = "track-img" alt = "default image" src = "{{item.image}}">
     <p>
         <span class = "top">{{item.name!}} <br>
@@ -39,10 +39,12 @@
     <button class="addBtn btn " (click)="add(item)">+</button>
   </button>
   </div>
-  <h2 class = 'pad'>Songs In This Playlist</h2>
+
+  <h2 class = 'pad'>Songs In This Playlist <button class="refresh addBtn btn" (click)="reload()">refresh</button></h2>
 
   <div class="list-group list-group-flush text-md-start">
-    <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="play(item)">
+    <span *ngIf="show">
+    <button *ngFor="let item of this.playlist!.songs!" class = "list-group-item" (click)="spotify.play(this.is_spotify,playlist,item)">
       <img class = "track-img" alt = "default image" src = "{{item.image!}}">
       <p>
         <span class = "top" style="font-size: large;">{{item.name!}} <br> </span>
@@ -50,4 +52,5 @@
     </p>
       <button class="addBtn btn " (click)="remove(item)">-</button>
     </button>
+    </span>
   </div>

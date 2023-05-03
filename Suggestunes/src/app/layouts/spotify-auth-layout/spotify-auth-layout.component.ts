@@ -28,6 +28,7 @@ export class SpotifyAuthLayoutComponent implements OnInit {
   //Checking to see if a user exists
   ngOnInit(): void {
     let tokenCode = '';
+
     this.route.queryParams.subscribe(params => {
       tokenCode = params['code'];
     });

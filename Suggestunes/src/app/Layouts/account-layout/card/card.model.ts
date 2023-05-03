@@ -1,10 +1,10 @@
 export class CardModel {
-    imgDescription: string;
-    description: string;
     img: string;
-    constructor(imgDescription: string, description: string, img: string, x: number){
-        this.img =img;
-        this.imgDescription = imgDescription;
-        this.description=description;
+    link: string;
+    name: string;
+    constructor(img: string, link: string, name: string){
+        this.img = img;
+        this.link = link;
+        this.name = name;
     }
 }

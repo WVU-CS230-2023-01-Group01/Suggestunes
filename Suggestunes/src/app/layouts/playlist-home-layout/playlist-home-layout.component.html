@@ -12,7 +12,7 @@
   <div class="d-flex justify-content-center">
     <div id="spotify_container" class="list-group list-group-flush text-md-start" >
     <h5>Imported Playlists</h5>
-    <span *ngIf="show"  style="border:none;"><a *ngFor="let item of getSpotifyEntries()" href="/playlists/playlist/true/{{item[0]}}" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></a></span>
+    <span *ngIf="show"  style="border:none;"><button *ngFor="let item of getSpotifyEntries()" (click)="router.navigate(['/playlists/playlist/true/'+item[0]])" class = "list-group-item"> <img alt = "default image" src = "{{item[1].image}}"><p>{{item[1].name}}</p></button></span>
   </div>
   </div>
   </span>

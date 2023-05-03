@@ -18,6 +18,6 @@ export class Hasher {
     const data = encoder.encode(message);
     const digest = window.crypto.subtle.digest('SHA-256', data);
 
-    return Buffer.from(message).toString('base64');
+    return Buffer.from(message).toString('base64').replaceAll('/','');
   }
 }
