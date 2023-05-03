@@ -30,7 +30,9 @@ Angular TypeScript
 # Code Example
 
 # API Reference
-* https://developer.spotify.com/documentation/web-api
+Spotify API:
+* https://developer.spotify.com/documentation/web-api <br>
+Cyanite AI:
 * https://cyanite.ai/
 
 # How to Use?
