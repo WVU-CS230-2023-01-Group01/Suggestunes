@@ -4,29 +4,13 @@ Suggestunes is a music suggestions app that allows you to find/play songs, creat
 # Motivation
 We wanted a music service that provides personalized suggestions for music, has a simple layout that is easy to understand and use, and has a heavy focus on playlist creation using the Spotify API
 # NEXT
-|
-|
-|
-|
-|
-|
-|
-|
-|
-
-
-
-
-
-
-
-
-
-        __________
-       1          1
-       1          1
-       1          1
-  ____ 1     ____ 1
- /    \1    /    \1
-1      1   1      1
- \____/     \____/ 
+'''''''''''''''''''''''''
+'          __________   '
+'         1          1  ' 
+'         1          1  '
+'         1          1  '
+'    ____ 1     ____ 1  '
+'   /    \1    /    \1  '
+'  1      1   1      1  '
+'   \____/     \____/   '
+'''''''''''''''''''''''''
