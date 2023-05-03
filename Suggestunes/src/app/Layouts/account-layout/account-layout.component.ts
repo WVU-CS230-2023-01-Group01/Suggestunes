@@ -38,7 +38,7 @@ export class AccountLayoutComponent implements OnInit{
               var cardInst:CardModel = {
                 img: item.payload.val()?.image ?? "assets/music note img.png",
                 name: item.payload.val()?.name ?? "No Name",
-                link: "playlists/playlist/" + item.key
+                link: "playlists/playlist/false/" + item.key
               }
 
               this.cards.push(cardInst);
