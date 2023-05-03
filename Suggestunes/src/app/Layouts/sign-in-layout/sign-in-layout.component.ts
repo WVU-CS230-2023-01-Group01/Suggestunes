@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-sign-in-layout',
   templateUrl: './sign-in-layout.component.html',

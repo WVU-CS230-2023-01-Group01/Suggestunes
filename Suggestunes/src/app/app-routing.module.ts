@@ -12,6 +12,7 @@ import {LandingPageComponent} from "./layouts/landing-page/landing-page.componen
 import {SongsLayoutComponent} from "./layouts/songs-layout/songs-layout.component";
 import { AuthGuard } from './auth-guard/auth-guard.service';
 
+
 const routes: Routes = [
   {
     path: 'AccountLayout',

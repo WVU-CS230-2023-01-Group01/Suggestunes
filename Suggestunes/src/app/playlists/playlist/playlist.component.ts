@@ -19,6 +19,7 @@ import { SpotifyTrackObject } from 'src/app/spotify-elements/spotify.track.objec
 import {Database, getDatabase, ref, set} from "@angular/fire/database";
 import {Hasher} from "../../../services/hasher";
 import {AlgoliaSearcher} from "../../../services/algolia.searcher";
+import {Suggestion} from "../../suggestion-ai/suggestion";
 
 @Component({
   selector: 'app-playlist',
@@ -37,6 +38,7 @@ export class PlaylistComponent implements OnInit {
   public is_spotify = false;
   database:Database
   playlist_id$:string|undefined
+  suggestions:SongModel[] = []
 
   constructor(private route: ActivatedRoute,private hasher:Hasher,private http:HttpClient, private db: AngularFireDatabase, public spotify:SpotifyService,private searcher:AlgoliaSearcher){
     this.database = getDatabase(app);
@@ -204,4 +206,43 @@ show = true;
     })
     return ids
   }
+  getRandomInt(max:number) {
+    return Math.floor(Math.random() * max);
+  }
+  getRandomSongId(){
+    let regex = /spotify:track:([0-9a-z]*)/ig
+    var length = this.playlist!.songs!.length;
+    var song = this.getRandomInt(length);
+    return regex.exec(this.playlist!.songs![song].uri!)![1]
+  }
+  getSuggestions(){
+    const randomSong = this.getRandomSongId();
+    console.log(randomSong);
+
+    const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifytrackid=' + randomSong);
+    response.then((res)=>{
+      let ids:string[] = []
+      console.log(res);
+      this.http.get<Suggestion>(res.url).subscribe(data=>{
+        console.log(data)
+        for(let object of data.suggestions){
+          ids.push(object.node.id);
+        }
+      })
+      this.suggestions = this.getSongs(ids);
+    })
+  }
+  getSongs(ids:string[]){
+    let songs:SongModel[] = []
+    for(let id of ids){
+      this.spotify.get<SpotifyTrackObject>(`https://api.spotify.com/v1/tracks/${id}`).subscribe((track:SpotifyTrackObject)=>{
+        let song = new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri,track.popularity);
+        songs.push(song);
+      })
+    }
+    return songs;
+
+  }
 }
+
+

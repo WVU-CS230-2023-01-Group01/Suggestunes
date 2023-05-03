@@ -1,3 +1,4 @@
+//@author William Valentine and Jalen Beeman
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Genre } from './genre.model';
 import { Artist } from './artist.model';
@@ -15,10 +16,12 @@ import {SongModel} from "../../playlists/playlist/song/song.model";
 
 export class StatsCarouselComponent implements OnInit {
 
+  //Initializing the arrays that will contain the top entries in songs, genres, and artists
   private songList: Array<SongModel>;
   private artistList: Array<Artist>;
   private genreList: Array<Genre>;
 
+  //Initializing the variables for the number of items we want displayed and whether or not the carousel will be in "default mode"
   private numElements: Number;
   private defaultMode: boolean;
 
@@ -27,7 +30,7 @@ export class StatsCarouselComponent implements OnInit {
   private topGenres: Array<Genre>;
 
 
-
+//The constructor for the carousel, assigning base value for all the variables we have initialized
   constructor(private http: HttpClient,private db:AngularFireDatabase) {
     this.songList = [];
     this.artistList = [];
@@ -42,35 +45,45 @@ export class StatsCarouselComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
+    //Checking whether or not the carousel is in "default mode"
     if (!this.defaultMode) {
+      //If we are not in default mode, we must request the data for the top songs, artists, and genres
       console.log("Sending a get request to the server");
       this.getSongs();
       this.getArtists();
       this.getGenres();
       console.log('Showing information');
+
+      //saving and displaying the info we gathered
       this.saveSongs();
       this.saveArtists();
       this.saveGenres();
     } else {
+      //If we are in default mode, we populate the carousel with a series of premade items
       this.topSongs = this.defaultSongs();
       this.topArtists = this.defaultArtists();
       this.topGenres = this.defaultGenres();
     }
   }
 
+  //Retrieving the top songs to populate our array list with
   getSongs() {
     return this.db.list<SongModel>('Songs').valueChanges()
   }
 
+  //Retrieving the top artists
   getArtists() {
     return this.http.get<Artist[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Artists.json')
   }
 
+  //Retrieving the top genres
   getGenres() {
     return this.http.get<Genre[]>('https://suggestoons-app-default-rtdb.firebaseio.com/Genres.json')
   }
 
+  //Saving and logging the top songs to our songlist 
   saveSongs() {
     this.getSongs().subscribe(data => {
       console.log('Saving Songs');
@@ -81,6 +94,7 @@ export class StatsCarouselComponent implements OnInit {
     })
   }
 
+  //Saving and logging top artists
   saveArtists() {
     this.getArtists().subscribe((data: Artist[]) => {
       console.log('Saving Artists');
@@ -90,6 +104,7 @@ export class StatsCarouselComponent implements OnInit {
     })
   }
 
+  //Saving and logging top genres
   saveGenres() {
     this.getGenres().subscribe((data: Genre[]) => {
       console.log('Saving Genres');
@@ -100,6 +115,7 @@ export class StatsCarouselComponent implements OnInit {
     })
   }
 
+  //Update the lists with the values that they should be
   updateList<t>(inputList: Array<t>): Array<t> {
     let tempSongs = Array<t>(Math.min(this.numElements.valueOf(), inputList.length));
     for (let i = 0; i < tempSongs.length; i++) {
@@ -108,6 +124,7 @@ export class StatsCarouselComponent implements OnInit {
     return tempSongs;
   }
 
+  //Populating the default song list in case of "default mode"
   defaultSongs(): Array<SongModel> {
     let tempSongs = Array<SongModel>(this.numElements.valueOf());
     for (let i = 0; i < this.numElements.valueOf() || i < tempSongs.length; i++) {
@@ -118,6 +135,7 @@ export class StatsCarouselComponent implements OnInit {
     return tempSongs;
   }
 
+  //Populating the default artist list
   defaultArtists(): Array<Artist> {
     let tempArtists = Array<Artist>(this.numElements.valueOf());
     for (let i = 0; i < this.numElements.valueOf() || i < tempArtists.length; i++) {
@@ -130,6 +148,7 @@ export class StatsCarouselComponent implements OnInit {
     return tempArtists;
   }
 
+  //Populating the default genre list
   defaultGenres(): Array<Genre> {
     let tempGenres = Array<Genre>(this.numElements.valueOf());
     for (let i = 0; i < this.numElements.valueOf() || i < tempGenres.length; i++) {

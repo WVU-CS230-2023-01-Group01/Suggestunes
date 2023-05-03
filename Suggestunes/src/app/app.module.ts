@@ -8,8 +8,10 @@ import { AccountInfoComponent } from './Layouts/account-layout/account-info/acco
 import { CardComponent } from './Layouts/account-layout/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
-import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
+import { SignInLayoutComponent } from './layouts/sign-in-layout/sign-in-layout.component';
+import { RegisterLayoutComponent } from './layouts/register-layout/register-layout.component';
+import { LoginBoxComponentComponent } from './layouts/sign-in-layout/login-box-component/login-box-component.component';
+import { RegisterBoxComponentComponent } from './layouts/register-layout/register-box-component/register-box-component.component';
 
 
 import { PlaylistComponent } from './playlists/playlist/playlist.component';
@@ -34,18 +36,19 @@ import {environment} from "../environment/environment";
 import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component';
 import { ForgotPasswordComponent } from './layouts/forgot-password-layout/forgot-password.component';
 import { EditPlaylistModalComponent } from './playlists/playlist/edit-playlist-modal/edit-playlist-modal.component';
-import {
-  RegisterBoxComponentComponent
-} from "./layouts/register-layout/register-box-component/register-box-component.component";
-import {LoginBoxComponentComponent} from "./layouts/sign-in-layout/login-box-component/login-box-component.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {SpotifyService} from "../services/spotify.service";
 import {Hasher} from "../services/hasher";
 import {AlgoliaSearcher} from "../services/algolia.searcher";
-import { SongsLayoutComponent } from './layouts/songs-layout/songs-layout.component';
-import { AuthGuardComponent } from './auth-guard/auth-guard.component';
-import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+
+import { CardComponent } from './layouts/account-layout/card/card.component';
+
+import { NavBarComponent } from './Navigation/nav-bar/nav-bar.component';
+import { AccountInfoComponent } from './layouts/account-layout/account-info/account-info.component';
+import { AccountFriendsComponent } from './layouts/account-layout/account-friends/account-friends.component';
+import { SuggestionAiComponent } from './suggestion-ai/suggestion-ai.component';
+
 
 @NgModule({
   declarations: [
@@ -77,6 +80,8 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     ForgotPasswordComponent,
     EditPlaylistModalComponent,
     SpotifyAuthLayoutComponent,
+    ForgotPasswordComponent,
+    SuggestionAiComponent
     SongsLayoutComponent,
     AuthGuardComponent,
   ],
