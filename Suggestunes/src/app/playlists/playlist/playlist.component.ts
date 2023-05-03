@@ -171,6 +171,10 @@ show = true;
   }
 
   remove(song : SongModel) {
+    const index = this.playlist!.songs!.indexOf(song);
+    if (index > -1) {
+      this.playlist!.songs!.splice(index, 1);
+    }
     if(this.is_spotify){
       this.http.delete(`https://api.spotify.com/v1/playlists/${this.playlist_id$}/tracks`,
         {
@@ -191,10 +195,6 @@ show = true;
     else{
       const db_ref = ref(this.database, this.path + '/' + this.playlist_id$);
       set(db_ref, this.playlist);
-    }
-    const index = this.playlist!.songs!.indexOf(song);
-    if (index > -1) {
-      this.playlist!.songs!.splice(index, 1);
     }
   }
 
