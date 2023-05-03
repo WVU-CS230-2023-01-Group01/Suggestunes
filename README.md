@@ -1,4 +1,12 @@
-![Ascii art](https://user-images.githubusercontent.com/111535512/235831331-a1640383-857c-4a27-a80f-7e563e9ec6ec.png)
+        |\        __
+        | |      |--|             __
+        |/       |  |            |~'
+       /|_      () ()            |
+      //| \             |\      ()
+     | \|_ |            | \
+      \_|_/            ()  |
+        |                  |
+       @'                 ()
 
 # Suggestunes
 Suggestunes is a music suggestions app that allows you to find/play songs, create playlists of songs, and export those playlists to Spotify.
