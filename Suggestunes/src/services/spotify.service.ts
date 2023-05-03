@@ -59,7 +59,7 @@ export class SpotifyService{
       response_type: 'code',
       client_id: 'a183b7596de144229a97c4e6fae8d8eb',
       scope: 'user-read-private',
-      redirect_uri: 'http://suggestoons-app.web.app/spotify-auth',
+      redirect_uri: 'https://suggestoons-app.web.app/spotify-auth',
     });
 
     window.location.href = 'https://accounts.spotify.com/authorize?' + args;
