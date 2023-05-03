@@ -37,4 +37,11 @@ Angular TypeScript
 New users can choose the "Sign Up" button from the landing page to create an account with their email. Once the account is created, you will be routed to the "Log In" page. Enter your email and password here and click "Login". This will route you to your account page, where you will see your username displayed. You can navigate to the profile pic in the navbar in the top right corner to change your username/password or your bio. You can also navigate to the "Songs" page to browse songs that have already been imported to the site. The main feature however is the "Playlists" page, where you can create playlists and search for songs to add to playlists. You can then play these songs in the site.
 
 # Credits
-Contributors: Jackson Monk, Noah Marner, Jalen Beeman, William Valentine, Connor Herfurth, Nate Harper, Blake Wagner
+Contributors: 
+* Jackson Monk
+* Noah Marner
+* Jalen Beeman
+* William Valentine
+* Connor Herfurth
+* Nate Harper
+* Blake Wagner
