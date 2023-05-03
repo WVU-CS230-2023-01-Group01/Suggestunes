@@ -229,14 +229,9 @@ show = true;
           ids.push(object.node.id);
         }
         console.log(ids)
+        this.suggestions = this.getSongs(ids)
       })
-      console.log(ids)
-      let songresult = this.getSongs(ids)
-      this.suggestions = songresult;
-
       this.reload()
-    }).finally(()=>{
-      console.log(this.suggestions)
     })
   }
   getSongs(ids:string[]){
