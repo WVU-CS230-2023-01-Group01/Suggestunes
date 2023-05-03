@@ -82,7 +82,7 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
 
         // If either the signature or body do not exist, the request is invalid
         if (!signature) {
-            res.status(400).send('Invalid Request - No Signature' + '\n' + SECRET_TOKEN + '\n' + ACCESS_TOKEN);
+            res.status(400).send('Invalid Request - No Signature');
             console.log("Invalid Request");
             return;
         }
@@ -98,7 +98,9 @@ exports.getSuggestion = functions.https.onRequest(async (req, res) => {
             asynchronouslyFetchspotifyTrackResult(req.body.resource.id);
         }
         // Your webhook logic goes here, using the payload object
+
         res.status(200).send('Webhook processed successfully');
+        return result.data;
     } catch (error) {
         console.log(req);
         console.error(error);
@@ -165,46 +167,7 @@ const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
 
 const fetch = require("node-fetch");
 
-exports.sendRequest = functions.https.onRequest((_req, res) => {
-    const spotifyTrackEnqueue = async spotifyTrackId => {
-        const mutationDocument = /* GraphQL */ `
-    query SimilarTracksQuery($trackId: ID!) {
-        spotifyTrack(id: $trackId) {
-          __typename
-          ... on Error {
-            message
-          }
-          ... on Track {
-            id
-            similarTracks(target: { spotify: {} }) {
-              __typename
-              ... on SimilarTracksError {
-                code
-                message
-              }
-              ... on SimilarTracksConnection {
-                edges {
-                  node {
-                    id
-                  }
-                }
-            }
-        }
-      }  
-    `;
-
-        const result = await fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify({
-                query: spotifyTrackQueryDocument,
-                variables: { spotifyTrackId }
-            }),
-            headers: {
-                Authorization: "Bearer " + ACCESS_TOKEN,
-                "Content-Type": "application/json"
-            }
-        }).then(res => res.json());
-        console.log("[info] spotifyTrack result");
-        console.log(JSON.stringify(result, undefined, 2));
-    };
+exports.sendRequest = functions.https.onRequest(async (req, res) => {
+    spotifyTrackId = req.query.spotifytrackid;
+    return await asynchronouslyFetchspotifyTrackResult(spotifyTrackId);
 });
