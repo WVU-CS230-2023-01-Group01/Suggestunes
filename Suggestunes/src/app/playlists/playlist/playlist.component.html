@@ -24,7 +24,8 @@
       </form>
       <button type="submit" class="Suggestion button" (click)="getSuggestions()">
         Get Suggestions
-      </button> 
+      </button>
+
     </div>
   </div>
   <div class ="list-group list-group-flush text-md-start">
@@ -39,7 +40,18 @@
     <button class="addBtn btn " (click)="add(item)">+</button>
   </button>
   </div>
+<div class ="list-group list-group-flush text-md-start">
+  <button *ngFor="let item of this.suggestions" class = "list-group-item" (click)="spotify.play(is_spotify,playlist,item)">
+    <img class = "track-img" alt = "default image" src = "{{item.image}}">
+    <p>
+        <span class = "top">{{item.name!}} <br>
+      </span>
 
+      <span class="bottom">{{item.artist}}</span>
+    </p>
+    <button class="addBtn btn " (click)="add(item)">+</button>
+  </button>
+</div>
   <h2 class = 'pad'>Songs In This Playlist <button class="refresh addBtn btn" (click)="reload()">refresh</button></h2>
 
   <div class="list-group list-group-flush text-md-start">

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes, UrlSegment} from '@angular/router';
-import { AccountLayoutComponent } from './Layouts/account-layout/account-layout.component';
-import { SignInLayoutComponent } from './Layouts/sign-in-layout/sign-in-layout.component';
-import { RegisterLayoutComponent } from './Layouts/register-layout/register-layout.component';
-import { PlaylistComponent } from './playlists/playlist/playlist.component'
-import { PlaylistHomeLayoutComponent} from './layouts/playlist-home-layout/playlist-home-layout.component'
-import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotify-auth-layout.component'
+import {SpotifyAuthLayoutComponent} from "./layouts/spotify-auth-layout/spotify-auth-layout.component";
+import {SignInLayoutComponent} from "./layouts/sign-in-layout/sign-in-layout.component";
+import {SongsLayoutComponent} from "./layouts/songs-layout/songs-layout.component";
+import {AccountLayoutComponent} from "./layouts/account-layout/account-layout.component";
+import {PlaylistComponent} from "./playlists/playlist/playlist.component";
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {ForgotPasswordComponent} from "./layouts/forgot-password-layout/forgot-password.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
-import {SongsLayoutComponent} from "./layouts/songs-layout/songs-layout.component";
-import { AuthGuard } from './auth-guard/auth-guard.service';
+import {PlaylistHomeLayoutComponent} from "./layouts/playlist-home-layout/playlist-home-layout.component";
+import {RegisterLayoutComponent} from "./layouts/register-layout/register-layout.component";
+import {AuthGuard} from "@angular/fire/auth-guard";
 
 
 const routes: Routes = [
