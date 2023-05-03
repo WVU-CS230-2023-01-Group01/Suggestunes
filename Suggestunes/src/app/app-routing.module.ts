@@ -9,11 +9,13 @@ import { SpotifyAuthLayoutComponent } from './layouts/spotify-auth-layout/spotif
 import {ChangeUpLayoutComponent} from "./layouts/change-up-layout/change-up-layout.component";
 import {ForgotPasswordComponent} from "./layouts/forgot-password-layout/forgot-password.component";
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
+import { AuthGuard } from './auth-guard/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'AccountLayout',
-    component: AccountLayoutComponent
+    component: AccountLayoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -21,15 +23,18 @@ const routes: Routes = [
   },
   {
     path: 'ChangeUpLayout',
-    component: ChangeUpLayoutComponent
+    component: ChangeUpLayoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "playlists",
-    component: PlaylistHomeLayoutComponent
+    component: PlaylistHomeLayoutComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'playlists/playlist/:spotify/:id',
-    component:PlaylistComponent
+    component:PlaylistComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'signin',
@@ -40,12 +45,9 @@ const routes: Routes = [
     component: RegisterLayoutComponent
   },
   {
-    path: 'account',
-    component: AccountLayoutComponent
-  },
-  {
     path: 'spotify-auth',
-    component: SpotifyAuthLayoutComponent
+    component: SpotifyAuthLayoutComponent,
+    canActivate: [AuthGuard]
     },{
     path: 'forgotPassword',
     component: ForgotPasswordComponent
