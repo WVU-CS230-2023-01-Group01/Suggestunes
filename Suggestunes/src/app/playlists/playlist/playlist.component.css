@@ -171,3 +171,6 @@ p{
   background-color: #66318D!important;
   transform:scale(1.05);
 }
+.refresh{
+  justify-self: right;
+}
