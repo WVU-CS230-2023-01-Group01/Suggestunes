@@ -12,11 +12,3 @@ We wanted a music service that provides personalized suggestions for music, has 
  /    \1    /    \1
 1      1   1      1
  \____/     \____/ 
- 
- 
- 
- 
- 
- 
- 
- 
