@@ -1,2 +1,2 @@
-<button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#createPlaylistModal">Create Playlist</button>
-<app-create-playlist-modal></app-create-playlist-modal>
+<button id = "create-playlist" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#createPlaylistModal">Create Playlist</button>
+<app-create-playlist-modal (messageEvent)="sendMessage($event)"></app-create-playlist-modal>

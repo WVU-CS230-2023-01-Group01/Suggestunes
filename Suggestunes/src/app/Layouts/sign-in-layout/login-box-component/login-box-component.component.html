@@ -1,0 +1,29 @@
+<div class="d-flex flex-column justify-content-center">
+    <div class="loginBox d-flex">
+        <div style="padding: 20px;">
+            <h3 class="loginHeader">LOGIN</h3>
+            <form #postForm="ngForm" class="loginForm" (ngSubmit)="callLogin()">
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <div style="text-align: center; padding-top: 10px;">
+                    <button class="btn btn-primary" type="submit">Log in</button>
+                </div>
+            </form>
+            <p style="padding: 10px; margin: 0;">
+                <a class="link" href="forgotPassword">Forgot my password</a>
+            </p>
+        </div>
+    </div>
+    <div class="signupBox flex container">
+        <p style="padding: 10px 0px 0px; margin: 0; color: white;">
+            <font style = "margin: 0px 50px">Don't have an account?<br></font>
+            <a href="register">
+                <button class="btn btn-secondary">Sign up</button>
+            </a>
+        </p>
+    </div>
+</div>

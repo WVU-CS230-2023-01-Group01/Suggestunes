@@ -1,12 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div style = "height: 100px;"></div>
-<app-account-info bio = "I like a wide variety of music and I love sharing my tastes with my friends"></app-account-info>
-<div></div>
-<div class = "friends-component">
-    <h1 style = "text-decoration: underline;">My Friends</h1>
-    <div style = "overflow-x: scroll; max-width: 1152px; margin: 0 auto; white-space: nowrap;">
-        <div *ngFor = "let product of products" style = "display: inline-block;">
-                <app-account-friends friendName = {{product.friendName}}></app-account-friends>
+<app-account-info></app-account-info>
+<div class="spotify-component" style="width:fit-content; margin: 0 auto;">
+    <button class="addBtn btn" (click) = "spotify.spotifyAuth()">Link your Spotify</button>
+</div>
+<div class = "playlists-component">
+    <h1 style = "text-decoration: underline;">My Playlists</h1>
+    <div style = "overflow-x: scroll; max-width: 1152px; margin: 0 auto; white-space: nowrap">
+        <div style="display: inline-block" *ngFor = "let item of cards">
+            <app-card img = {{item.img}} link = {{item.link}} name = {{item.name}}></app-card>
         </div>
+        <a class = "showAllButton" href = "playlists">Show All</a>
     </div>
 </div>

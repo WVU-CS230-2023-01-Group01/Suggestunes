@@ -3,3 +3,31 @@
     text-align: center;
     padding-top: 30px;
 }
+
+.playlists-component {
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.showAllButton {
+    display: inline-block;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: white;
+}
+
+.showAllButton:hover {
+    text-decoration: underline;
+}
+.addBtn.btn{
+    margin-top: 25px;
+    margin-bottom:25px;
+    align-content: center; 
+    background-color: #552d63; 
+    color: white;
+    transform: scale(1.5);
+}
+.addBtn.btn:hover{
+    transform: scale(1.55);
+}

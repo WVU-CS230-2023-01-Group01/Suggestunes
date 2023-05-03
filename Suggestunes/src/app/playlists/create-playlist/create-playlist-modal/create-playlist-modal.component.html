@@ -1,31 +1,32 @@
-<div class="modal fade" data-bs-backdrop = "static" id="createPlaylistModal" tabindex="-1" aria-labelledby="createPlaylistModal" aria-hidden="true">
+
+<div class="modal fade" id = "popup" data-bs-backdrop = "static" id="createPlaylistModal" tabindex="-1" aria-labelledby="createPlaylistModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create New Playlist</h5>
       </div>
-      <div class="modal-body">
-        <form id="form">
+        <form #postform="ngForm"(ngSubmit)="submitForm(postform.value)">
+          <div class="modal-body">
           <div class = "d-flex">
             <div class="input-group">
               <label for = "fileInput"><img  src = "{{imageUrl.value}}"></label>
-              <input type="file" src = "{{imageUrl.value}}" class="form-control" id="fileInput" (change) = (updateImageUrl($event)) accept = "image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload Image" [formControl] = "imageUrl">
+              <input type="file" src = "{{imageUrl.value}}" class="form-control" id="fileInput" (change) = (updateImageUrl($event)) accept = "image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload Image" [formControl] = "imageUrl" ngModel name = "image">
             </div>
             <div class="mb-3">
               <label for="playlist-name" class="col-form-label">Name:</label>
-              <input type="text" class="form-control" id="playlist-name">
+              <input type="text" class="form-control" id="playlist-name" ngModel name = "name">
             </div>
       </div>
           <div class="mb-3">
             <label for="playlist-description" class="col-form-label">Description:</label>
-            <textarea class="form-control" id="playlist-description"></textarea>
+            <textarea class="form-control" id="playlist-description" ngModel name = "description"></textarea>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn" (click)="clear($event)" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn">Create Playlist</button>
+        <button type="button" id="close" class="btn" (click)="clear($event)" data-bs-dismiss="modal">Cancel</button>
+        <button type="sub" class="btn">Create Playlist</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
