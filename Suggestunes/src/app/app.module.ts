@@ -94,7 +94,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule,
   ],
-  providers: [SpotifyService,Hasher,AlgoliaSearcher,{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [SpotifyService,Hasher,AlgoliaSearcher],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
