@@ -74,7 +74,7 @@ show = true;
               }
             }
           })
-          this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks").subscribe(data=>{
+          this.spotify.get<SpotifyPlaylistObject>("https://api.spotify.com/v1/playlists/" + this.playlist_id$! + "/tracks").forEach(data=>{
             for(let item of data.items){
               let song = new SongModel(item.track.album!.images![0].url,item.track.name,item.track.artists![0].name,item.track.uri,item.track.popularity)
               song.album_uri = item.track.album.uri
