@@ -10,7 +10,7 @@ import {ForgotPasswordComponent} from "./layouts/forgot-password-layout/forgot-p
 import {LandingPageComponent} from "./layouts/landing-page/landing-page.component";
 import {PlaylistHomeLayoutComponent} from "./layouts/playlist-home-layout/playlist-home-layout.component";
 import {RegisterLayoutComponent} from "./layouts/register-layout/register-layout.component";
-import {AuthGuard} from "@angular/fire/auth-guard";
+import {AuthGuard} from "../app/auth-guard/auth-guard.service";
 
 
 const routes: Routes = [
