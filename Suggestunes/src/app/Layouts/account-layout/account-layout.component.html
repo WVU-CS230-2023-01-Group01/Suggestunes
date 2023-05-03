@@ -6,7 +6,7 @@
 </div>
 <div class = "playlists-component">
     <h1 style = "text-decoration: underline;">My Playlists</h1>
-    <div style = "overflow-x: scroll; max-width: 1152px; margin: 0 auto; white-space: nowrap">
+    <div style = "max-width: 1152px; margin: 0 auto; white-space: nowrap">
         <div style="display: inline-block" *ngFor = "let item of cards">
             <app-card img = {{item.img}} link = {{item.link}} name = {{item.name}}></app-card>
         </div>
