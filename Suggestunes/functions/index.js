@@ -6,7 +6,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const spotifyConfig = {
     clientId: "a183b7596de144229a97c4e6fae8d8eb",
     clientSecret: "ecec11486e604daf8d984d51e119f097",
-    redirectUri: "http://localhost:4200/spotify-auth"
+    redirectUri: "https://suggestoons-app.web.app/spotify-auth"
 };
 
 var spotifyApi = new SpotifyWebApi(spotifyConfig);
