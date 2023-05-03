@@ -16,7 +16,7 @@
       <button *ngIf="has_active_device && is_spotify" (click) = "spotify.play(is_spotify,playlist)" class="btn editButton">play some jams</button>
     </span>
     <div class="mb-3">
-      <form class="form-label" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
+      <form class="form-label" style="color:white" #songForm="ngForm" (ngSubmit)="search(songForm)" >Add Songs
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Song Title" ngModel name="track">
           <button type="submit" class="search button">
                   Search
