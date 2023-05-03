@@ -157,9 +157,9 @@ const asynchronouslyFetchspotifyTrackResult = async spotifyTrackId => {
     // console.log("[info] spotifyTrackEnqueue response: ");
     // console.log(JSON.stringify(result, undefined, 2));
     if (result.data.spotifyTrack.__typename.endsWith("Error")) {
-        throw new Error(result.data.inDepthAnalysisFileUpload.message);
+        throw new Error(result.data.spotifyTrack.message);
     }
-    return {"test2" : result.data};
+    return result.data.spotifyTrack.similarTracks.edges;
 };
 
 const fetch = require("node-fetch");
@@ -167,6 +167,6 @@ const fetch = require("node-fetch");
 exports.sendRequest = functions.https.onRequest(async (_req, res) => {
     cors(_req, res, async () => {
     spotifyTrackId = _req.query.spotifytrackid;
-    return res.json({"Test" : await asynchronouslyFetchspotifyTrackResult(spotifyTrackId)});
+    return res.json({suggestions : await asynchronouslyFetchspotifyTrackResult(spotifyTrackId)});
     })
 });
