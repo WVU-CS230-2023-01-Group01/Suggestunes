@@ -28,8 +28,6 @@ Angular TypeScript
 * Allows you to play songs in browser
 * Allows you to create playlists of your favorite songs
 
-# Code Example
-
 # API Reference
 Spotify API:
 * https://developer.spotify.com/documentation/web-api <br>
