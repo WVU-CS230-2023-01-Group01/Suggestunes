@@ -75,7 +75,7 @@ const routes: Routes = [
       },
       component: PlaylistComponent
     }
-  ])],
+  ],{ useHash: true })],
 
   exports: [RouterModule]
 })

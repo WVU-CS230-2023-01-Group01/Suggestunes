@@ -45,6 +45,7 @@ import {Hasher} from "../services/hasher";
 import {AlgoliaSearcher} from "../services/algolia.searcher";
 import { SongsLayoutComponent } from './layouts/songs-layout/songs-layout.component';
 import { AuthGuardComponent } from './auth-guard/auth-guard.component';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -93,7 +94,7 @@ import { AuthGuardComponent } from './auth-guard/auth-guard.component';
     AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule,
   ],
-  providers: [SpotifyService,Hasher,AlgoliaSearcher],
+  providers: [SpotifyService,Hasher,AlgoliaSearcher,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
