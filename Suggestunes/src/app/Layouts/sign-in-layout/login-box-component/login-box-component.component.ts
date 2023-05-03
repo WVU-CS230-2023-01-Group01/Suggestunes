@@ -45,8 +45,7 @@ function login(_router : Router){
       }
 
       update(database_ref, user_data)
-
-      console.log(auth.currentUser!.uid);
+      
       _router.navigate(['/AccountLayout'])
 
 
