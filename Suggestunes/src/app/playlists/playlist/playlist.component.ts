@@ -259,4 +259,17 @@ show = true;
     })
     return ids
   }
+  getRandomInt(max:number) {
+    return Math.floor(Math.random() * max);
+  }
+  getRandomSongId(){
+    let regex = /spotify:track:([0-9a-z]*)/ig
+    var length = this.playlist!.songs!.length;
+    var song = this.getRandomInt(length);
+    return regex.exec(this.playlist!.songs![song].uri!)![1]
+  }
+  getSuggestions(){
+    const response = fetch('https://us-central1-suggestoons-app.cloudfunctions.net/sendRequest?spotifyTrackId=' + this.getRandomSongId());
+    console.log(response);
+  }
 }
