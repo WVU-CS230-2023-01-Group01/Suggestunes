@@ -263,7 +263,6 @@ show = true;
         set(db_ref,song);
         this.searcher.add(song)
       })
-
     }
     if(!songs[0]){
       for(let id of ids){
@@ -275,6 +274,7 @@ show = true;
         }).finally()
       }
     }
+
 
     return songs;
 
