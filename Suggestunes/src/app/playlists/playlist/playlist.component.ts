@@ -132,7 +132,7 @@ show = true;
 
   }
 
-  public add(song:SongModel){
+  public addSearch(song:SongModel){
     this.playlist!.songs!.push(song);
     if(this.is_spotify){
       this.http.post(
@@ -153,6 +153,27 @@ show = true;
     this.reload();
     this.searchResults = []
   }
+  public addSuggestion(song:SongModel){
+    this.playlist!.songs!.push(song);
+    this.suggestions.splice(this.suggestions.indexOf(song),1)
+    if(this.is_spotify){
+      this.http.post(
+        "https://api.spotify.com/v1/playlists/" + this.playlist?.id + "/tracks",{
+          'uris':[song.uri]
+        },{
+          headers: {
+            'Authorization': 'Bearer ' + this.spotify.access_token
+          }
+        }
+      ).subscribe()
+    }
+    else{
+      const db_ref = ref(this.database, this.path + '/' + this.playlist_id$);
+      set(db_ref, this.playlist);
+    }
+
+    this.reload();
+  }
   playSearchItem(track:SpotifyTrackObject){
     this.http.put('https://api.spotify.com/v1/me/player/play',
       {
@@ -168,6 +189,9 @@ show = true;
         }
       })
       .subscribe();
+  }
+  export(){
+    this.http.put
   }
 
   remove(song : SongModel) {
@@ -241,8 +265,22 @@ show = true;
         let song = new SongModel(track.album.images[0].url,track.name,track.artists[0].name,track.uri,track.popularity);
         song.album_uri = track.album.uri;
         songs.push(song);
+        let db_ref = ref(this.database,'Songs/'+this.hasher.songHash(song))
+        set(db_ref,song);
+        this.searcher.add(song)
       })
     }
+    if(!songs[0]){
+      for(let id of ids){
+        // @ts-ignore
+        this.searcher.search('spotify:track:' + id).then(({hits})=>{
+          console.log(hits);
+          if(hits[0])
+            songs.push(hits[0].song)
+        })
+      }
+    }
+
     return songs;
 
   }
